@@ -1,0 +1,17 @@
+{
+  "LOGIN": "/",
+  "REGISTER": "/register",
+  "HOME": "/home",
+  "USERS": "/users",
+  "QUESTION": "/question",
+  "DATA": "/data",
+  "DATA_DETAIL": "/detail",
+  "WELCOME": "/welcome",
+  "ABOUT": "/about",
+  "MOTD": "/motd",
+  "LOCALIZATION": "/localization",
+  "UNDOREDO": "/undoredo",
+  "CONTEXTMENU": "/contextmenu",
+  "THEMATIQUE": "/thematique",
+  "INDICATEUR": "/indicateur"
+}

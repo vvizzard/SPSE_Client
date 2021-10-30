@@ -1,0 +1,477 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(255, 253, 253);
+  /* background-image: url("img/spse_bg.png");
+  background-position: center;
+  background-size: cover; */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  background-image: url("../../assets/img/spse_bg.png");
+  background-size: 170%;
+}
+
+.btn {
+  padding: 1em 2em;
+  margin: .5em;
+  font-weight: 550;
+  font-size: .85em;
+}
+
+button.danger {
+  background-color: #800000;
+  border-color: #8000003f;
+  color: rgb(255, 253, 253);
+}
+
+button.success {
+  background-color: green;
+  border-color: rgba(0, 128, 0, 0.247);
+  color: rgb(255, 253, 253);
+}
+
+/* Login/Register page */
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 720px;
+}
+
+.Login .container {
+  max-width: 720px!important;
+}
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.99);
+  margin: 2em;
+  box-shadow: 2px 2px 4px 2px #8888883f;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.register-card {
+  /* background-color: rgba(255, 255, 255, 0.99);
+  margin: 2em;
+  box-shadow: 2px 2px 4px 2px #8888883f; */
+  display: block!important;
+  grid-template-columns: unset!important;
+}
+
+.login-card .description, .login-card .form {
+  padding: 1em;
+  text-align: center;
+}
+
+.login-card .description .Medd-logo {
+  width: 10em;
+  margin: 1em;
+}
+
+.login-card .description h1 {
+  font-size: 3.5em;
+  margin: .25em 0;
+}
+
+.login-card .description p {
+  font-size: 1em;
+}
+
+.login-card .form .form-group {
+  margin: 1em;
+  text-align: left;
+}
+
+.login-card .form label {
+  font-size: 1em;
+}
+
+.login-card .form input, .login-card .form select, .login-card .form option {
+  width: -webkit-fill-available;
+  padding: 1.5em .5em;
+  font-size: 1em;
+  margin-top: .25em;
+}
+
+.login-card .form button {
+  font-size: 1em;
+  font-weight: 600;
+  padding: 1.25em 2.5em;
+  margin: 0 1em 1em 1em;
+  width: -webkit-fill-available;
+  background-color: #11691ed3;
+  border: 1px solid #11691ed3;
+  color: rgba(255, 255, 255, 0.99);
+}
+
+.login-card .form button:active {
+  background-color: #0b4915d3;
+  border: 1px solid #0b4915d3;
+}
+
+.border-danger {
+  border: solid 2px #800000;
+}
+
+.border-success {
+  border: solid 2px #11691ed3;
+}
+
+/* Users */
+.Users, .Data {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 253, 253);
+}
+
+.Users .container {
+  margin: unset;
+  min-height: unset;
+  display: unset;
+  flex-direction: unset;
+  justify-content: unset;
+  max-width: unset;
+  padding: 2em;
+}
+
+.head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1em 2em;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 50% 50%;
+  border-bottom: 2px solid rgba(153, 147, 143, 0.055);
+  /* background-color: wheat; */
+}
+
+.head h1 {
+  text-align: left;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.head ul {
+  list-style: none;
+  margin-top: 0.4em;
+}
+
+.head .track li {
+  display: inline;
+  padding: 1em;
+}
+
+.Users .component {
+  padding: 2em;
+  margin-top: 2.5em;
+  /* background-color: white; */
+}
+/* 
+.component .awaiting, .component .validated {
+  background-color: white;
+} */
+
+.component h2 {
+  text-align: left;
+  font-size: 1.2em;
+}
+
+.component thead {
+  background-color: lightgray;
+}
+
+.component .awaiting {
+  margin-bottom: 4em;
+}
+
+.component .awaiting .action, .component .validated .action {
+  text-align: right;
+  margin-top: 1em;
+}
+
+.component .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.component .table tr {
+  border-bottom: solid 1px gray;
+}
+
+.component .table td, .component .table th {
+  text-align: left;
+  padding: .5em;
+} 
+
+
+/* Data */
+
+.filter {
+  display: grid;
+  grid-template-columns: 25% 25% 50%;
+}
+
+.dropdown-heading {
+  /* width: 50%; */
+  /* display: grid; */
+  /* grid-template-columns: auto 3em 3em; */
+  padding: 1em;
+  border: solid 1px whitesmoke;
+  position: relative;
+  margin-top: .5em;
+}
+
+.dropdown-container {
+  /* width:50%; */
+}
+
+.dropdown-heading-value {
+  display: inline;
+  padding: 1em;
+}
+
+.clear-selected-button {
+  display: block;
+  position: absolute;
+  right: 4em;
+  top: 1em;
+}
+
+.clear-selected-button, .search-clear-button {
+  background: unset;
+  border: unset;
+  color: #6c6c6c;
+}
+
+.dropdown-heading-dropdown-arrow {
+  display: inline;
+  float: right;
+}
+
+.select-panel .search input {
+  width: 90%;
+  margin: .5em;
+  padding: 1em;
+}
+
+.item-renderer {
+  padding: 1em;
+}
+
+.item-renderer input {
+  margin-right: 1em;
+}
+
+.form-group label {
+  display: block;
+}
+
+.form-group select, .form-group input {
+  padding: 1em;
+  margin: .5em 0;
+  border: whitesmoke solid 1px;
+  font-size: 1em;
+  color: #4a4a4a;
+  background-color: transparent;
+}
+
+.t-right {
+  text-align: right!important;
+  padding-right: 1em!important;
+}
+
+.head-filter {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.head-filter .form-group select, .head-filter .form-group label {
+  border: none;
+  display: inline;
+}
+
+.divide3 {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.card-button {
+  margin: 0 1em;
+}
+
+.card-head {
+  padding: .75em;
+  color: white;
+  border: solid 1px;
+  border-radius: 0;
+  border-top-left-radius: .25em;
+  border-top-right-radius: .25em;
+}
+
+.card-blue {
+  background-color: #006b94;
+  border-color: #006b94;
+  
+}
+
+.card-green {
+  background-color: #00947e;
+  border-color: #00947e;
+}
+
+.card-brown {
+  background-color: #84670c;
+  border-color: #84670c;
+}
+
+.card-body {
+  padding: .5em;
+  font-size: 1.5em;
+  border: solid 1px #d3d3d375;
+  border-top: none;
+  border-bottom-left-radius: .25em;
+  border-bottom-right-radius: .25em;
+}
+
+.card-body p {
+  font-size: .5em;
+  padding-left: .35em;
+}
+
+.question_princ {
+  padding: 1em;
+  padding-left: 0;
+  font-weight: 500;
+}
+
+.Question .form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.Question .form-group {
+  padding: 1em;
+}
+
+.Question .form-group input {
+  width: 100%;
+}
+
+.Home .component {
+  margin-top: 0;
+}
+
+.Home .header-btn {
+  background-size: 7em;
+  background-repeat: no-repeat;
+  background-position: 5.5em 1em;
+  color: #4a4a4a;
+}
+
+.Home .server-button {
+  background-image: url("../../assets/img/serveur.png");
+}
+
+.Home .indicateur-button {
+  background-image: url("../../assets/img/indicateurs.png");
+}
+
+.menu-button {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 1em;
+  text-align: center;
+}
+
+.menu-button .left {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.menu-button .right {
+  text-align: left;
+  padding-top: 10px;
+}
+
+.menu-button .left .item {
+  text-align: left;
+  font-size: 1.5em;
+  font-weight: 600;
+  height: 5.5em;
+  width: 11em;
+  margin-left: 0;
+}
+
+@media only screen and (min-width: 1800px) {
+  .menu-button .left .item {
+    font-size: 2.25em;
+  }
+  .menu-button .right {
+    padding-top: 23px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .menu-button .left .item {
+    font-size: 1.25em;
+  }
+  .menu-button .right {
+    padding-top: 7px;
+  }
+}
+
+.menu-button .item {
+  padding: 1em;
+  border: solid 1px lightgray;
+  margin: 1em;
+}
+
+.menu-button .item:hover, .card-button:hover {
+  box-shadow: .5px .5px 2px rgba(0, 0, 0, 0.171);
+  cursor: pointer;
+}
+
+.menu-button .item img {
+  width: 100%;
+  max-width: 50px;
+}
+
+/* MAP */
+.leaflet-container {
+  overflow: hidden;
+}
+.leaflet-container {
+  height: 78vh;
+  min-height: 685px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Thematique */
+.Thematique .add .form {
+  margin-top: 1em;
+  padding: 1em;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.Thematique .add .form button {
+  padding: 1em 2em;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 2.5em;
+}
