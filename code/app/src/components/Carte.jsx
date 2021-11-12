@@ -254,20 +254,20 @@ export default class Carte extends Component {
     }
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if(this.state.regions === null) {
-  //     console.log(this.props.regionJson);
-  //     this.props.regionJson.then(data=>{
-  //       const layers = [];
-  //       const refs = [];
-  //       this.handleLayoutLoaded(data, layers, refs, true);
-  //       this.setState({
-  //         regions:layers,
-  //         regionLayerReferences:refs
-  //       })
-  //     })
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.regions === null) {
+      console.log(this.props.regionJson);
+      this.props.regionJson.then(data=>{
+        const layers = [];
+        const refs = [];
+        this.handleLayoutLoaded(data, layers, refs, true);
+        this.setState({
+          regions:layers,
+          regionLayerReferences:refs
+        })
+      })
+    }
+  }
 
   render() {
 

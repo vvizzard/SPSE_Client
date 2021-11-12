@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom'
+import Table from '../../components/Table'
 
 export default function Thematique(props) {
 
@@ -47,6 +48,29 @@ export default function Thematique(props) {
         send()
     }
 
+    const columns = React.useMemo(
+        () => [
+          {
+            Header: ' ',
+            columns: [
+              {
+                Header: 'ID',
+                accessor: 'id',
+              },
+              {
+                Header: 'Nom',
+                accessor: 'label',
+              },
+              {
+                Header: 'Description',
+                accessor: 'comment',
+              },
+            ],
+          }
+        ],
+        []
+      )
+
     return (
         <div className="Users Thematique">
             <div className="container">
@@ -63,9 +87,30 @@ export default function Thematique(props) {
                     </div>
                 </div>
                 <div className="component">
+                    <div className="add">
+                        <h2>Ajouter un nouveau thématique</h2>
+                        <div className="form">
+                            <div className="form-group">
+                                <label htmlFor="nom">Nom</label>
+                                <input type="text" name="nom" id="nom" 
+                                placeholder="Veuillez taper ici la designation" 
+                                onChange={ event => setLabel(event.target.value) } />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="desc">Description</label>
+                                <input type="text" name="desc" id="desc" 
+                                placeholder="Veuillez taper ici la description" 
+                                onChange={ event => setDesc(event.target.value) } />
+                            </div>
+                            <div>
+                                <button onClick={handleClickAjouter}>Ajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
                     <div className="awaiting">
-                        <h2>Liste des thématiques</h2>
-                        <table className="table">
+                        <h2>Liste des thématiques</h2>                        
+                        {/* <table className="table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -89,27 +134,13 @@ export default function Thematique(props) {
                                 })}
                             </tbody>
                         </table>
+                        <br /> */}
+                        <Table columns={columns} data={thematiques} />
                     </div>
-                    <div className="add">
-                        <h2>Ajouter un nouveau thématique</h2>
-                        <div className="form">
-                            <div className="form-group">
-                                <label htmlFor="nom">Nom</label>
-                                <input type="text" name="nom" id="nom" 
-                                placeholder="Veuillez taper ici la designation" 
-                                onChange={ event => setLabel(event.target.value) } />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="desc">Description</label>
-                                <input type="text" name="desc" id="desc" 
-                                placeholder="Veuillez taper ici la description" 
-                                onChange={ event => setDesc(event.target.value) } />
-                            </div>
-                            <div>
-                                <button onClick={handleClickAjouter}>Ajouter</button>
-                            </div>
-                        </div>
-                    </div>
+                    
+
+                    
+
                 </div>
             </div>
         </div>

@@ -77,6 +77,17 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.send(channel, name, entity);
       });
     }
+  },
+
+  getMap(channel, name, entity={}) {
+    
+    log.info('getMap:')
+    log.info([channel, name])
+
+    let validChannels = ["map-get"];
+    if (validChannels.includes(channel)) {
+      return ipcRenderer.invoke(channel, name, entity)
+    }
   }
 
 });

@@ -4,6 +4,7 @@
   "HOME": "/home",
   "USERS": "/users",
   "QUESTION": "/question",
+  "QUESTIONS": "/questions",
   "DATA": "/data",
   "DATA_DETAIL": "/detail",
   "WELCOME": "/welcome",

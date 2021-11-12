@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { MultiSelect } from "react-multi-select-component";
 import ROUTES from "Constants/routes";
 import CONST from "Constants/general";
+import Table from '../../components/Table'
 
 export default function Data(props) {
 
@@ -14,6 +15,27 @@ export default function Data(props) {
     const [responses, setResponses] = useState([])
 
     const [annees, setAnnees] = useState([])
+
+    const [column, setColumn] = useState([
+        {
+          Header: ' ',
+          columns: [
+            {
+              Header: 'ID',
+              accessor: 'id',
+            },
+            {
+              Header: 'Nom',
+              accessor: 'label',
+            },
+            {
+              Header: 'Description',
+              accessor: 'comment',
+            },
+          ],
+        }
+      ])
+    const [data, setData] = useState([{id:1}])
 
     // const [annee, setAnnee] = useState(parseInt(new Date().getFullYear()))
     const [annee, setAnnee] = useState(2019)
@@ -38,6 +60,7 @@ export default function Data(props) {
             });
             setHeaderTotal(option)
             setHeader(option)
+            
         })
     }
     
@@ -46,6 +69,7 @@ export default function Data(props) {
             console.log("data response : ___________");
             console.log(result);
             setResponses(result)
+            makeHeader()
         })
     }
 
@@ -54,13 +78,80 @@ export default function Data(props) {
             console.log("data response : ___________");
             console.log(result);
             setResponses(result)
+            makeHeader(header, result)
         })
+    }
+
+    function makeHeader(hd = header, rsp = responses) {
+        var cl = [{
+            Header: niveau ,
+            accessor: 'acc0',
+            Cell: e => {
+                let splited = e&&e.value?e.value.split('_'):' _ '
+                return niveau===CONST.LEVEL_DISTRICT
+                        ?<NavLink to={ROUTES.DATA_DETAIL+"/"+splited[1]}>{ splited[0] }</NavLink>
+                        :e.value
+            }
+        }];
+        let lim = 1;
+        {hd && questions && hd.map(e => {
+            cl.push(
+                {
+                    Header: questions[e.index].label + '( ' + questions[e.index].unite + ')' ,
+                    accessor: 'acc'+lim
+                }
+            )
+            lim++
+        })}
+        const columns = [{
+            Header: ' ',
+            columns: cl,
+        }]
+        console.log("changement de colonne");
+        console.log(columns);
+        setColumn(columns)
+
+        // Data
+        var dt = []
+        let pas = 0
+        { 
+            rsp && rsp.map((e, i) => {
+                let vari = {}
+                vari['acc0']=e[0].district+'_'+e[0].district_id
+                pas++
+                {hd && hd.map((q, j) => {
+                    vari['acc'+pas] = e[q.index]?e[q.index].reponse:0
+                    pas++
+                })}
+                pas = 0
+                dt.push(vari) 
+            }) 
+        }
+
+        { responses && responses.map((e, i) => {
+            let link = niveau===CONST.LEVEL_DISTRICT
+                ?<NavLink to={ROUTES.DATA_DETAIL+"/"+e[0].district_id}>{ e[0].district }</NavLink>
+                : e[0].district 
+            return <tr key={ 'body_'+'tr'+'_'+i }>
+                <td>{ link }</td>
+                {header && header.map((q, j) => {
+                    return <td key={'body'+(e[q.index]?e[q.index].id:'ss')+i+'td'+'_'+j}>{e[q.index]?e[q.index].reponse:0}</td>
+                })}
+            </tr>
+        }) }
+
+
+        console.log("changement de données");
+        console.log(columns);
+        console.log(dt);
+        setData(dt)
     }
 
     useEffect(() => {
         loadDate()
         getHeader()
         getData()
+
     }, [responses.length])
 
     const handleOnChangeNiveau = (val) => {
@@ -71,6 +162,11 @@ export default function Data(props) {
     const handleOnChangeAnnee = (val) => {
         setAnnee(val);
         updateData(niveau, val);
+    }
+
+    const handleOnChangeHeader = (v) => {
+        setHeader(v)
+        makeHeader(v)
     }
 
     return (
@@ -114,7 +210,7 @@ export default function Data(props) {
                             <MultiSelect
                             options={headerTotal}
                             value={header}
-                            onChange={setHeader}
+                            onChange={handleOnChangeHeader}
                             labelledBy="Choisir"
                             />
                         </div>
@@ -123,7 +219,7 @@ export default function Data(props) {
                     <div className="awaiting">
                         <h2>Tableau des données</h2>
                         <br />
-                        <table className="table">
+                        {/* <table className="table">
                             <thead>
                                 <tr>
                                     <th>District</th>
@@ -149,8 +245,9 @@ export default function Data(props) {
                                     </tr>
                                 }) }
                             </tbody>
-                        </table>
+                        </table> */}
 
+                        <Table columns={column} data={data} />
 
                         {/* <div className="action">
                             <button className="success btn" onClick={handleOnClickValider}>

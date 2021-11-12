@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import  Carte  from '../../components/Carte'
+import  CarteN  from '../../components/CarteN'
 import ROUTES from "Constants/routes";
 import CONST from "Constants/general";
 
@@ -18,7 +18,7 @@ export default function Home(props) {
     // const [annee, setAnnee] = useState(parseInt(new Date().getFullYear()))
     const [annee, setAnnee] = useState(2019)
     const [niveau, setNiveau] = useState(CONST.LEVEL_DISTRICT)
-
+    
     function loadDate() {
         let years = []
         const today = parseInt(new Date().getFullYear());
@@ -58,9 +58,10 @@ export default function Home(props) {
     }
 
     useEffect(() => {
-        loadDate()
-        getHeader()
-        getData()
+        // loadDate()
+        // getHeader()
+        // getData()
+        // loadRegion()
     }, [responses.length])
 
     const handleOnChangeNiveau = (val) => {
@@ -142,9 +143,11 @@ export default function Home(props) {
                                     Liste des Indicateurs
                                 </button>
                             </NavLink>
-                            <button className="item">
-                                Liste des Questions
-                            </button>
+                            <NavLink to={ROUTES.QUESTIONS}>
+                                <button className="item">
+                                    Liste des Questions
+                                </button>
+                            </NavLink>
                             <NavLink to={ROUTES.USERS}>
                                 <button className="item">
                                     Liste des Utilisateurs
@@ -155,7 +158,7 @@ export default function Home(props) {
 
                     <hr />
 
-                    <Carte />
+                    <CarteN regionJson={window.api.getMap} />
 
                 </div>
             </div>

@@ -1,6 +1,7 @@
 const { ipcMain } = require('electron');
 const log = require('electron-log')
 // const sqlite3 = require('sqlite3').verbose();
+const regions = require('../layer/regions.json');
 
 const BaseDao = require('./database/BaseDao')
 const BaseRepository = require('./database/BaseRepository');
@@ -125,4 +126,15 @@ ipcMain.on('asynchronous-get-trans', (event, name, entity) => {
             'asynchronous-reply', rows
         );
     });
+});
+
+ipcMain.handle('map-get', (event, name, entity) => {
+    // verbose
+    log.info('map-get arg :');
+    log.info('name :'+name);
+    log.info('entity :'+JSON.stringify(entity));
+    log.info('------');
+
+    if(name == "region") return regions;
+    if(name == "reponse") return regions;
 });

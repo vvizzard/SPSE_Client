@@ -25,6 +25,9 @@ const Thematique = loadable(() =>
 const Indicateur = loadable(() =>
   import(/* webpackChunkName: "WelcomeChunk" */ "Pages/indicateur/indicateur")
 );
+const Questions = loadable(() =>
+  import(/* webpackChunkName: "WelcomeChunk" */ "Pages/question/questions")
+);
 const Data = loadable(() =>
   import(/* webpackChunkName: "WelcomeChunk" */ "Pages/data/data")
 );
@@ -63,6 +66,7 @@ class Routes extends React.Component {
         <Route path={ROUTES.QUESTION} component={Question}></Route>
         <Route path={ROUTES.THEMATIQUE} component={Thematique}></Route>
         <Route path={ROUTES.INDICATEUR} component={Indicateur}></Route>
+        <Route path={ROUTES.QUESTIONS} component={Questions}></Route>
         <Route path={ROUTES.DATA} component={Data}></Route>
         <Route path={ROUTES.DATA_DETAIL+"/:id"} component={Detail}></Route>
         <Route path={ROUTES.WELCOME} component={Welcome}></Route>

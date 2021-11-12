@@ -150,7 +150,7 @@ button.success {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 1em 2em;
+  padding: .5em 2em;
   display: grid;
   width: 100%;
   grid-template-columns: 50% 50%;
@@ -160,13 +160,18 @@ button.success {
 
 .head h1 {
   text-align: left;
-  font-size: 1.5em;
+  font-size: 1em;
   margin: 0;
 }
 
 .head ul {
   list-style: none;
   margin-top: 0.4em;
+}
+
+.head .track {
+  text-align: right;
+  font-size: .75em;
 }
 
 .head .track li {
@@ -176,7 +181,7 @@ button.success {
 
 .Users .component {
   padding: 2em;
-  margin-top: 2.5em;
+  /* margin-top: 2.5em; */
   /* background-color: white; */
 }
 /* 
@@ -186,7 +191,8 @@ button.success {
 
 .component h2 {
   text-align: left;
-  font-size: 1.2em;
+  font-size: 1em;
+  font-weight: 500;
 }
 
 .component thead {
@@ -205,6 +211,23 @@ button.success {
 .component .table {
   width: 100%;
   border-collapse: collapse;
+  font-size: .75em;
+}
+
+.component .tb {
+  font-size: .75em;
+}
+
+.component .tb th {
+  padding-right: .5em;
+}
+
+.tb input {
+  font-size: .75rem;
+  padding: .5em;
+  margin: .5em 0;
+  border: whitesmoke solid 1px;
+  color: #4a4a4a;
 }
 
 .component .table tr {
@@ -216,12 +239,34 @@ button.success {
   padding: .5em;
 } 
 
+.table-search {
+  font-weight: 500;
+  font-size: .75em;
+}
+
 
 /* Data */
 
 .filter {
   display: grid;
   grid-template-columns: 25% 25% 50%;
+  font-size: .75em;
+}
+
+.filter-global {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  font-size: .75em;
+  font-weight: 700;
+}
+
+.filter-global input {
+  font-size: .75rem;
+  padding: .5em;
+  margin: .5em 0;
+  border: whitesmoke solid 1px;
+  color: #4a4a4a;
+  width: 90%;
 }
 
 .dropdown-heading {
@@ -232,10 +277,6 @@ button.success {
   border: solid 1px whitesmoke;
   position: relative;
   margin-top: .5em;
-}
-
-.dropdown-container {
-  /* width:50%; */
 }
 
 .dropdown-heading-value {
@@ -462,16 +503,24 @@ button.success {
 
 /* Thematique */
 .Thematique .add .form {
-  margin-top: 1em;
+  /* margin-top: 1em; */
+  /* background: ghostwhite; */
   padding: 1em;
   padding-left: 0;
   display: grid;
   grid-template-columns: auto auto auto;
+  font-size: .75em;
 }
 
 .Thematique .add .form button {
-  padding: 1em 2em;
+  padding: .5em 1em;
   width: fit-content;
   height: fit-content;
-  margin-top: 2.5em;
+  margin-top: 2.25em;
+  font-size: 1em;
+}
+
+.component hr {
+  height: 1px;
+  background-color: ghostwhite;
 }
