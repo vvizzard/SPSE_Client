@@ -14,5 +14,9 @@
   "UNDOREDO": "/undoredo",
   "CONTEXTMENU": "/contextmenu",
   "THEMATIQUE": "/thematique",
-  "INDICATEUR": "/indicateur"
+  "INDICATEUR": "/indicateur",
+  "INDICATEURS": "/indicateurs",
+  "VALIDATION": "/validation",
+  "UPLOAD": "/upload",
+  "UPLOADC": "/uploadChoice"
 }

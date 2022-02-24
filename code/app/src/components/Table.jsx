@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAsyncDebounce, useFilters, useGlobalFilter, useSortBy, useTable } from 'react-table'
 import {matchSorter} from 'match-sorter'
 import regeneratorRuntime from "regenerator-runtime"
 
-export default function Table({ columns, data }) {
+export default function Table({ columns, data, searchColumn, nowrap }) {
 
     // Define a default UI for filtering
     function DefaultColumnFilter({
@@ -135,7 +135,7 @@ export default function Table({ columns, data }) {
         state,
         visibleColumns,
         preGlobalFilteredRows,
-        setGlobalFilter,
+        setGlobalFilter
     } = useTable(
         {
             columns,
@@ -155,44 +155,50 @@ export default function Table({ columns, data }) {
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
             />
-            <div className="filter-global">
-                {headerGroups.map(headerGroup => (
-                    headerGroup.headers.map(column => (
-                        column.render('Header') != ' '
-                        ? <div>
-                            {column.canFilter ? column.render('Header') : null}
-                            <div>{column.canFilter ? column.render('Filter') : null}</div>
-                        </div>
-                        :''
-                    ))
-                ))}
-            </div>
+            {
+                searchColumn && searchColumn == true 
+                    ? <div className="filter-global">
+                        {headerGroups.map(headerGroup => (
+                            headerGroup.headers.map(column => (
+                                column.render('Header') != ' '
+                                ? <div>
+                                    {column.canFilter ? column.render('Header') : null}
+                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                </div>
+                                :''
+                            ))
+                        ))}
+                    </div>
+                    :''
+            }
             <br />
-            <table className="table" {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row, i) => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                })}
+            <div className="scrollable-table">
+                <table className={"table " + nowrap?"no-wrap":""} {...getTableProps()}>
+                    <thead>
+                        {headerGroups.map(headerGroup => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Header')}
+                                    </th>
+                                ))}
                             </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {rows.map((row, i) => {
+                            prepareRow(row)
+                            return (
+                                <tr {...row.getRowProps()}>
+                                    {row.cells.map(cell => {
+                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                    })}
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

@@ -11,7 +11,7 @@ export default function Questions(props) {
     const [principale, setPrincipale] = useState("")
     const [type, setType] = useState("")
     const [niveau, setNiveau] = useState("")
-    const [frequence, setFrequence] = useState("")
+    const [obligatoire, setObligatoire] = useState("")
     const [questionCible, setQuestionCible] = useState("")
     const [label, setLabel] = useState("")
     const [desc, setUnite] = useState("")
@@ -49,7 +49,7 @@ export default function Questions(props) {
             "is_principale":principale, 
             "field_type":type, 
             "level":niveau, 
-            "frequence_resp":frequence, 
+            "obligatoire":obligatoire, 
             "label":label, 
             "unite":desc,
         }
@@ -99,7 +99,7 @@ export default function Questions(props) {
                                     <th>Début d'une file</th>
                                     <th>Type de la réponse</th>
                                     <th>Niveau</th>
-                                    <th>Fréquence de réponse</th>
+                                    <th>Obligatoire</th>
                                     {/* <th>Objectif</th> */}
                                     <th>Désignation</th>
                                     <th>Unité</th>
@@ -128,7 +128,7 @@ export default function Questions(props) {
                                             {user.level}
                                         </td>
                                         <td key={'users_awaiting_d'+idx}>
-                                            {user.frequence_resp}
+                                            {user.obligatoire}
                                         </td>
                                         
                                         {/* <td key={'users_awaiting_q'+idx}>
@@ -192,10 +192,10 @@ export default function Questions(props) {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="freq">Fréquence de réponse</label>
+                                <label htmlFor="freq">Obligatoire</label>
                                 <input type="number" name="freq" id="freq" 
-                                placeholder="Veuillez taper ici la fréquence" 
-                                onChange={ event => setFrequence(event.target.value) } />
+                                placeholder="Veuillez taper 1 si la question est obligatoire" 
+                                onChange={ event => setObligatoire(event.target.value) } />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="designation">Designation</label>

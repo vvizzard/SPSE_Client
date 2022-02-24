@@ -31,8 +31,8 @@ export default function Register(props) {
 
 
     function send() {
-        window.api.add(
-            "asynchronous-add", 
+        window.api.register(
+            "asynchronous-register", 
             'user', 
             {
                 "nom":nom, 
