@@ -68,13 +68,13 @@ export default function CarteN(props) {
         }
     }
 
-    function getRegion() {
-        props.regionJson('map-get','region', {}).then(regions => {
-            const layers = []
-            prepareRegion(regions, layers)
-            setRegions(layers)
-        })
-    }
+    // function getRegion() {
+    //     props.regionJson('map-get','region', {}).then(regions => {
+    //         const layers = []
+    //         prepareRegion(regions, layers)
+    //         setRegions(layers)
+    //     })
+    // }
 
     function handleMouseHover(index) {
         console.log("tralalalalalalal");
@@ -89,9 +89,9 @@ export default function CarteN(props) {
         changeLayerEffect(index, "focus")
     }
 
-    useEffect(() => {
-        getRegion()
-    }, [])
+    // useEffect(() => {
+    //     getRegion()
+    // }, [])
 
     return (
         <div className="content titled-content map">

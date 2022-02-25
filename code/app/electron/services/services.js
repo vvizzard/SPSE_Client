@@ -224,6 +224,11 @@ ipcMain.handle("map-get", (event, name, entity) => {
   log.info("entity :" + JSON.stringify(entity));
   log.info("------");
 
+  const exp = new Exportation();
+  const temp = exp.getMaps();
+
+  return temp;
+
   if (name == "region") return regions;
   if (name == "reponse") return regions;
 });
@@ -300,8 +305,8 @@ ipcMain.on("export", (event, name, entity) => {
 
         row.forEach((vv) => {
           sheet.columns.push({
-            label: vv.obligatoire==1?"* "+vv.question:vv.question,
-            value: vv.obligatoire==1?"* "+vv.label:vv.label,
+            label: vv.obligatoire == 1 ? "* " + vv.question : vv.question,
+            value: vv.obligatoire == 1 ? "* " + vv.label : vv.label,
           });
 
           log.info("tafiditra log, isaky ny row ary ito aloha");
@@ -379,7 +384,7 @@ ipcMain.on("import-geojson", (event, name, entity) => {
   const exp = new Exportation();
 
   const resp = exp
-    .uploadGeojson()
+    .upload()
     .then((result) => {
       event.reply("reply", result);
     })

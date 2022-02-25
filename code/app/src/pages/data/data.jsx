@@ -187,6 +187,7 @@ export default function Data(props) {
               <select
                 value={niveau}
                 onChange={(event) => handleOnChangeNiveau(event.target.value)}>
+                <option value={CONST.LEVEL_REGION}>National</option>
                 <option value={CONST.LEVEL_REGION}>Région</option>
                 <option value={CONST.LEVEL_DISTRICT}>District</option>
               </select>

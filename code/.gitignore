@@ -97,6 +97,9 @@ dist/
 # VSCode specific
 .vscode/
 
+# old
+.git.old/
+
 # Logfile specific for development builds
 dev-scripts/webpack-dev-server.log
 dev-scripts/webpack-dev-server-error.log
