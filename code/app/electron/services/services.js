@@ -11,7 +11,7 @@ const UserRepository = require("./database/UserRepository");
 // const Exportation = require('./database/Exportation');
 const Exportation = require("./Exportation");
 
-const dao = new BaseDao("spse_db6112.sqlite3");
+const dao = new BaseDao("spse_db6113.sqlite3");
 
 // Validate a user
 ipcMain.on("asynchronous-validate", (event, name, entity, val) => {

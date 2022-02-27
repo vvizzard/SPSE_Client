@@ -33,9 +33,10 @@ class ResponseRepository extends BaseRepository {
 
     // get questions
     const questionRepository = new QuestionRepository(this.dao);
-    const questions = await questionRepository.getAllQuestionWihtoutIndicateurByThematique(
-      entity.thid
-    );
+    const questions =
+      await questionRepository.getAllQuestionWihtoutIndicateurByThematique(
+        entity.thid
+      );
 
     // get reponses
     const reponses = await this.getReponseByDistrictByRegion(
@@ -359,6 +360,9 @@ class ResponseRepository extends BaseRepository {
     for (const [key, value] of Object.entries(reponse)) {
       if (value)
         value.forEach((element, idx) => {
+          if (!farany[idx]) {
+            farany[idx] = {};
+          }
           farany[idx][key] = element;
         });
     }
@@ -573,9 +577,10 @@ class ResponseRepository extends BaseRepository {
     // Make new response by putting all the question
     const questionRepository = new QuestionRepository(this.dao);
     questions.length == 0
-      ? (questions = await questionRepository.getAllQuestionWihtoutIndicateurByThematique(
-          entity.thid
-        ))
+      ? (questions =
+          await questionRepository.getAllQuestionWihtoutIndicateurByThematique(
+            entity.thid
+          ))
       : 0;
     questions.unshift({ label: "_District_", reponse: rsp[0].district });
     let reponse = this.newReponse(questions);
