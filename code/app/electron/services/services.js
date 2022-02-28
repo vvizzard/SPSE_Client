@@ -225,7 +225,7 @@ ipcMain.handle("map-get", (event, name, entity) => {
   log.info("------");
 
   const exp = new Exportation();
-  const temp = exp.getMaps();
+  const temp = exp.getMaps(entity.thematique, entity.year, dao);
 
   return temp;
 

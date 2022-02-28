@@ -222,6 +222,7 @@ export default function UploadChoice(props) {
                 thematique.map((thematiqueId, idx) => {
                   return (
                     <button
+                      key={"thq"+thematiqueId.id}
                       className="item "
                       onClick={() => {
                         handleOnClickCanevas(thematiqueId.id);
@@ -257,6 +258,7 @@ export default function UploadChoice(props) {
                 thematique.map((thematiqueId, idx) => {
                   return (
                     <a
+                      key={"thq-a-"+thematiqueId.id+idx}
                       className={
                         tabFocus && tabFocus[idx]
                           ? "item " + tabFocus[idx]

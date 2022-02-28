@@ -322,7 +322,7 @@ export default function Validation(props) {
                   onChange={(event) => handleOnChangeDist(event.target.value)}>
                   {districts &&
                     districts.map((e) => {
-                      return <option value={e.id}>{e.label}</option>;
+                      return <option key={"dist-opt"+e.id} value={e.id}>{e.label}</option>;
                     })}
                 </select>
               </div>
@@ -332,6 +332,7 @@ export default function Validation(props) {
                 thematique.map((user, idx) => {
                   return (
                     <a
+                      key={"thq-a-"+user.id+idx}
                       className={
                         tabFocus && tabFocus[idx]
                           ? "item " + tabFocus[idx]
@@ -351,7 +352,7 @@ export default function Validation(props) {
             <Table columns={column} data={responses} nowrap={true} />
             <br />
             <br />
-            <CarteM regionJson={window.api.getMap} />
+            <CarteM thematique={th} regionJson={window.api.getMap} />
           </div>
           <div className="bottom-btn">
             <button

@@ -6,6 +6,7 @@ const readXlsxFile = require("read-excel-file/node");
 const log = require("electron-log");
 const BaseDao = require("./database/BaseDao");
 const BaseRepository = require("./database/BaseRepository");
+const ReponseRepository = require("./database/ReponseRepository");
 const fetch = require("node-fetch");
 
 class Exportation {
@@ -475,9 +476,23 @@ class Exportation {
    *
    * @return {Array} the list of geosjon as array of json
    */
-  async getMaps() {
+  async getMaps(thematique = 1, year = "2022", dao) {
     try {
-      const geojsons = await this.getListMaps();
+      const reponseRepository = new ReponseRepository(dao);
+      const resp = await reponseRepository.findReponsesByThematique({
+        date: year,
+        thid: thematique,
+      });
+
+      let geojsons = resp.filter((item) => {
+        if (item.reponse) {
+          log.info("tralalalall xxxxxxxxxxx");
+          log.info(item.reponse);
+          return item.reponse.toString().includes(".geojson");
+        }
+      });
+
+      // const geojsons = await this.getListMaps();
 
       log.info("getMaps: list maps");
       log.info(geojsons);
@@ -486,21 +501,26 @@ class Exportation {
       const valiny = [];
 
       for (let i = 0; i < geojsons.length; i++) {
-        const response = await fetch(
-          "https://spse.llanddev.org/layer/" + geojsons[i],
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        try {
+          const response = await fetch(
+            "https://spse.llanddev.org/layer/" +
+              geojsons[i].reponse.replace(".geojson", ".json"),
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
 
-        const data = await response.json();
+          const data = await response.json();
 
-        log.info("getListMaps: each geojson");
-        log.info("https://spse.llanddev.org/layer/" + geojsons[i]);
-        log.info("-----------------------------------");
+          log.info("getListMaps: each geojson");
+          log.info("https://spse.llanddev.org/layer/" + geojsons[i]);
+          log.info("-----------------------------------");
 
-        valiny.push(data);
+          valiny.push(data);
+        } catch (error) {
+          continue;
+        }
       }
 
       log.info("getListMaps: valiny");

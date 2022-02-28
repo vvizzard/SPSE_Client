@@ -625,6 +625,180 @@ class ResponseRepository extends BaseRepository {
     return final;
   }
 
+  /**
+   * @name findReponsesByThematique
+   * @description Find all reponse by thematique and year
+   * @param {JSON} entity JSON in wich we should put
+   * @param {import("sqlite3").sqlite3.Database} database
+   * @param {String} table reponse_non_valide/reponse
+   *
+   * @returns {Array} Reponse as array
+   */
+  async findReponsesByThematique(
+    entity = {},
+    database = null,
+    table = "reponse_non_valide"
+  ) {
+    // Set value to database if needed
+    if (database == null) database = this.dao.getDatabase();
+
+    // Default parameters
+    let thId = 1;
+    let date = "%2022";
+    let districtId = null;
+    let regionId = null;
+
+    // Parameters and additionals sql if needed
+    let entities = [];
+    let additionalWhereClauses = "";
+
+    // Custom parameters if there are
+    Object.keys(entity).map((key) => {
+      if (key == "date") {
+        date = "%" + entity[key];
+      } else if (key == "thid") {
+        thId = entity[key];
+      } else if (key == "district_id") {
+        districtId = entity[key];
+      } else if (key == "region_id") {
+        regionId = entity[key];
+      } else if (key == "comment") {
+        entities.push(entity[key]);
+        if (table == "reponse_non_valide") {
+          additionalWhereClauses += " AND resp.comment = ? ";
+        }
+      } else {
+        additionalWhereClauses += "AND " + key + " = ? ";
+        entities.push(entity[key]);
+      }
+    });
+
+    // Get question by thématique
+    // Get response by thématique using question
+    // JOIN question with reponse
+    // Filter the result
+    let sql =
+      `
+      SELECT 
+        qs.label, 
+        resp.*, 
+        dist.id as district_id, 
+        dist.label as district, 
+        region.id as region_id, 
+        region.label as region 
+      FROM (
+        SELECT distinct q.id, q.label
+          FROM question q 
+            LEFT JOIN  indicateur i ON i.id_question=q.id
+          WHERE q.question_mere_id in (
+              SELECT q.id FROM question q
+              WHERE q.id in (
+                SELECT q.question_mere_id
+                FROM thematique t
+                  LEFT JOIN indicateur i ON t.id = i.thematique_id
+                  LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ?
+              ) OR q.id in (
+                SELECT q.id
+                FROM thematique t
+                  LEFT JOIN indicateur i ON t.id = i.thematique_id
+                  LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ? AND q.is_principale = 1
+              )
+          ) UNION SELECT distinct q.id, q.label
+              FROM question q 
+                LEFT JOIN  indicateur i ON i.id_question=q.id
+              WHERE ( 
+                q.id in (
+                  SELECT q.id FROM question q
+                  WHERE q.id in (
+                    SELECT q.question_mere_id
+                    FROM thematique t
+                        LEFT JOIN indicateur i ON t.id = i.thematique_id
+                        LEFT JOIN question q ON i.id_question=q.id
+                    WHERE t.id = ?
+                  ) OR q.id in (
+                    SELECT q.id
+                    FROM thematique t
+                      LEFT JOIN indicateur i ON t.id = i.thematique_id
+                      LEFT JOIN question q ON i.id_question=q.id
+                    WHERE t.id = ? AND q.is_principale = 1
+                  ) 
+                )
+          ) ORDER BY q.id ASC
+      ) AS qs LEFT JOIN (
+        SELECT * FROM ` +
+      table +
+      ` rnv 
+        WHERE rnv.question_id in (
+          SELECT distinct q.id
+          FROM question q 
+            LEFT JOIN  indicateur i ON i.id_question=q.id
+          WHERE q.question_mere_id in (
+              SELECT q.id FROM question q
+              WHERE q.id in (
+                SELECT q.question_mere_id
+                FROM thematique t
+                  LEFT JOIN indicateur i ON t.id = i.thematique_id
+                  LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ?
+              ) OR q.id in (
+                SELECT q.id
+                FROM thematique t
+                  LEFT JOIN indicateur i ON t.id = i.thematique_id
+                  LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ? AND q.is_principale = 1
+              )
+          ) UNION SELECT distinct q.id
+              FROM question q 
+                LEFT JOIN  indicateur i ON i.id_question=q.id
+              WHERE ( 
+                q.id in (
+                  SELECT q.id FROM question q
+                  WHERE q.id in (
+                    SELECT q.question_mere_id
+                    FROM thematique t
+                        LEFT JOIN indicateur i ON t.id = i.thematique_id
+                        LEFT JOIN question q ON i.id_question=q.id
+                    WHERE t.id = ?
+                  ) OR q.id in (
+                    SELECT q.id
+                    FROM thematique t
+                      LEFT JOIN indicateur i ON t.id = i.thematique_id
+                      LEFT JOIN question q ON i.id_question=q.id
+                    WHERE t.id = ? AND q.is_principale = 1
+                  ) 
+                )
+          ) ORDER BY q.id ASC
+        )
+      ) AS resp ON resp.question_id = qs.id 
+        LEFT JOIN user u ON u.id = resp.user_id
+        LEFT JOIN district dist ON dist.id = u.district_id
+        LEFT JOIN region ON region.id = dist.region_id
+      WHERE 1 = 1 
+    `;
+    let values = [thId, thId, thId, thId, thId, thId, thId, thId];
+
+    // Add filter by date
+    sql += `AND date like ? `;
+    values.push(date);
+
+    // Add district filter
+    if (districtId != null) {
+      sql += `AND district_id = ?`;
+      values.push(districtId);
+    }
+
+    // Execute
+    const rsp = await this.dao.allDB(sql, values, database);
+
+    log.info("findReponsesByThematique : reponses");
+    log.info(rsp);
+    log.info("-----------------------------");
+
+    return rsp;
+  }
+
   // Synchronisation operations
 
   /**
