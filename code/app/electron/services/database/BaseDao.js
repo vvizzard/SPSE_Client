@@ -609,7 +609,7 @@ class BaseDao {
         (27,"Catégorie de l'AP (I, II, III, IV, V, VI, Autre)",0,1,3,1,NULL,26,NULL,"Catégorie de l'AP (I, II, III, IV, V, VI, Autre)",""),
         (28,"Statut temporaire ou définitif",0,1,3,0,NULL,26,NULL,"Statut temporaire ou définitif",""),
         (29,"Décret si définitif",0,1,3,0,NULL,26,NULL,"Décret si définitif",""),
-        (30,"Shapefile de l'AP",0,1,3,0,NULL,26,NULL,"Shapefile de l'AP",""),
+        (30,"Geojson de l'AP",0,1,3,0,NULL,26,NULL,"Geojson de l'AP",""),
         (31,"Type : terrestre ou marine",0,1,3,1,3,26,NULL,"Type : terrestre ou marine",""),
         (32,"Présence de zones humides (oui/non)",0,1,3,1,NULL,26,NULL,"Présence de zones humides (oui/non)",""),
         (33,"Superficie zones humides (ha)",0,1,3,1,NULL,26,NULL,"Superficie zones humides (ha)",""),
@@ -657,7 +657,7 @@ class BaseDao {
         (72,"Commune d'intervention pour l'inventaire",0,1,3,1,NULL,70,NULL,"Commune d'intervention pour l'inventaire",""),
         (73,"Longitude (degré décimal) : X",0,1,3,1,NULL,70,NULL,"Longitude (degré décimal) : X",""),
         (74,"Latitude (degré décimal) : Y",0,1,3,1,NULL,70,NULL,"Latitude (degré décimal) : Y",""),
-        (75,"Shapefile correspondant biodiversité",0,1,3,0,NULL,70,NULL,"Shapefile correspondant biodiversité",""),
+        (75,"Geojson correspondant biodiversité",0,1,3,0,NULL,70,NULL,"Geojson correspondant biodiversité",""),
         (76,"Statut UICN",0,1,3,0,NULL,70,NULL,"Statut UICN",""),
         (77,"Endémique (oui/non)",0,1,3,0,NULL,70,NULL,"Endémique (oui/non)",""),
         (78,"Ressource phare (oui/non)",0,1,3,0,NULL,70,NULL,"Ressource phare (oui/non)",""),
@@ -735,7 +735,7 @@ class BaseDao {
         (142,"Projet d'appui pour la lutte contre CC (si externe)",0,1,3,1,NULL,131,NULL,"Projet d'appui pour la lutte contre CC (si externe)",""),
         (143,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+ (centrale)",0,1,3,0,NULL,131,NULL,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+ (centrale)",""),
         (144,"Surface de forêts gérées dans le cadre du CC et REDD+ (ha)",0,1,3,1,NULL,131,NULL,"Surface de forêts gérées dans le cadre du CC et REDD+ (ha)",""),
-        (145,"Shapefile correspondant CC et REDD+",0,1,3,0,NULL,131,NULL,"Shapefile correspondant CC et REDD+",""),
+        (145,"Geojson correspondant CC et REDD+",0,1,3,0,NULL,131,NULL,"Geojson correspondant CC et REDD+",""),
         (146,"Taux d'emission de CO2 (%)",0,1,3,0,NULL,131,NULL,"Taux d'emission de CO2 (%)",""),
         (147,"Observations CC et REDD+ (centrale)",0,1,3,0,NULL,131,NULL,"Observations CC et REDD+ (centrale)",""),
         (148,"Source de données CC et REDD+ (centrale)",0,1,3,1,NULL,131,NULL,"Source de données CC et REDD+ (centrale)",""),
@@ -890,10 +890,10 @@ class BaseDao {
         (279,"Longitude point de feux (degré décimal) : X",0,1,3,1,NULL,278,NULL,"Longitude point de feux (degré décimal) : X",""),
         (280,"Latitude point de feux (degré décimal) : Y",0,1,3,1,NULL,278,NULL,"Latitude point de feux (degré décimal) : Y",""),
         (281,"Date de cas de feux",0,1,3,0,NULL,278,NULL,"Date de cas de feux",""),
-        (282,"Shapefile des points de feux",0,1,3,0,NULL,278,NULL,"Shapefile des points de feux",""),
+        (282,"Geojson des points de feux",0,1,3,0,NULL,278,NULL,"Geojson des points de feux",""),
         (283,"Superficie des zones brulées suivant les points GPS des activités de patrouilles et de contrôle sur terrain (ha)",0,1,3,1,NULL,278,NULL,"Superficie des zones brulées suivant les points GPS des activités de patrouilles et de contrôle sur terrain (ha)",""),
         (284,"Type : Forêt ou hors forêt",0,1,3,1,35,278,NULL,"Type : Forêt ou hors forêt",""),
-        (285,"Shapefile des surfaces brûlées",0,1,3,0,NULL,278,NULL,"Shapefile des surfaces brûlées",""),
+        (285,"Geojson des surfaces brûlées",0,1,3,0,NULL,278,NULL,"Geojson des surfaces brûlées",""),
         (286,"Date de zones brûlées",0,1,3,0,NULL,278,NULL,"Date de zones brûlées",""),
         (287,"Existence de dispositifs de détection et suivi des feux (oui/non)",0,1,3,1,39,278,NULL,"Existence de dispositifs de détection et suivi des feux (oui/non)",""),
         (288,"Emplacement de dispositifs de détection et suivi des feux (localité)",0,1,3,0,NULL,278,NULL,"Emplacement de dispositifs de détection et suivi des feux (localité)",""),
@@ -908,7 +908,7 @@ class BaseDao {
         (297,"Longitude pare-feu (degré décimal) : X",0,1,3,1,NULL,278,NULL,"Longitude pare-feu (degré décimal) : X",""),
         (298,"Latitude pare-feu (degré décimal) : Y",0,1,3,1,NULL,278,NULL,"Latitude pare-feu (degré décimal) : Y",""),
         (299,"Longueur de pare-feu établi (km)",0,1,3,1,NULL,278,NULL,"Longueur de pare-feu établi (km)",""),
-        (300,"Shapefile des pare-feux",0,1,3,0,NULL,278,NULL,"Shapefile des pare-feux",""),
+        (300,"Geojson des pare-feux",0,1,3,0,NULL,278,NULL,"Geojson des pare-feux",""),
         (301,"Nature du pare-feu (nouvellement mis en place, entretenu)",0,1,3,0,NULL,278,NULL,"Nature du pare-feu (nouvellement mis en place, entretenu)",""),
         (302,"Référence PV d'infraction (constatation de feux)",0,1,3,1,NULL,278,NULL,"Référence PV d'infraction (constatation de feux)",""),
         (303,"Identifiant du projet d'appui de lutte contre les feux",0,1,3,0,NULL,278,NULL,"Identifiant du projet d'appui de lutte contre les feux",""),
@@ -1127,7 +1127,7 @@ class BaseDao {
         (486,"Date de mise en terre",0,1,3,1,NULL,469,NULL,"Date de mise en terre",""),
         (487,"Source de plants",0,1,3,1,NULL,469,NULL,"Source de plants",""),
         (488,"Superficie reboisée (ha)",0,1,3,1,NULL,469,NULL,"Superficie reboisée (ha)",""),
-        (489,"Shapefile surface reboisée",0,1,3,0,NULL,469,NULL,"Shapefile surface reboisée",""),
+        (489,"Geojson surface reboisée",0,1,3,0,NULL,469,NULL,"Geojson surface reboisée",""),
         (490,"Source de financement du reboisement (interne ou externe)",0,1,3,1,NULL,469,NULL,"Source de financement du reboisement (interne ou externe)",""),
         (491,"Projet d'appui du reboisement (si externe)",0,1,3,1,NULL,469,NULL,"Projet d'appui du reboisement (si externe)",""),
         (492,"Identifiant du projet d'appui pour le reboisement et la gestion des terres",0,1,3,0,NULL,469,NULL,"Identifiant du projet d'appui pour le reboisement et la gestion des terres",""),
@@ -1135,7 +1135,7 @@ class BaseDao {
         (494,"Matériels de lutte active",0,1,3,0,NULL,469,NULL,"Matériels de lutte active",""),
         (495,"Existence de structure de lutte (oui/non)",0,1,3,0,NULL,469,NULL,"Existence de structure de lutte (oui/non)",""),
         (496,"Surface brûlée (ha)",0,1,3,0,NULL,469,NULL,"Surface brûlée (ha)",""),
-        (497,"Shapefile surface de reboisement brûlée",0,1,3,0,NULL,469,NULL,"Shapefile surface de reboisement brûlée",""),
+        (497,"Geojson surface de reboisement brûlée",0,1,3,0,NULL,469,NULL,"Geojson surface de reboisement brûlée",""),
         (498,"Lutte active ou passive",0,1,3,0,NULL,469,NULL,"Lutte active ou passive",""),
         (499,"Date d'intervention",0,1,3,0,NULL,469,NULL,"Date d'intervention",""),
         (500,"Responsable de lutte contre les feux",0,1,3,0,NULL,469,NULL,"Responsable de lutte contre les feux",""),
@@ -1146,9 +1146,9 @@ class BaseDao {
         (505,"Elagage (oui/non)",0,1,3,0,NULL,469,NULL,"Elagage (oui/non)",""),
         (506,"Date d'elagage",0,1,3,0,NULL,469,NULL,"Date d'elagage",""),
         (507,"Bénéficiaires des interventions",0,1,3,0,NULL,469,NULL,"Bénéficiaires des interventions",""),
-        (508,"Eclaicie 1 (oui/non)",0,1,3,0,NULL,469,NULL,"Eclaicie 1 (oui/non)",""),
+        (508,"Eclaircie 1 (oui/non)",0,1,3,0,NULL,469,NULL,"Eclaircie 1 (oui/non)",""),
         (509,"Date eclaircie 1",0,1,3,0,NULL,469,NULL,"Date eclaircie 1",""),
-        (510,"Eclarcie 2 (oui/non)",0,1,3,0,NULL,469,NULL,"Eclarcie 2 (oui/non)",""),
+        (510,"Eclaircie 2 (oui/non)",0,1,3,0,NULL,469,NULL,"Eclaircie 2 (oui/non)",""),
         (511,"Date eclaircie 2",0,1,3,0,NULL,469,NULL,"Date eclaircie 2",""),
         (512,"Coupe rase (oui/non)",0,1,3,0,NULL,469,NULL,"Coupe rase (oui/non)",""),
         (513,"Date coupe rase",0,1,3,0,NULL,469,NULL,"Date coupe rase",""),
@@ -1158,10 +1158,10 @@ class BaseDao {
         (517,"Existence de protection antiérosive (oui/non)",0,1,3,1,NULL,469,NULL,"Existence de protection antiérosive (oui/non)",""),
         (518,"Autres protections (à préciser)",0,1,3,1,NULL,469,NULL,"Autres protections (à préciser)",""),
         (519,"Superficie de DRS (ha)",0,1,3,1,NULL,469,NULL,"Superficie de DRS (ha)",""),
-        (520,"Shapefile de la DRS",0,1,3,0,NULL,469,NULL,"Shapefile de la DRS",""),
+        (520,"Geojson de la DRS",0,1,3,0,NULL,469,NULL,"Geojson de la DRS",""),
         (521,"Fixation de dunes (oui/non)",0,1,3,1,NULL,469,NULL,"Fixation de dunes (oui/non)",""),
         (522,"Superficie de dune stabilisée (ha)",0,1,3,1,NULL,469,NULL,"Superficie de dune stabilisée (ha)",""),
-        (523,"Shapefile de la dune stabilisée",0,1,3,0,NULL,469,NULL,"Shapefile de la dune stabilisée",""),
+        (523,"Geojson de la dune stabilisée",0,1,3,0,NULL,469,NULL,"Geojson de la dune stabilisée",""),
         (524,"Type de la défense et restauration des sols adopté (mécanique, biologique, mixte)",0,1,3,0,NULL,469,NULL,"Type de la défense et restauration des sols adopté (mécanique, biologique, mixte)",""),
         (525,"Nombre de ménage pratiquant la DRS",0,1,3,0,NULL,469,NULL,"Nombre de ménage pratiquant la DRS",""),
         (526,"Comité formé sur la DRS (oui/non)",0,1,3,0,NULL,469,NULL,"Comité formé sur la DRS (oui/non)",""),
@@ -1268,7 +1268,7 @@ class BaseDao {
         (615,"Equipe de réalisation de l'évaluation de TG",0,1,3,0,NULL,580,NULL,"Equipe de réalisation de l'évaluation de TG",""),
         (616,"Rapport d'évaluation de TG (oui/non)",0,1,3,0,NULL,580,NULL,"Rapport d'évaluation de TG (oui/non)",""),
         (617,"Date d'édition rapport évaluation TG",0,1,3,0,NULL,580,NULL,"Date d'édition rapport évaluation TG",""),
-        (618,"Shapefile TG",0,1,3,0,NULL,580,NULL,"Shapefile TG",""),
+        (618,"Geojson TG",0,1,3,0,NULL,580,NULL,"Geojson TG",""),
         (619,"Observations TG",0,1,3,0,NULL,580,NULL,"Observations TG",""),
         (620,"Source de données TG",0,1,3,1,NULL,580,NULL,"Source de données TG",""),
                                                               
@@ -1281,7 +1281,7 @@ class BaseDao {
         (625,"Latitude pépinière (en degré décimal) : Y",0,1,3,1,NULL,621,NULL,"Latitude pépinière (en degré décimal) : Y",""),
         (626,"Type de pépinière (villageoise, individuelle, institutionnelle, …)",0,1,3,0,NULL,621,NULL,"Type de pépinière (villageoise, individuelle, institutionnelle, …)",""),
         (627,"Pépinière privée (oui/non)",0,1,3,0,NULL,621,NULL,"Pépinière privée (oui/non)",""),
-        (628,"Shapefile localisation pépinière",0,1,3,0,NULL,621,NULL,"Shapefile localisation pépinière",""),
+        (628,"Geojson localisation pépinière",0,1,3,0,NULL,621,NULL,"Geojson localisation pépinière",""),
         (629,"Source de financement de la pépinière (interne ou externe)",0,1,3,1,NULL,621,NULL,"Source de financement de la pépinière (interne ou externe)",""),
         (630,"Projet d'appui de la pépinière (si externe)",0,1,3,1,NULL,621,NULL,"Projet d'appui de la pépinière (si externe)",""),
         (631,"Identifiant du projet d'appui de la pépinière",0,1,3,0,NULL,621,NULL,"Identifiant du projet d'appui de la pépinière",""),
@@ -1437,7 +1437,7 @@ class BaseDao {
     sql.push(`UPDATE indicateur set id_question = 	356	WHERE id = 	50`);
     sql.push(`UPDATE indicateur set id_question = 	349	WHERE id = 	51`);
     sql.push(`UPDATE indicateur set id_question = 	365	WHERE id = 	52`);
-    sql.push(`UPDATE indicateur set id_question = 	356	WHERE id = 	53`);
+    sql.push(`UPDATE indicateur set id_question = 	365	WHERE id = 	53`);
     sql.push(`UPDATE indicateur set id_question = 	385	WHERE id = 	54`);
     sql.push(`UPDATE indicateur set id_question = 	401	WHERE id = 	55`);
     sql.push(`UPDATE indicateur set id_question = 	418	WHERE id = 	56`);
@@ -1453,13 +1453,13 @@ class BaseDao {
     sql.push(`UPDATE indicateur set id_question = 	478	WHERE id = 	66`);
     sql.push(`UPDATE indicateur set id_question = 	521	WHERE id = 	67`);
     sql.push(`UPDATE indicateur set id_question = 	481	WHERE id = 	68`);
-    sql.push(`UPDATE indicateur set id_question = 	532	WHERE id = 	69`);
-    sql.push(`UPDATE indicateur set id_question = 	532	WHERE id = 	70`);
-    sql.push(`UPDATE indicateur set id_question = 	532	WHERE id = 	71`);
-    sql.push(`UPDATE indicateur set id_question = 	532	WHERE id = 	72`);
-    sql.push(`UPDATE indicateur set id_question = 	550	WHERE id = 	73`);
-    sql.push(`UPDATE indicateur set id_question = 	564	WHERE id = 	74`);
-    sql.push(`UPDATE indicateur set id_question = 	564	WHERE id = 	75`);
+    sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	69`);
+    sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	70`);
+    sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	71`);
+    sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	72`);
+    sql.push(`UPDATE indicateur set id_question = 	551	WHERE id = 	73`);
+    sql.push(`UPDATE indicateur set id_question = 	565	WHERE id = 	74`);
+    sql.push(`UPDATE indicateur set id_question = 	565	WHERE id = 	75`);
     sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	76`);
     sql.push(`UPDATE indicateur set id_question = 	586	WHERE id = 	77`);
     sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	78`);
@@ -1468,12 +1468,12 @@ class BaseDao {
     sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	81`);
     sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	82`);
     sql.push(`UPDATE indicateur set id_question = 	638	WHERE id = 	83`);
-    sql.push(`UPDATE indicateur set id_question = 	640	WHERE id = 	84`);
+    sql.push(`UPDATE indicateur set id_question = 	641	WHERE id = 	84`);
     sql.push(`UPDATE indicateur set id_question = 	652	WHERE id = 	85`);
     sql.push(`UPDATE indicateur set id_question = 	670	WHERE id = 	86`);
     sql.push(`UPDATE indicateur set id_question = 	676	WHERE id = 	87`);
-    sql.push(`UPDATE indicateur set id_question = 	688	WHERE id = 	88`);
-    sql.push(`UPDATE indicateur set id_question = 	688	WHERE id = 	89`);
+    sql.push(`UPDATE indicateur set id_question = 	689	WHERE id = 	88`);
+    sql.push(`UPDATE indicateur set id_question = 	689	WHERE id = 	89`);
 
     // Run sql
     sql.forEach((line) => {

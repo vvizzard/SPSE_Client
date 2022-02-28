@@ -24,7 +24,7 @@ export default function CarteM(props) {
       // opacity:0.2,
       opacity: 0.8,
       weight: 0.25,
-      fillColor: "black",
+      fillColor: "blue",
       fillOpacity: 0.5,
     },
     hover: {

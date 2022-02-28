@@ -1,6 +1,6 @@
 {
   "name": "spse_3",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Logiciel de plannification, suivi-évaluation.",
   "private": true,
   "main": "app/electron/main.js",
