@@ -1497,7 +1497,7 @@ sql.push(
     (130,"Source de données CC et REDD+",0,1,3,1,NULL,121,NULL,"Source de données CC et REDD+",""),
 
 
-    (131,"Nom des plans de mise en œuvre de la Politique Nationale de Lutte contre le Changement Climatique mise en place",1,1,3,0,NULL,NULL,NULL,"Nom des plans de mise en œuvre de la Politique Nationale de Lutte contre le Changement Climatique mise en place",""),
+    (131,"Nom des plans de mise en œuvre de la Politique Nationale de Lutte contre le Changement Climatique mise en place",1,1,3,1,NULL,NULL,NULL,"Nom des plans de mise en œuvre de la Politique Nationale de Lutte contre le Changement Climatique mise en place",""),
     (132,"Nom de projet d'adaptation et résilience au changement climatique et REDD+",0,1,3,0,NULL,131,NULL,"Nom de projet d'adaptation et résilience au changement climatique et REDD+",""),
     (133,"Plan et projet mis en œuvre (oui/non)",0,1,3,0,NULL,131,NULL,"Plan et projet mis en œuvre (oui/non)",""),
     (134,"Activités sectorielles ou projets intégrant le climat et le changement climatique (liste)",0,1,3,0,NULL,131,NULL,"Activités sectorielles ou projets intégrant le climat et le changement climatique (liste)",""),
@@ -1884,7 +1884,7 @@ sql.push(
 
 
 
-    (469,"Insitution",1,1,3,0,NULL,NULL,NULL,"Insitution",""),
+    (469,"Insitution",1,1,3,1,NULL,NULL,NULL,"Insitution",""),
     (470,"DREDD/CIREDD",0,1,3,0,NULL,469,NULL,"DREDD/CIREDD",""),
     (471,"Commune d'intervention pour le reboisement",0,1,3,1,NULL,469,NULL,"Commune d'intervention pour le reboisement",""),
     (472,"Fokontany d'intervention pour le reboisement",0,1,3,0,NULL,469,NULL,"Fokontany d'intervention pour le reboisement",""),
@@ -2007,7 +2007,7 @@ sql.push(
                                                           
                                                           
                                                           
-    (580,"Site du TG",1,1,3,0,NULL,NULL,NULL,"Site du TG",""),
+    (580,"Site du TG",1,1,3,1,NULL,NULL,NULL,"Site du TG",""),
     (581,"Fokontany d'implatation du TG",0,1,3,0,NULL,580,NULL,"Fokontany d'implatation du TG",""),
     (582,"Commune d'implatation du TG",0,1,3,1,NULL,580,NULL,"Commune d'implatation du TG",""),
     (583,"Type de forêts (Primaire, Secondaire, Littorale, Fourré, Mangrove, Satrana, Raphia, Tapia, Domaniale, Reboisement, Zone de pêches, etc.)",0,1,3,1,NULL,580,NULL,"Type de forêts (Primaire, Secondaire, Littorale, Fourré, Mangrove, Satrana, Raphia, Tapia, Domaniale, Reboisement, Zone de pêches, etc.)",""),
@@ -2051,7 +2051,7 @@ sql.push(
                                                           
                                                           
                                                           
-    (621,"Date de création de la pépinière",1,1,3,0,NULL,NULL,NULL,"Date de création de la pépinière",""),
+    (621,"Date de création de la pépinière",1,1,3,1,NULL,NULL,NULL,"Date de création de la pépinière",""),
     (622,"Pépinière fonctionnelle (oui/non)",0,1,3,0,NULL,621,NULL,"Pépinière fonctionnelle (oui/non)",""),
     (623,"Commune d'implantation de la pépinière",0,1,3,1,NULL,621,NULL,"Commune d'implantation de la pépinière",""),
     (624,"Longitude pépinière (en degré décimal) : X",0,1,3,1,NULL,621,NULL,"Longitude pépinière (en degré décimal) : X",""),
@@ -2104,7 +2104,7 @@ sql.push(
                                                           
                                                           
                                                           
-    (668,"Type de Services Environnementaux (régulation, production, …)",1,1,3,0,NULL,NULL,NULL,"Type de Services Environnementaux (régulation, production, …)",""),
+    (668,"Type de Services Environnementaux (régulation, production, …)",1,1,3,1,NULL,NULL,NULL,"Type de Services Environnementaux (régulation, production, …)",""),
     (669,"Fournisseur du SE (projets, Etat, communauté, …)",0,1,3,0,NULL,668,NULL,"Fournisseur du SE (projets, Etat, communauté, …)",""),
     (670,"Commune d'oimplantation du PSE",0,1,3,1,NULL,668,NULL,"Commune d'oimplantation du PSE",""),
     (671,"Intitulé de l'activité de PSE développée",0,1,3,1,NULL,668,NULL,"Intitulé de l'activité de PSE développée",""),
