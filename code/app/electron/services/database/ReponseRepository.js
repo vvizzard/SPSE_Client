@@ -332,46 +332,50 @@ class ResponseRepository extends BaseRepository {
    * @returns {JSON} Populated reponse
    */
   populateReponse(reponseTemplate, data) {
-    let reponse = reponseTemplate;
+    try {
+      let reponse = reponseTemplate;
 
-    data.forEach((element) => {
-      if (reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] == null) {
-        reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] = [];
+      data.forEach((element) => {
+        if (reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] == null) {
+          reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] = [];
+        }
+        reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")].push(
+          element.reponse
+        );
+      });
+
+      log.info("populateReponse : first step : first group");
+      log.info(reponse);
+      log.info("----------------------------------");
+
+      let farany = [];
+      var secondKey = Object.keys(reponse)[1]; //fetched the key at second index
+      const nbrResp = reponse[secondKey].length;
+
+      for (let i = 0; i < nbrResp; i++) {
+        let temp = {};
+        temp["_District_"] = data[0].district;
+        farany.push(temp);
       }
-      reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")].push(
-        element.reponse
-      );
-    });
 
-    log.info("populateReponse : first step : first group");
-    log.info(reponse);
-    log.info("----------------------------------");
+      for (const [key, value] of Object.entries(reponse)) {
+        if (value)
+          value.forEach((element, idx) => {
+            if (!farany[idx]) {
+              farany[idx] = {};
+            }
+            farany[idx][key] = element;
+          });
+      }
 
-    let farany = [];
-    var secondKey = Object.keys(reponse)[1]; //fetched the key at second index
-    const nbrResp = reponse[secondKey].length;
+      log.info("populateReponse : last step : after regrouping");
+      log.info(farany);
+      log.info("----------------------------------");
 
-    for (let i = 0; i < nbrResp; i++) {
-      let temp = {};
-      temp["_District_"] = data[0].district;
-      farany.push(temp);
+      return farany;
+    } catch (error) {
+      return [];
     }
-
-    for (const [key, value] of Object.entries(reponse)) {
-      if (value)
-        value.forEach((element, idx) => {
-          if (!farany[idx]) {
-            farany[idx] = {};
-          }
-          farany[idx][key] = element;
-        });
-    }
-
-    log.info("populateReponse : last step : after regrouping");
-    log.info(farany);
-    log.info("----------------------------------");
-
-    return farany;
   }
 
   /**
