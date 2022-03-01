@@ -8,6 +8,7 @@ const BaseDao = require("./database/BaseDao");
 const BaseRepository = require("./database/BaseRepository");
 const ReponseRepository = require("./database/ReponseRepository");
 const fetch = require("node-fetch");
+const FormData = require("form-data");
 
 class Exportation {
   /**
@@ -374,20 +375,22 @@ class Exportation {
                   (elm) => elm.question == rows[index][i]
                 );
 
-                log.info("questions *****");
-                log.info(questions);
-                log.info(rows[index][i]);
-                log.info(temp);
-                log.info("-----------");
+                if (temp) {
+                  log.info("questions *****");
+                  log.info(questions);
+                  log.info(rows[index][i]);
+                  log.info(temp);
+                  log.info("-----------");
 
-                idQuestions[i] = temp.id;
-                if (!deleted) {
-                  log.info("go delete from id_question = " + temp.id);
-                  const del = await responseRepository.deleteAllNonValide(
-                    userId,
-                    temp.id
-                  );
-                  log.info("deleted from id_question = " + temp.id);
+                  idQuestions[i] = temp.id;
+                  if (!deleted) {
+                    log.info("go delete from id_question = " + temp.id);
+                    const del = await responseRepository.deleteAllNonValide(
+                      userId,
+                      temp.id
+                    );
+                    log.info("deleted from id_question = " + temp.id);
+                  }
                 }
               } else {
                 if (rows[index][i] != null) {
@@ -553,6 +556,82 @@ class Exportation {
       log.info("-----------------------------------");
 
       return Object.values(data);
+    } catch (err) {
+      log.info(err);
+      return false;
+    }
+  }
+
+  /**
+   * @name uploadFile
+   * @description Upload zip file
+   *
+   * @returns {Boolean} True if uploaded, false overwise
+   */
+  async uploadFile() {
+    let valiny = true;
+    try {
+      const file = await dialog.showOpenDialog({
+        title: "Choisir le fichier à importer",
+        defaultPath: path.join(__dirname, "canevas.xlsx"),
+        buttonLabel: "Importer",
+        filters: [
+          {
+            name: "Zip Files",
+            extensions: ["zip"],
+          },
+        ],
+        properties: [],
+      });
+      if (!file.canceled) {
+        valiny = await this.uploadZip(file);
+      } else {
+        throw new Error("L'opération a été annulé");
+      }
+    } catch (error) {
+      log.info(error);
+      valiny = false;
+    }
+
+    return new Promise((resolve, reject) => {
+      resolve(valiny);
+    });
+  }
+
+  async uploadZip(file) {
+    try {
+      const stats = fs.statSync(file.filePaths[0]);
+      const fileSizeInBytes = stats.size;
+
+      const data = fs.readFileSync(file.filePaths[0]);
+
+      // log.info("path: ");
+      // log.info(
+      //   file.filePaths[0].substring(file.filePaths[0].lastIndexOf("\\")+1)
+      // );
+
+      const formData = new FormData();
+      formData.append("Content-Type", "application/octet-stream");
+      formData.append("file", data);
+
+      const response = await fetch("https://spse.llanddev.org/uploadFile.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      // log.info("reponse part 1");
+      // log.info(JSON.stringify({ body }));
+      log.info(response);
+      log.info("reponse part 2");
+      const reponse = await response.json();
+
+      log.info("groupe de reponse part 1");
+      log.info(response);
+      log.info(reponse);
+      // log.info(reponse.reponses.dados);
+      log.info("groupe de reponse part 2");
+
+      return reponse;
     } catch (err) {
       log.info(err);
       return false;

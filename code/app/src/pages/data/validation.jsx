@@ -20,23 +20,6 @@ export default function Validation(props) {
     new Date().getMonth() + 1 + "-" + new Date().getFullYear()
   );
 
-  // const params = useParams();
-  // const [excel, setExcel] = useState("");
-  // const [responseToShow, setResponseToShow] = useState([]);
-  // const [responseHtml, setResponseHtml] = useState([]);
-
-  // function loadDistrict() {
-  //   window.api
-  //     .getTrans2(
-  //       "asynchronous-get-district-validation",
-  //       "district",
-  //       props.user.district_id
-  //     )
-  //     .then((result) => {
-  //       setDistricts(result);
-  //     });
-  // }
-
   function loadDistrict() {
     window.api
       .getTrans2(
@@ -53,108 +36,6 @@ export default function Validation(props) {
         setDistId(props.user.district_id);
       });
   }
-
-  //   function getData() {
-  //     console.log("params");
-  //     console.log(params);
-  //     window.api
-  //       .getTrans("asynchronous-get-trans", "reponse_non_valide", {
-  //         id: distId,
-  //         level: "district",
-  //         date: annee,
-  //       })
-  //       .then((result) => {
-  //         console.log("data response : ___________");
-  //         console.log(result);
-  //         setResponses(result[0]);
-  //         let rts = {};
-  //         responses.map((e) => {
-  //           if (e.question_mere_id == null) {
-  //             rts["id_" + e.question] = [];
-  //             rts["id_" + e.question].push(e);
-  //           } else {
-  //             rts["id_" + e.question_mere_id].push(e);
-  //           }
-  //         });
-  //         console.log("new response : ");
-  //         console.log(rts);
-  //         setResponseToShow(rts);
-  //         showResp(Object.values(rts));
-  //       });
-  //   }
-
-  //   function showResp(arr) {
-  //     let valiny = [];
-  //     arr.map((e) => {
-  //       if (e[0].comment == 1) {
-  //         valiny.push(
-  //           <div>
-  //             <h3 className="question_princ">
-  //               {e[0].question_label + " : " + e[0].reponse + e[0].unite}
-  //             </h3>
-  //           </div>
-  //         );
-
-  //         let head = [];
-  //         let bodyTd = [];
-  //         let body = [];
-
-  //         let breakPoint = 0;
-
-  //         for (let i = 1; i < e.length; i++) {
-  //           if (i > 1 && e[i + 1] && e[i + 1].is_principale == 1) {
-  //             breakPoint = i;
-  //           }
-  //           head.push(e[i].question_label);
-  //           bodyTd.push(
-  //             <td key={"qb_" + e[i].question_label + "_" + i}>{e[i].reponse}</td>
-  //           );
-  //           if (i % breakPoint == 0 || i + 1 == e.length) {
-  //             body.push(
-  //               <tr key={"rsp_" + e[i].question_label + i}>
-  //                 {bodyTd.map((e) => {
-  //                   return e;
-  //                 })}
-  //               </tr>
-  //             );
-  //             bodyTd = [];
-  //           }
-  //         }
-
-  //         valiny.push(
-  //           <table className="table">
-  //             <thead>
-  //               <tr>
-  //                 {[...new Set(head)].map((emt, i) => {
-  //                   return <th key={"qh_" + emt + "_" + i}>{emt}</th>;
-  //                 })}
-  //               </tr>
-  //             </thead>
-  //             <tbody>
-  //               {body.map((emt) => {
-  //                 return emt;
-  //               })}
-  //             </tbody>
-  //           </table>
-  //         );
-  //       }
-  //     });
-  //     setResponseHtml(valiny);
-  //   }
-
-  //   function getData(date) {
-  //     window.api
-  //       .getTrans("asynchronous-get-trans", "reponse_non_valide", {
-  //         id: distId,
-  //         level: CONST.LEVEL_DISTRICT,
-  //         date: date,
-  //       })
-  //       .then((result) => {
-  //         console.log("data response : ___________");
-  //         console.log(result);
-  //         setResponses(result);
-  //       });
-  //   }
 
   function makeHeader(questions) {
     let cl = [];
