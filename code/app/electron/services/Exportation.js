@@ -606,24 +606,39 @@ class Exportation {
 
   async uploadZip(file) {
     try {
-      const stats = fs.statSync(file.filePaths[0]);
-      const fileSizeInBytes = stats.size;
+      // const stats = fs.statSync(file.filePaths[0]);
+      // const fileSizeInBytes = stats.size;
 
-      const data = fs.readFileSync(file.filePaths[0]);
+      // const data = fs.readFileSync(file.filePaths[0]);
 
       // log.info("path: ");
       // log.info(
       //   file.filePaths[0].substring(file.filePaths[0].lastIndexOf("\\")+1)
       // );
 
-      const formData = new FormData();
-      formData.append("Content-Type", "application/octet-stream");
-      formData.append("file", data);
+      // const formData = new FormData();
+      // formData.append("Content-Type", "application/octet-stream");
+      // formData.append("file", data);
 
-      const response = await fetch("https://spse.llanddev.org/uploadFile.php", {
+      
+      const form = new FormData();
+      const stats = fs.statSync(file.filePaths[0]);
+      const fileSizeInBytes = stats.size;
+      const fileStream = fs.createReadStream(file.filePaths[0]);
+      form.append("file", fileStream, { knownLength: fileSizeInBytes });
+
+      const options = {
         method: "POST",
-        body: formData,
-      });
+        credentials: "include",
+        body: form,
+      };
+
+      const response = await fetch("https://spse.llanddev.org/uploadFile.php", { ...options });
+
+      // const response = await fetch("https://spse.llanddev.org/uploadFile.php", {
+      //   method: "POST",
+      //   body: formData,
+      // });
 
       // log.info("reponse part 1");
       // log.info(JSON.stringify({ body }));

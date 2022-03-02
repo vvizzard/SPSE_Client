@@ -340,7 +340,9 @@ class ResponseRepository extends BaseRepository {
           reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] = [];
         }
         reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")].push(
-          element.reponse
+          element.label.includes("Fichiers") || element.label.includes("Image")
+            ? "https://spse.llanddev.org/upload/" + element.reponse
+            : element.reponse
         );
       });
 

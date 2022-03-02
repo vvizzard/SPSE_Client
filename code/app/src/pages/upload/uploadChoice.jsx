@@ -163,6 +163,16 @@ export default function UploadChoice(props) {
     });
   }
 
+  function importDoc() {
+    window.api.upload("import-geojson", "zip", userId).then((result) => {
+      if (!result)
+        alert(
+          "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
+        );
+      else alert("L'opération a été terminé avec succes");
+    });
+  }
+
   const handleOnClickTab = (idx, thid) => {
     let tbs = [];
     tbs[idx] = ["actif"];
@@ -185,6 +195,10 @@ export default function UploadChoice(props) {
 
   function handleOnClickImportGeojson() {
     importGeoJson();
+  }
+
+  function handleOnClickImportDoc() {
+    importDoc();
   }
 
   const handleOnChangeDist = (val) => {
@@ -292,6 +306,12 @@ export default function UploadChoice(props) {
                 handleOnClickImportGeojson();
               }}>
               Importer les données géographiques
+            </button>
+            <button
+              onClick={() => {
+                handleOnClickImportDoc();
+              }}>
+              Importer les documents/images
             </button>
             <button
               onClick={() => {

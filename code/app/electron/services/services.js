@@ -391,18 +391,27 @@ ipcMain.on("import-geojson", (event, name, entity) => {
 
   const exp = new Exportation();
 
-  const resp = exp
-    .upload()
-    .then((result) => {
-      event.reply("reply", result);
-    })
-    .catch((error) => {
-      log.error(error);
-      event.reply("reply", false);
-    });
-  // .catch((err) => {
-  //   event.reply("import-reply", false);
-  // });
+  if (name == "geojson") {
+    const resp = exp
+      .upload()
+      .then((result) => {
+        event.reply("reply", result);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("reply", false);
+      });
+  } else if (name == "zip") {
+    const resp = exp
+      .uploadFile()
+      .then((result) => {
+        event.reply("reply", result);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("reply", false);
+      });
+  }
 });
 
 // validation
