@@ -574,7 +574,7 @@ class BaseDao {
     // Set values to question
     sql.push(
       `INSERT INTO question (id, question, is_principale, field_type, level, obligatoire, indicateur_id, question_mere_id, objectif, label, unite) VALUES 
-        (1,"Commune d'intervention pour les actes",1,1,3,1,NULL,NULL,NULL,"Commune d'intervention pour les actes",""),
+        (1,"Commune d'intervention pour les actes (<<Toutes>> si niveau national)",1,1,3,1,NULL,NULL,NULL,"Commune d'intervention pour les actes (<<Toutes>> si niveau national)",""),
         (2,"Type d'actes administratrifs (permis de coupe, autorisation de coupe, permis d'exploitation, convention de collecte PFNL)",0,1,3,1,1,1,NULL,"Type d'actes administratrifs (permis de coupe, autorisation de coupe, permis d'exploitation, convention de collecte PFNL)",""),
         (3,"Référence de l'acte administratif",0,1,3,1,NULL,1,NULL,"Référence de l'acte administratif",""),
         (4,"Types de produits inscrits dans l'acte administratif (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",0,1,3,1,NULL,1,NULL,"Types de produits inscrits dans l'acte administratif (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",""),
@@ -583,9 +583,9 @@ class BaseDao {
         (7,"Quantité des produits exportés inscrits dans l'acte administratif",0,1,3,1,NULL,1,NULL,"Quantité des produits exportés inscrits dans l'acte administratif",""),
         (8,"Destination des produits inscrits dans l'acte administratif (autoconsommation/marché local/marché national/exportation)",0,1,3,1,NULL,1,NULL,"Destination des produits inscrits dans l'acte administratif (autoconsommation/marché local/marché national/exportation)",""),
         (9,"Existence d'autorisation de transport octroyée (oui/non)",0,1,3,1,NULL,1,NULL,"Existence d'autorisation de transport octroyée (oui/non)",""),
-        (10,"Référence d'autorisation de transport",0,1,3,1,NULL,1,NULL,"Référence d'autorisation de transport",""),
+        (10,"Référence d'autorisation de transport",0,1,3,0,NULL,1,NULL,"Référence d'autorisation de transport",""),
         (11,"Existence de laissez-passer délivré (oui/non)",0,1,3,1,NULL,1,NULL,"Existence de laissez-passer délivré (oui/non)",""),
-        (12,"Référence de laissez-passer",0,1,3,1,NULL,1,NULL,"Référence de laissez-passer",""),
+        (12,"Référence de laissez-passer",0,1,3,1,NULL,0,NULL,"Référence de laissez-passer",""),
         (13,"Nom de l'opérateur",0,1,3,0,NULL,1,NULL,"Nom de l'opérateur",""),
         (14,"Exportateur agréé (oui/non)",0,1,3,0,NULL,1,NULL,"Exportateur agréé (oui/non)",""),
         (15,"Valeur (annuelle) des produits à l'exportation (Ariary)",0,1,3,0,NULL,1,NULL,"Valeur (annuelle) des produits à l'exportation (Ariary)",""),
@@ -596,7 +596,7 @@ class BaseDao {
     
     
         (19,"Autorisation de recherche délivrée (oui/non)",1,1,3,1,2,NULL,NULL,"Autorisation de recherche délivrée (oui/non)",""),
-        (20,"Référence d'autorisation de recherche",0,1,3,1,NULL,19,NULL,"Référence d'autorisation de recherche",""),
+        (20,"Référence d'autorisation de recherche",0,1,3,0,NULL,19,NULL,"Référence d'autorisation de recherche",""),
         (21,"Produits associés (faune ou flore)",0,1,3,1,NULL,19,NULL,"Produits associés (faune ou flore)",""),
         (22,"Espèces mises en jeu",0,1,3,0,NULL,19,NULL,"Espèces mises en jeu",""),
         (23,"Quotas de prélèvement",0,1,3,0,NULL,19,NULL,"Quotas de prélèvement",""),
@@ -607,7 +607,7 @@ class BaseDao {
     
         (26,"Nom de l'AP",1,1,3,1,NULL,NULL,NULL,"Nom de l'AP",""),
         (27,"Catégorie de l'AP (I, II, III, IV, V, VI, Autre)",0,1,3,1,NULL,26,NULL,"Catégorie de l'AP (I, II, III, IV, V, VI, Autre)",""),
-        (28,"Statut temporaire ou définitif",0,1,3,0,NULL,26,NULL,"Statut temporaire ou définitif",""),
+        (28,"Statut temporaire ou définitif",0,1,3,1,NULL,26,NULL,"Statut temporaire ou définitif",""),
         (29,"Décret si définitif",0,1,3,0,NULL,26,NULL,"Décret si définitif",""),
         (30,"Geojson de l'AP",0,1,3,0,NULL,26,NULL,"Geojson de l'AP",""),
         (31,"Type : terrestre ou marine",0,1,3,1,3,26,NULL,"Type : terrestre ou marine",""),
@@ -629,7 +629,7 @@ class BaseDao {
         (47,"AP dont la création et la gestion sont appuyées (oui/non)",0,1,3,0,NULL,26,NULL,"AP dont la création et la gestion sont appuyées (oui/non)",""),
         (48,"Type d'appui pour l'AP (dotation matériels, formation, AGR, …)",0,1,3,0,NULL,26,NULL,"Type d'appui pour l'AP (dotation matériels, formation, AGR, …)",""),
         (49,"Source de financement de l'AP (interne ou externe)",0,1,3,1,NULL,26,NULL,"Source de financement de l'AP (interne ou externe)",""),
-        (50,"Projet d'appui de l'AP (si externe)",0,1,3,1,NULL,26,NULL,"Projet d'appui de l'AP (si externe)",""),
+        (50,"Projet d'appui de l'AP (si externe)",0,1,3,0,NULL,26,NULL,"Projet d'appui de l'AP (si externe)",""),
         (51,"Identifiant du projet d'appui de l'AP",0,1,3,0,NULL,26,NULL,"Identifiant du projet d'appui de l'AP",""),
         (52,"AP dotée d'un système de gestion administrative et financière (oui/non)",0,1,3,0,NULL,26,NULL,"AP dotée d'un système de gestion administrative et financière (oui/non)",""),
         (53,"AP dotée d'un système de suivi écologique opérationnel (oui/non)",0,1,3,0,NULL,26,NULL,"AP dotée d'un système de suivi écologique opérationnel (oui/non)",""),
@@ -672,7 +672,7 @@ class BaseDao {
         (87,"Existence de filière concernant la ressource/biodiversité (oui/non)",0,1,3,0,NULL,70,NULL,"Existence de filière concernant la ressource/biodiversité (oui/non)",""),
         (88,"Appui financier et/ou technique de la filière (oui/non)",0,1,3,0,NULL,70,NULL,"Appui financier et/ou technique de la filière (oui/non)",""),
         (89,"Source de financement de l'inventaire de biodiversité (interne ou externe)",0,1,3,1,NULL,70,NULL,"Source de financement de l'inventaire de biodiversité (interne ou externe)",""),
-        (90,"Projet d'appui pour l'inventaire de biodiversité (si externe)",0,1,3,1,NULL,70,NULL,"Projet d'appui pour l'inventaire de biodiversité (si externe)",""),
+        (90,"Projet d'appui pour l'inventaire de biodiversité (si externe)",0,1,3,0,NULL,70,NULL,"Projet d'appui pour l'inventaire de biodiversité (si externe)",""),
         (91,"Identifiant du projet d'appui pour la biodiversité",0,1,3,0,NULL,70,NULL,"Identifiant du projet d'appui pour la biodiversité",""),
         (92,"Espèce objet de trafic illicite (oui/non)",0,1,3,1,9,70,NULL,"Espèce objet de trafic illicite (oui/non)",""),
         (93,"Date de constat",0,1,3,0,NULL,70,NULL,"Date de constat",""),
@@ -691,8 +691,8 @@ class BaseDao {
         (103,"Cadre legislatif ou technique",0,1,3,1,NULL,101,NULL,"Cadre legislatif ou technique",""),
         (104,"Thématique",0,1,3,1,NULL,101,NULL,"Thématique",""),
         (105,"Objectifs du cadre",0,1,3,1,NULL,101,NULL,"Objectifs du cadre",""),
-        (106,"Date de promulgation",0,1,3,1,NULL,101,NULL,"Date de promulgation",""),
-        (107,"Date de validation",0,1,3,1,NULL,101,NULL,"Date de validation",""),
+        (106,"Date de promulgation",0,1,3,0,NULL,101,NULL,"Date de promulgation",""),
+        (107,"Date de validation",0,1,3,0,NULL,101,NULL,"Date de validation",""),
         (108,"Secteur concerné par le cadre",0,1,3,1,NULL,101,NULL,"Secteur concerné par le cadre",""),
         (109,"Légiferer (oui/non)",0,1,3,1,NULL,101,NULL,"Légiferer (oui/non)",""),
         (110,"Nouveau (oui/non)",0,1,3,1,NULL,101,NULL,"Nouveau (oui/non)",""),
@@ -701,7 +701,7 @@ class BaseDao {
         (113,"Adopté (oui/non)",0,1,3,1,13,101,NULL,"Adopté (oui/non)",""),
         (114,"Cadre mis en œuvre (oui/non)",0,1,3,1,NULL,101,NULL,"Cadre mis en œuvre (oui/non)",""),
         (115,"Intégrant la cohérence intersectorielle sur la gestion environnementale et climatique (oui/non)",0,1,3,1,NULL,101,NULL,"Intégrant la cohérence intersectorielle sur la gestion environnementale et climatique (oui/non)",""),
-        (116,"Textes d'application (liste)",0,1,3,1,NULL,101,NULL,"Textes d'application (liste)",""),
+        (116,"Textes d'application (liste)",0,1,3,0,NULL,101,NULL,"Textes d'application (liste)",""),
         (117,"Identifiant du projet d'appui pour le cadre",0,1,3,0,NULL,101,NULL,"Identifiant du projet d'appui pour le cadre",""),
         (118,"Fichiers (cadre)",0,1,3,0,NULL,101,NULL,"Fichiers (cadre)",""),
         (119,"Observations cadre",0,1,3,0,NULL,101,NULL,"Observations cadre",""),
@@ -732,7 +732,7 @@ class BaseDao {
         (139,"Nombre de femmes bénéficiaires pour la lutte contre CC",0,1,3,0,NULL,131,NULL,"Nombre de femmes bénéficiaires pour la lutte contre CC",""),
         (140,"Nombre de jeunes bénéficiaires pour la lutte contre CC",0,1,3,0,NULL,131,NULL,"Nombre de jeunes bénéficiaires pour la lutte contre CC",""),
         (141,"Source de financement pour la lutte contre CC (interne ou externe)",0,1,3,1,NULL,131,NULL,"Source de financement pour la lutte contre CC (interne ou externe)",""),
-        (142,"Projet d'appui pour la lutte contre CC (si externe)",0,1,3,1,NULL,131,NULL,"Projet d'appui pour la lutte contre CC (si externe)",""),
+        (142,"Projet d'appui pour la lutte contre CC (si externe)",0,1,3,0,NULL,131,NULL,"Projet d'appui pour la lutte contre CC (si externe)",""),
         (143,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+ (centrale)",0,1,3,0,NULL,131,NULL,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+ (centrale)",""),
         (144,"Surface de forêts gérées dans le cadre du CC et REDD+ (ha)",0,1,3,1,NULL,131,NULL,"Surface de forêts gérées dans le cadre du CC et REDD+ (ha)",""),
         (145,"Geojson correspondant CC et REDD+",0,1,3,0,NULL,131,NULL,"Geojson correspondant CC et REDD+",""),
@@ -805,7 +805,7 @@ class BaseDao {
         (203,"Convention de partenariat signée (oui/non)",0,1,3,1,28,201,NULL,"Convention de partenariat signée (oui/non)",""),
         (204,"Objet de la convention de partenariat",0,1,3,1,NULL,201,NULL,"Objet de la convention de partenariat",""),
         (205,"Il s'agit de projet (oui/non)",0,1,3,1,29,201,NULL,"Il s'agit de projet (oui/non)",""),
-        (206,"si oui, quel/quels projet(s) ?",0,1,3,1,NULL,201,NULL,"si oui, quel/quels projet(s) ?",""),
+        (206,"si oui, quel/quels projet(s) ?",0,1,3,0,NULL,201,NULL,"si oui, quel/quels projet(s) ?",""),
         (207,"Date d'élaboration de la convention de partenariat",0,1,3,0,NULL,201,NULL,"Date d'élaboration de la convention de partenariat",""),
         (208,"Date de signature de la convention de partenariat",0,1,3,0,NULL,201,NULL,"Date de signature de la convention de partenariat",""),
         (209,"Entités signataires",0,1,3,0,NULL,201,NULL,"Entités signataires",""),
@@ -841,14 +841,14 @@ class BaseDao {
         (236,"Existence de suivis écologiques (oui/non)",0,1,3,0,NULL,217,NULL,"Existence de suivis écologiques (oui/non)",""),
         (237,"Chaîne de valeur appuyée financièrement et/ou techniquement (oui/non)",0,1,3,0,NULL,217,NULL,"Chaîne de valeur appuyée financièrement et/ou techniquement (oui/non)",""),
         (238,"Organisme d'appui de la chaîne de valeur",0,1,3,1,NULL,217,NULL,"Organisme d'appui de la chaîne de valeur",""),
-        (239,"Projet d'appui de la chaîne de valeur",0,1,3,1,NULL,217,NULL,"Projet d'appui de la chaîne de valeur",""),
+        (239,"Projet d'appui de la chaîne de valeur",0,1,3,0,NULL,217,NULL,"Projet d'appui de la chaîne de valeur",""),
         (240,"Identifiant du projet d'appui de la chaîne de valeur",0,1,3,0,NULL,217,NULL,"Identifiant du projet d'appui de la chaîne de valeur",""),
         (241,"Nombre d'emplois verts décents créés",0,1,3,1,NULL,217,NULL,"Nombre d'emplois verts décents créés",""),
         (242,"Nombre total d'empoyés recrutés par les emplois verts créés",0,1,3,0,NULL,217,NULL,"Nombre total d'empoyés recrutés par les emplois verts créés",""),
         (243,"Nombre de femme employées dans les emplois verts",0,1,3,0,NULL,217,NULL,"Nombre de femme employées dans les emplois verts",""),
         (244,"Types d'alternatives développées (charbon vert, résidus de culture, gaz butane, ethanol, énergie solaire, biogaz, sac écologique, autres)",0,1,3,1,NULL,217,NULL,"Types d'alternatives développées (charbon vert, résidus de culture, gaz butane, ethanol, énergie solaire, biogaz, sac écologique, autres)",""),
         (245,"Quantité produite par type d'alternative (liste)",0,1,3,0,NULL,217,NULL,"Quantité produite par type d'alternative (liste)",""),
-        (246,"Alternative promue (oui/non)",0,1,3,1,31,217,NULL,"Alternative promue (oui/non)",""),
+        (246,"Alternative promue (oui/non)",0,1,3,1,32,217,NULL,"Alternative promue (oui/non)",""),
         (247,"Nombre total de ménage adoptant les alternatives",0,1,3,0,NULL,217,NULL,"Nombre total de ménage adoptant les alternatives",""),
         (248,"Prix unitaire des alternatives (Ariary)",0,1,3,0,NULL,217,NULL,"Prix unitaire des alternatives (Ariary)",""),
         (249,"Observations économie verte",0,1,3,0,NULL,217,NULL,"Observations économie verte",""),
@@ -964,7 +964,7 @@ class BaseDao {
         (344,"Support produit (designation)",0,1,3,0,NULL,341,NULL,"Support produit (designation)",""),
         (345,"Date de début et de fin de l'IEC",0,1,3,0,NULL,341,NULL,"Date de début et de fin de l'IEC",""),
         (346,"Initiateur de l'IEC",0,1,3,0,NULL,341,NULL,"Initiateur de l'IEC",""),
-        (347,"Projet d'appui de l'IEC",0,1,3,1,NULL,341,NULL,"Projet d'appui de l'IEC",""),
+        (347,"Projet d'appui de l'IEC",0,1,3,0,NULL,341,NULL,"Projet d'appui de l'IEC",""),
         (348,"Identifiant du projet d'appui pour l'IEC",0,1,3,0,NULL,341,NULL,"Identifiant du projet d'appui pour l'IEC",""),
         (349,"Nombre de séance",0,1,3,1,NULL,341,NULL,"Nombre de séance",""),
         (350,"Nombre total de participants",0,1,3,1,NULL,341,NULL,"Nombre total de participants",""),
@@ -978,8 +978,8 @@ class BaseDao {
         (358,"Niveau d'intervention (District, Commune, Fokontany)",0,1,3,0,NULL,341,NULL,"Niveau d'intervention (District, Commune, Fokontany)",""),
         (359,"Nom de la Commune bénéficiant de l'IEC",0,1,3,1,NULL,341,NULL,"Nom de la Commune bénéficiant de l'IEC",""),
         (360,"Nom de la localité bénéficiant de l'IEC",0,1,3,0,NULL,341,NULL,"Nom de la localité bénéficiant de l'IEC",""),
-        (361,"IEC média classique (radio, télévision, journaux)",0,1,3,1,NULL,341,NULL,"IEC média classique (radio, télévision, journaux)",""),
-        (362,"IEC nouveau média (réseaux sociaux, à préciser)",0,1,3,1,NULL,341,NULL,"IEC nouveau média (réseaux sociaux, à préciser)",""),
+        (361,"IEC média classique (radio, télévision, journaux)",0,1,3,0,NULL,341,NULL,"IEC média classique (radio, télévision, journaux)",""),
+        (362,"IEC nouveau média (réseaux sociaux, à préciser)",0,1,3,0,NULL,341,NULL,"IEC nouveau média (réseaux sociaux, à préciser)",""),
         (363,"Observations IEC",0,1,3,0,NULL,341,NULL,"Observations IEC",""),
         (364,"Source de données IEC",0,1,3,1,NULL,341,NULL,"Source de données IEC",""),
     
@@ -991,9 +991,9 @@ class BaseDao {
         (368,"Emplacement de l'infrastructure (localité)",0,1,3,0,NULL,365,NULL,"Emplacement de l'infrastructure (localité)",""),
         (369,"Secteur impliqué (éducation, santé, travaux publics, ...)",0,1,3,1,NULL,365,NULL,"Secteur impliqué (éducation, santé, travaux publics, ...)",""),
         (370,"Nouvellement construite ou réhabilitée ou existante",0,1,3,1,NULL,365,NULL,"Nouvellement construite ou réhabilitée ou existante",""),
-        (371,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",0,1,3,0,NULL,365,NULL,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",""),
+        (371,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",0,1,3,1,NULL,365,NULL,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",""),
         (372,"Infrastructure actuellement opérationnelle (oui/non)",0,1,3,1,NULL,365,NULL,"Infrastructure actuellement opérationnelle (oui/non)",""),
-        (373,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",0,1,3,0,52,365,NULL,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",""),
+        (373,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",0,1,3,1,52,365,NULL,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",""),
         (374,"Niveau de localisation infrastructures opérationnelles (Direction centrale, Direction régionale, cantonnement, triage)",0,1,3,1,NULL,365,NULL,"Niveau de localisation infrastructures opérationnelles (Direction centrale, Direction régionale, cantonnement, triage)",""),
         (375,"STD ou CTD",0,1,3,1,53,365,NULL,"STD ou CTD",""),
         (376,"Personnes/services utilisant le(s) infrastructure(s) (STD, préciser si CTD)",0,1,3,1,NULL,365,NULL,"Personnes/services utilisant le(s) infrastructure(s) (STD, préciser si CTD)",""),
@@ -1019,7 +1019,7 @@ class BaseDao {
         (393,"Budget pour l'acquisition du matériel roulant (Ariary)",0,1,3,0,NULL,385,NULL,"Budget pour l'acquisition du matériel roulant (Ariary)",""),
         (394,"Budget pour l'entretien du matériel roulant (Ariary)",0,1,3,0,NULL,385,NULL,"Budget pour l'entretien du matériel roulant (Ariary)",""),
         (395,"Source de financement du matériel roulant (interne ou externe)",0,1,3,1,NULL,385,NULL,"Source de financement du matériel roulant (interne ou externe)",""),
-        (396,"Projet d'appui du matériel roulant (si externe)",0,1,3,1,NULL,385,NULL,"Projet d'appui du matériel roulant (si externe)",""),
+        (396,"Projet d'appui du matériel roulant (si externe)",0,1,3,0,NULL,385,NULL,"Projet d'appui du matériel roulant (si externe)",""),
         (397,"Identifiant du projet d'appui pour le matériel roulant",0,1,3,0,NULL,385,NULL,"Identifiant du projet d'appui pour le matériel roulant",""),
         (398,"Images matériel roulant",0,1,3,0,NULL,385,NULL,"Images matériel roulant",""),
         (399,"Observations matériel roulant",0,1,3,0,NULL,385,NULL,"Observations matériel roulant",""),
@@ -1033,13 +1033,13 @@ class BaseDao {
         (404,"Date d'acquiqition/utilisation du matériel informatique",0,1,3,1,NULL,401,NULL,"Date d'acquiqition/utilisation du matériel informatique",""),
         (405,"Matériel informatique actuellement opérationnel (oui/non)",0,1,3,1,NULL,401,NULL,"Matériel informatique actuellement opérationnel (oui/non)",""),
         (406,"Etat actuel du matériel informatique (mauvais, moyen, bon)",0,1,3,1,55,401,NULL,"Etat actuel du matériel informatique (mauvais, moyen, bon)",""),
-        (407,"A condamner ou à réparer",0,1,3,1,NULL,401,NULL,"A condamner ou à réparer",""),
+        (407,"A condamner ou à réparer",0,1,3,0,NULL,401,NULL,"A condamner ou à réparer",""),
         (408,"Niveau de localisation de matériels informatiques en état de marche (Direction centrale, Direction régionale, cantonnement, triage)",0,1,3,1,NULL,401,NULL,"Niveau de localisation de matériels informatiques en état de marche (Direction centrale, Direction régionale, cantonnement, triage)",""),
         (409,"Personnes/services utilisant le(s) matériel(s) informatique(s)",0,1,3,1,NULL,401,NULL,"Personnes/services utilisant le(s) matériel(s) informatique(s)",""),
         (410,"Budget pour l'acquisition du matériel informatique (Ariary)",0,1,3,0,NULL,401,NULL,"Budget pour l'acquisition du matériel informatique (Ariary)",""),
         (411,"Budget pour l'entretien du matériel informatique (Ariary)",0,1,3,0,NULL,401,NULL,"Budget pour l'entretien du matériel informatique (Ariary)",""),
         (412,"Source de financement du matériel informatique (interne ou externe)",0,1,3,1,NULL,401,NULL,"Source de financement du matériel informatique (interne ou externe)",""),
-        (413,"Projet d'appui du matériel informatique (si externe)",0,1,3,1,NULL,401,NULL,"Projet d'appui du matériel informatique (si externe)",""),
+        (413,"Projet d'appui du matériel informatique (si externe)",0,1,3,0,NULL,401,NULL,"Projet d'appui du matériel informatique (si externe)",""),
         (414,"Identifiant du projet d'appui pour le matériel informatique",0,1,3,0,NULL,401,NULL,"Identifiant du projet d'appui pour le matériel informatique",""),
         (415,"Images matériel informatique",0,1,3,0,NULL,401,NULL,"Images matériel informatique",""),
         (416,"Observations matériel informatique",0,1,3,0,NULL,401,NULL,"Observations matériel informatique",""),
@@ -1048,7 +1048,7 @@ class BaseDao {
     
     
         (418,"Désignation du matériel mobilier",1,1,3,1,NULL,NULL,NULL,"Désignation du matériel mobilier",""),
-        (419,"Date d'acquiqition/utilisation du matériel mobilier",0,1,3,0,NULL,418,NULL,"Date d'acquiqition/utilisation du matériel mobilier",""),
+        (419,"Date d'acquiqition/utilisation du matériel mobilier",0,1,3,1,NULL,418,NULL,"Date d'acquiqition/utilisation du matériel mobilier",""),
         (420,"Commune d'emplacement du matériel mobilier",0,1,3,1,NULL,418,NULL,"Commune d'emplacement du matériel mobilier",""),
         (421,"Matériel mobilier actuellement utilisable (oui/non)",0,1,3,1,NULL,418,NULL,"Matériel mobilier actuellement utilisable (oui/non)",""),
         (422,"Etat actuel du matériel mobilier (mauvais, moyen, bon)",0,1,3,1,56,418,NULL,"Etat actuel du matériel mobilier (mauvais, moyen, bon)",""),
@@ -1057,7 +1057,7 @@ class BaseDao {
         (425,"Budget pour l'acquisition du matériel mobilier (Ariary)",0,1,3,0,NULL,418,NULL,"Budget pour l'acquisition du matériel mobilier (Ariary)",""),
         (426,"Budget pour l'entretien du matériel mobilier (Ariary)",0,1,3,0,NULL,418,NULL,"Budget pour l'entretien du matériel mobilier (Ariary)",""),
         (427,"Source de financement du matériel mobilier (interne ou externe)",0,1,3,1,NULL,418,NULL,"Source de financement du matériel mobilier (interne ou externe)",""),
-        (428,"Projet d'appui du matériel mobilier (si externe)",0,1,3,1,NULL,418,NULL,"Projet d'appui du matériel mobilier (si externe)",""),
+        (428,"Projet d'appui du matériel mobilier (si externe)",0,1,3,0,NULL,418,NULL,"Projet d'appui du matériel mobilier (si externe)",""),
         (429,"Identifiant du projet d'appui pour le matériel mobilier",0,1,3,0,NULL,418,NULL,"Identifiant du projet d'appui pour le matériel mobilier",""),
         (430,"Images matériel mobilier",0,1,3,0,NULL,418,NULL,"Images matériel mobilier",""),
         (431,"Observations matériel mobilier",0,1,3,0,NULL,418,NULL,"Observations matériel mobilier",""),
@@ -1077,7 +1077,7 @@ class BaseDao {
         (442,"Nombre d'outil ou de guide distribué et utilisé",0,1,3,1,NULL,433,NULL,"Nombre d'outil ou de guide distribué et utilisé",""),
         (443,"Budget pour la création de l'outil ou du guide (Ariary)",0,1,3,0,NULL,433,NULL,"Budget pour la création de l'outil ou du guide (Ariary)",""),
         (444,"Source de financement de l'outil ou du guide (interne ou externe)",0,1,3,1,NULL,433,NULL,"Source de financement de l'outil ou du guide (interne ou externe)",""),
-        (445,"Projet d'appui de l'outil ou du guide (si externe)",0,1,3,1,NULL,433,NULL,"Projet d'appui de l'outil ou du guide (si externe)",""),
+        (445,"Projet d'appui de l'outil ou du guide (si externe)",0,1,3,0,NULL,433,NULL,"Projet d'appui de l'outil ou du guide (si externe)",""),
         (446,"Identifiant du projet d'appui pour l'outil ou le guide",0,1,3,0,NULL,433,NULL,"Identifiant du projet d'appui pour l'outil ou le guide",""),
         (447,"Fichiers (outils et guides)",0,1,3,0,NULL,433,NULL,"Fichiers (outils et guides)",""),
         (448,"Observations outils",0,1,3,0,NULL,433,NULL,"Observations outils",""),
@@ -1088,7 +1088,7 @@ class BaseDao {
         (450,"Intitulé du projet",1,1,3,1,NULL,NULL,NULL,"Intitulé du projet",""),
         (451,"Commune d'intervention du projet",0,1,3,1,NULL,450,NULL,"Commune d'intervention du projet",""),
         (452,"Date de commencement du projet",0,1,3,1,NULL,450,NULL,"Date de commencement du projet",""),
-        (453,"Date de clôture du projet",0,1,3,1,NULL,450,NULL,"Date de clôture du projet",""),
+        (453,"Date de clôture du projet",0,1,3,0,NULL,450,NULL,"Date de clôture du projet",""),
         (454,"Projet ayant été l'objet de planifiaction (oui/non)",0,1,3,1,59,450,NULL,"Projet ayant été l'objet de planifiaction (oui/non)",""),
         (455,"Projet ayant été l'objet de suivi (oui/non)",0,1,3,1,60,450,NULL,"Projet ayant été l'objet de suivi (oui/non)",""),
         (456,"Projet ayant été l'objet d'évaluation (oui/non)",0,1,3,1,61,450,NULL,"Projet ayant été l'objet d'évaluation (oui/non)",""),
@@ -1099,7 +1099,7 @@ class BaseDao {
         (461,"Budget attribué aux activités d'évaluation (Ariary)",0,1,3,1,NULL,450,NULL,"Budget attribué aux activités d'évaluation (Ariary)",""),
         (462,"Nombre de programmation effectuée",0,1,3,1,NULL,450,NULL,"Nombre de programmation effectuée",""),
         (463,"Existence de base de données (oui/non)",0,1,3,1,63,450,NULL,"Existence de base de données (oui/non)",""),
-        (464,"Si oui, existence de mise à jour (oui/non)",0,1,3,1,NULL,450,NULL,"Si oui, existence de mise à jour (oui/non)",""),
+        (464,"Si oui, existence de mise à jour (oui/non)",0,1,3,0,NULL,450,NULL,"Si oui, existence de mise à jour (oui/non)",""),
         (465,"Existence de système d'information opérationnel (oui/non)",0,1,3,1,64,450,NULL,"Existence de système d'information opérationnel (oui/non)",""),
         (466,"Thématique du SI",0,1,3,0,NULL,450,NULL,"Thématique du SI",""),
         (467,"Observations PPSE",0,1,3,0,NULL,450,NULL,"Observations PPSE",""),
@@ -1129,7 +1129,7 @@ class BaseDao {
         (488,"Superficie reboisée (ha)",0,1,3,1,NULL,469,NULL,"Superficie reboisée (ha)",""),
         (489,"Geojson surface reboisée",0,1,3,0,NULL,469,NULL,"Geojson surface reboisée",""),
         (490,"Source de financement du reboisement (interne ou externe)",0,1,3,1,NULL,469,NULL,"Source de financement du reboisement (interne ou externe)",""),
-        (491,"Projet d'appui du reboisement (si externe)",0,1,3,1,NULL,469,NULL,"Projet d'appui du reboisement (si externe)",""),
+        (491,"Projet d'appui du reboisement (si externe)",0,1,3,0,NULL,469,NULL,"Projet d'appui du reboisement (si externe)",""),
         (492,"Identifiant du projet d'appui pour le reboisement et la gestion des terres",0,1,3,0,NULL,469,NULL,"Identifiant du projet d'appui pour le reboisement et la gestion des terres",""),
         (493,"Pare feux (km)",0,1,3,1,NULL,469,NULL,"Pare feux (km)",""),
         (494,"Matériels de lutte active",0,1,3,0,NULL,469,NULL,"Matériels de lutte active",""),
@@ -1156,7 +1156,7 @@ class BaseDao {
         (515,"Catégorie/Zone d'intervention (Agroforesterie, Bassin versant, Dune, Forêt de Tapia, Littoral, Mangrove, Recif corallien)",0,1,3,0,NULL,469,NULL,"Catégorie/Zone d'intervention (Agroforesterie, Bassin versant, Dune, Forêt de Tapia, Littoral, Mangrove, Recif corallien)",""),
         (516,"Terre dégradée avec des interventions de défense ou de protection (oui/non)",0,1,3,1,NULL,469,NULL,"Terre dégradée avec des interventions de défense ou de protection (oui/non)",""),
         (517,"Existence de protection antiérosive (oui/non)",0,1,3,1,NULL,469,NULL,"Existence de protection antiérosive (oui/non)",""),
-        (518,"Autres protections (à préciser)",0,1,3,1,NULL,469,NULL,"Autres protections (à préciser)",""),
+        (518,"Autres protections (à préciser)",0,1,3,0,NULL,469,NULL,"Autres protections (à préciser)",""),
         (519,"Superficie de DRS (ha)",0,1,3,1,NULL,469,NULL,"Superficie de DRS (ha)",""),
         (520,"Geojson de la DRS",0,1,3,0,NULL,469,NULL,"Geojson de la DRS",""),
         (521,"Fixation de dunes (oui/non)",0,1,3,1,NULL,469,NULL,"Fixation de dunes (oui/non)",""),
@@ -1187,7 +1187,7 @@ class BaseDao {
         (543,"Résultats de recherche appliqués (oui/non)",0,1,3,1,71,533,NULL,"Résultats de recherche appliqués (oui/non)",""),
         (544,"Produits de recherche diffusés, vulgarisés, promus (oui/non)",0,1,3,1,72,533,NULL,"Produits de recherche diffusés, vulgarisés, promus (oui/non)",""),
         (545,"Source de financement de la recherche (interne ou externe)",0,1,3,1,NULL,533,NULL,"Source de financement de la recherche (interne ou externe)",""),
-        (546,"Projet d'appui de la recherche (si externe)",0,1,3,1,NULL,533,NULL,"Projet d'appui de la recherche (si externe)",""),
+        (546,"Projet d'appui de la recherche (si externe)",0,1,3,0,NULL,533,NULL,"Projet d'appui de la recherche (si externe)",""),
         (547,"Coûts des activités de recherche (Ariary)",0,1,3,0,NULL,533,NULL,"Coûts des activités de recherche (Ariary)",""),
         (548,"Identifiant du projet d'appui pour la recherche",0,1,3,0,NULL,533,NULL,"Identifiant du projet d'appui pour la recherche",""),
         (549,"Observations recherche",0,1,3,0,NULL,533,NULL,"Observations recherche",""),
@@ -1214,7 +1214,7 @@ class BaseDao {
                                                               
         (565,"Intitulé du poste",1,1,3,1,NULL,NULL,NULL,"Intitulé du poste",""),
         (566,"Justificatif d'assignation (Décisions, Note de service, arrêtés, décrets avec numéro)",0,1,3,1,NULL,565,NULL,"Justificatif d'assignation (Décisions, Note de service, arrêtés, décrets avec numéro)",""),
-        (567,"Poste occupé ou vaccant",0,1,3,1,74,565,NULL,"Poste occupé ou vaccant",""),
+        (567,"Poste occupé ou vaccant",0,1,3,1,75,565,NULL,"Poste occupé ou vaccant",""),
         (568,"Type du poste (administratif, technique)",0,1,3,1,75,565,NULL,"Type du poste (administratif, technique)",""),
         (569,"Statut du personnel (ECD, ELD, EFA, fonctionnaire)",0,1,3,1,74,565,NULL,"Statut du personnel (ECD, ELD, EFA, fonctionnaire)",""),
         (570,"Commune d'affectation",0,1,3,0,NULL,565,NULL,"Commune d'affectation",""),
@@ -1230,7 +1230,7 @@ class BaseDao {
                                                               
                                                               
                                                               
-        (580,"Site du TG",1,1,3,1,NULL,NULL,NULL,"Site du TG",""),
+        (580,"Site/Intitulé du TG",1,1,3,1,NULL,NULL,NULL,"Site du TG",""),
         (581,"Fokontany d'implatation du TG",0,1,3,0,NULL,580,NULL,"Fokontany d'implatation du TG",""),
         (582,"Commune d'implatation du TG",0,1,3,1,NULL,580,NULL,"Commune d'implatation du TG",""),
         (583,"Type de forêts (Primaire, Secondaire, Littorale, Fourré, Mangrove, Satrana, Raphia, Tapia, Domaniale, Reboisement, Zone de pêches, etc.)",0,1,3,1,NULL,580,NULL,"Type de forêts (Primaire, Secondaire, Littorale, Fourré, Mangrove, Satrana, Raphia, Tapia, Domaniale, Reboisement, Zone de pêches, etc.)",""),
@@ -1239,8 +1239,8 @@ class BaseDao {
         (586,"Vocation/Objectifs (Conservation, Valorisation, Ecotourisme, Droit d'usage (CDU), Restauration, Production, Reserve, Réhabilitation, Enrichissement, Reboisement, Exploitation, Production durable, Zone de culture, Plantes fourragères, Production charbon de bois, Utilisation culturelle, etc.)",0,1,3,1,NULL,580,NULL,"Vocation/Objectifs (Conservation, Valorisation, Ecotourisme, Droit d'usage (CDU), Restauration, Production, Reserve, Réhabilitation, Enrichissement, Reboisement, Exploitation, Production durable, Zone de culture, Plantes fourragères, Production charbon de bois, Utilisation culturelle, etc.)",""),
         (587,"Surface contrat 2 (ha)",0,1,3,1,NULL,580,NULL,"Surface contrat 2 (ha)",""),
         (588,"Date 1er contrat",0,1,3,1,NULL,580,NULL,"Date 1er contrat",""),
-        (589,"Date Evaluation 1er contrat",0,1,3,1,NULL,580,NULL,"Date Evaluation 1er contrat",""),
-        (590,"Date Déliberation",0,1,3,1,NULL,580,NULL,"Date Déliberation",""),
+        (589,"Date Evaluation 1er contrat",0,1,3,0,NULL,580,NULL,"Date Evaluation 1er contrat",""),
+        (590,"Date Déliberation",0,1,3,0,NULL,580,NULL,"Date Déliberation",""),
         (591,"Date 2ème contrat",0,1,3,0,NULL,580,NULL,"Date 2ème contrat",""),
         (592,"Ressources concernées dans le site de TG",0,1,3,1,NULL,580,NULL,"Ressources concernées dans le site de TG",""),
         (593,"Nouvellement créé ou renouvelé",0,1,3,1,NULL,580,NULL,"Nouvellement créé ou renouvelé",""),
@@ -1249,12 +1249,12 @@ class BaseDao {
         (596,"Nombre des membres de COBA/VOI",0,1,3,0,NULL,580,NULL,"Nombre des membres de COBA/VOI",""),
         (597,"COBA/VOI structurée (oui/non)",0,1,3,0,NULL,580,NULL,"COBA/VOI structurée (oui/non)",""),
         (598,"COBA/VOI formée (oui/non)",0,1,3,1,81,580,NULL,"COBA/VOI formée (oui/non)",""),
-        (599,"COBA/VOI opérationnelle (oui/non)",0,1,3,0,NULL,580,NULL,"COBA/VOI opérationnelle (oui/non)",""),
+        (599,"COBA/VOI opérationnelle (oui/non)",0,1,3,1,NULL,580,NULL,"COBA/VOI opérationnelle (oui/non)",""),
         (600,"Nombre de ménages bénéficiaires du TG",0,1,3,1,NULL,580,NULL,"Nombre de ménages bénéficiaires du TG",""),
         (601,"COBA/VOI appuyée/soutenue (oui/non)",0,1,3,1,82,580,NULL,"COBA/VOI appuyée/soutenue (oui/non)",""),
         (602,"Type d'appui pour TG (dotation matériels, formation, AGR…)",0,1,3,0,NULL,580,NULL,"Type d'appui pour TG (dotation matériels, formation, AGR…)",""),
         (603,"Organisme d'appui du TG",0,1,3,1,NULL,580,NULL,"Organisme d'appui du TG",""),
-        (604,"Projet d'appui du TG",0,1,3,1,NULL,580,NULL,"Projet d'appui du TG",""),
+        (604,"Projet d'appui du TG",0,1,3,0,NULL,580,NULL,"Projet d'appui du TG",""),
         (605,"Identifiant du projet d'appui du TG",0,1,3,0,NULL,580,NULL,"Identifiant du projet d'appui du TG",""),
         (606,"Existence de suivi du TG (oui/non)",0,1,3,1,78,580,NULL,"Existence de suivi du TG (oui/non)",""),
         (607,"Objetcif du suivi de TG",0,1,3,0,NULL,580,NULL,"Objetcif du suivi de TG",""),
@@ -1275,7 +1275,7 @@ class BaseDao {
                                                               
                                                               
         (621,"Date de création de la pépinière",1,1,3,1,NULL,NULL,NULL,"Date de création de la pépinière",""),
-        (622,"Pépinière fonctionnelle (oui/non)",0,1,3,0,NULL,621,NULL,"Pépinière fonctionnelle (oui/non)",""),
+        (622,"Pépinière fonctionnelle (oui/non)",0,1,3,1,NULL,621,NULL,"Pépinière fonctionnelle (oui/non)",""),
         (623,"Commune d'implantation de la pépinière",0,1,3,1,NULL,621,NULL,"Commune d'implantation de la pépinière",""),
         (624,"Longitude pépinière (en degré décimal) : X",0,1,3,1,NULL,621,NULL,"Longitude pépinière (en degré décimal) : X",""),
         (625,"Latitude pépinière (en degré décimal) : Y",0,1,3,1,NULL,621,NULL,"Latitude pépinière (en degré décimal) : Y",""),
@@ -1283,7 +1283,7 @@ class BaseDao {
         (627,"Pépinière privée (oui/non)",0,1,3,0,NULL,621,NULL,"Pépinière privée (oui/non)",""),
         (628,"Geojson localisation pépinière",0,1,3,0,NULL,621,NULL,"Geojson localisation pépinière",""),
         (629,"Source de financement de la pépinière (interne ou externe)",0,1,3,1,NULL,621,NULL,"Source de financement de la pépinière (interne ou externe)",""),
-        (630,"Projet d'appui de la pépinière (si externe)",0,1,3,1,NULL,621,NULL,"Projet d'appui de la pépinière (si externe)",""),
+        (630,"Projet d'appui de la pépinière (si externe)",0,1,3,0,NULL,621,NULL,"Projet d'appui de la pépinière (si externe)",""),
         (631,"Identifiant du projet d'appui de la pépinière",0,1,3,0,NULL,621,NULL,"Identifiant du projet d'appui de la pépinière",""),
         (632,"Nom Propriétaire (Nom et prénom si personne physique ; Nom ou dénomination si personne morale)",0,1,3,0,NULL,621,NULL,"Nom Propriétaire (Nom et prénom si personne physique ; Nom ou dénomination si personne morale)",""),
         (633,"Genre du propriétaire (masculin, féminin, autre)",0,1,3,0,NULL,621,NULL,"Genre du propriétaire (masculin, féminin, autre)",""),
@@ -1320,7 +1320,7 @@ class BaseDao {
         (661,"Intitulé du financement dans le cadre du DD",0,1,3,0,NULL,641,NULL,"Intitulé du financement dans le cadre du DD",""),
         (662,"Source de financement (interne ou externe)",0,1,3,0,NULL,641,NULL,"Source de financement (interne ou externe)",""),
         (663,"Date d'accord de financement",0,1,3,0,NULL,641,NULL,"Date d'accord de financement",""),
-        (664,"Montant du financement (Ariary)",0,1,3,1,NULL,641,NULL,"Montant du financement (Ariary)",""),
+        (664,"Montant du financement (Ariary)",0,1,3,0,NULL,641,NULL,"Montant du financement (Ariary)",""),
         (665,"Identifiant du projet d'appui pour le DD",0,1,3,0,NULL,641,NULL,"Identifiant du projet d'appui pour le DD",""),
         (666,"Observations DD",0,1,3,0,NULL,641,NULL,"Observations DD",""),
         (667,"Source de données DD",0,1,3,1,NULL,641,NULL,"Source de données DD",""),
@@ -1334,7 +1334,7 @@ class BaseDao {
         (672,"Activités de PSE appuyées (oui/non)",0,1,3,0,NULL,668,NULL,"Activités de PSE appuyées (oui/non)",""),
         (673,"Type d'appui venant du PSE (dotation matériels, formation, AGR…)",0,1,3,0,NULL,668,NULL,"Type d'appui venant du PSE (dotation matériels, formation, AGR…)",""),
         (674,"Source de financement du PSE (interne ou externe)",0,1,3,1,NULL,668,NULL,"Source de financement du PSE (interne ou externe)",""),
-        (675,"Projet d'appui du PSE (si externe)",0,1,3,1,NULL,668,NULL,"Projet d'appui du PSE (si externe)",""),
+        (675,"Projet d'appui du PSE (si externe)",0,1,3,0,NULL,668,NULL,"Projet d'appui du PSE (si externe)",""),
         (676,"Identifiant du projet d'appui pour le PSE",0,1,3,0,NULL,668,NULL,"Identifiant du projet d'appui pour le PSE",""),
         (677,"Nombre de ménages bénéficiaires du PSE",0,1,3,1,NULL,668,NULL,"Nombre de ménages bénéficiaires du PSE",""),
         (678,"Micro-projets financés (oui/non)",0,1,3,0,NULL,668,NULL,"Micro-projets financés (oui/non)",""),
@@ -1449,10 +1449,10 @@ class BaseDao {
     sql.push(`UPDATE indicateur set id_question = 	462	WHERE id = 	62`);
     sql.push(`UPDATE indicateur set id_question = 	450	WHERE id = 	63`);
     sql.push(`UPDATE indicateur set id_question = 	450	WHERE id = 	64`);
-    sql.push(`UPDATE indicateur set id_question = 	487	WHERE id = 	65`);
-    sql.push(`UPDATE indicateur set id_question = 	478	WHERE id = 	66`);
-    sql.push(`UPDATE indicateur set id_question = 	521	WHERE id = 	67`);
-    sql.push(`UPDATE indicateur set id_question = 	481	WHERE id = 	68`);
+    sql.push(`UPDATE indicateur set id_question = 	488	WHERE id = 	65`);
+    sql.push(`UPDATE indicateur set id_question = 	479	WHERE id = 	66`);
+    sql.push(`UPDATE indicateur set id_question = 	522	WHERE id = 	67`);
+    sql.push(`UPDATE indicateur set id_question = 	482	WHERE id = 	68`);
     sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	69`);
     sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	70`);
     sql.push(`UPDATE indicateur set id_question = 	533	WHERE id = 	71`);
@@ -1460,18 +1460,18 @@ class BaseDao {
     sql.push(`UPDATE indicateur set id_question = 	551	WHERE id = 	73`);
     sql.push(`UPDATE indicateur set id_question = 	565	WHERE id = 	74`);
     sql.push(`UPDATE indicateur set id_question = 	565	WHERE id = 	75`);
-    sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	76`);
-    sql.push(`UPDATE indicateur set id_question = 	586	WHERE id = 	77`);
-    sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	78`);
-    sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	79`);
-    sql.push(`UPDATE indicateur set id_question = 	599	WHERE id = 	80`);
-    sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	81`);
-    sql.push(`UPDATE indicateur set id_question = 	582	WHERE id = 	82`);
+    sql.push(`UPDATE indicateur set id_question = 	584	WHERE id = 	76`);
+    sql.push(`UPDATE indicateur set id_question = 	587	WHERE id = 	77`);
+    sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	78`);
+    sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	79`);
+    sql.push(`UPDATE indicateur set id_question = 	600	WHERE id = 	80`);
+    sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	81`);
+    sql.push(`UPDATE indicateur set id_question = 	583	WHERE id = 	82`);
     sql.push(`UPDATE indicateur set id_question = 	638	WHERE id = 	83`);
     sql.push(`UPDATE indicateur set id_question = 	641	WHERE id = 	84`);
-    sql.push(`UPDATE indicateur set id_question = 	652	WHERE id = 	85`);
+    sql.push(`UPDATE indicateur set id_question = 	653	WHERE id = 	85`);
     sql.push(`UPDATE indicateur set id_question = 	670	WHERE id = 	86`);
-    sql.push(`UPDATE indicateur set id_question = 	676	WHERE id = 	87`);
+    sql.push(`UPDATE indicateur set id_question = 	677	WHERE id = 	87`);
     sql.push(`UPDATE indicateur set id_question = 	689	WHERE id = 	88`);
     sql.push(`UPDATE indicateur set id_question = 	689	WHERE id = 	89`);
 

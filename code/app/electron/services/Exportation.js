@@ -366,7 +366,7 @@ class Exportation {
         let idQuestions = [];
         repo.table = "reponse_non_valide";
 
-        if (rows.length > 0) {
+        if (rows.length > 1) {
           let deleted = false;
           for (let index = 0; index < rows.length; index++) {
             for (let i = 0; i < rows[index].length; i++) {
@@ -419,6 +419,8 @@ class Exportation {
               }
             }
           }
+        } else {
+          throw new Error("Le canevas est vide");
         }
       } else {
         throw new Error("L'opération a été annulé");
