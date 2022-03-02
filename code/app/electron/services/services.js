@@ -29,21 +29,29 @@ ipcMain.on("asynchronous-validate", (event, name, entity, val) => {
   if (name == "user") repository = new UserRepository(dao);
   else repository = new BaseRepository(dao, name);
 
-  // Run the query
-  repository
-    .validateDB(entity, val, database)
-    .then(() => {
-      repository.allDB(database).then((rows) => {
-        event.reply("asynchronous-reply", rows);
-      });
-    })
-    .catch((error) => {
-      log.error(error);
-      event.reply("asynchronous-reply", []);
-    });
+  //validate online
+  const exp = new Exportation();
+  exp.validerUser(entity, val).then((resp) => {
+    if (resp) {
+      // Run the query
+      repository
+        .validateDB(entity, val, database)
+        .then(() => {
+          repository.allDB(database).then((rows) => {
+            event.reply("asynchronous-reply", rows);
+          });
+        })
+        .catch((error) => {
+          log.error(error);
+          event.reply("asynchronous-reply", []);
+        });
 
-  // Close database connection
-  database.close;
+      // Close database connection
+      database.close;
+    } else {
+      event.reply("asynchronous-reply", false);
+    }
+  });
 });
 
 ipcMain.on("asynchronous-add", (event, name, entity) => {

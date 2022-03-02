@@ -21,27 +21,31 @@ class Exportation {
    */
   async validerUser(ids, status) {
     let valiny = [];
-    for (let index = 0; index < ids.length; index++) {
-      try {
-        const response = await fetch(
-          "https://spse.llanddev.org/valider_user.php",
-          {
-            method: "post",
-            body: JSON.stringify({ id: ids[index], status: status }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+    // for (let index = 0; index < ids.length; index++) {
+    try {
+      const body = { ids: ids, value: status };
+      log.info("validerUser : body");
+      log.info(JSON.stringify(body));
+      log.info("------------------------------------");
+      const response = await fetch(
+        "https://spse.llanddev.org/valider_user.php",
+        {
+          method: "post",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-        const data = await response.json();
-        log.info("ValiderUser : ");
-        log.info(JSON.stringify({ id: id, status: status }));
-        log.info(data);
-        log.info("---------------");
-        valiny.push(data);
-      } catch (err) {
-        log.info(err);
-      }
+      const data = await response.json();
+      log.info("ValiderUser : ");
+      // log.info(JSON.stringify({ id: id, status: status }));
+      log.info(data);
+      log.info("---------------");
+      valiny.push(data);
+    } catch (err) {
+      log.info(err);
     }
+    // }
     log.info("validerUser: farany");
     log.info(valiny);
     log.info("-------------------------------------");
