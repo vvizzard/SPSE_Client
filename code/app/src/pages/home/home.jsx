@@ -113,7 +113,7 @@ export default function Home(props) {
         </div>
       );
     }
-    if (props.user && props.user.category_id == 2) {
+    if (props.user && props.user.category_id == 2 || props.user && props.user.category_id == 0) {
       setMaj(
         <div>
           {/* <NavLink to={ROUTES.USERS}>

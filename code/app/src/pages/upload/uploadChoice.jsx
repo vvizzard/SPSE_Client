@@ -119,7 +119,15 @@ export default function UploadChoice(props) {
 
   function getThematique() {
     window.api.get("asynchronous-get", "thematique").then((result) => {
-      setThematique(result);
+      let valiny = [];
+      if(props.user.category_id == 0) {
+        valiny = result.filter((item) => item.comment == "Centrale"||item.comment == "Tous");  
+      } else {
+        valiny = result.filter((item) => item.comment == "Cantonnement"||item.comment == "Tous");  
+      }
+      
+      
+      setThematique(valiny);
     });
   }
 
