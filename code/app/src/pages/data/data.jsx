@@ -4,6 +4,7 @@ import { MultiSelect } from "react-multi-select-component";
 import ROUTES from "Constants/routes";
 import CONST from "Constants/general";
 import Table from "../../components/Table";
+import CarteM from "../../components/CarteM";
 
 export default function Data(props) {
   // const animatedComponents = makeAnimated();
@@ -233,6 +234,8 @@ export default function Data(props) {
             {indicateurs}
 
             <Table columns={column} data={responses} nowrap={true} />
+            <br />
+            <CarteM thematique={th} regionJson={window.api.getMap} />
           </div>
         </div>
       </div>
