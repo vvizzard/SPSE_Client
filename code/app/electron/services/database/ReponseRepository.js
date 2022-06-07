@@ -1,6 +1,7 @@
 const BaseRepository = require("./BaseRepository");
 const log = require("electron-log");
 const QuestionRepository = require("./QuestionRepository");
+const PTARepository = require("./PTARepository");
 const BaseDao = require("./BaseDao");
 
 class ResponseRepository extends BaseRepository {
@@ -52,7 +53,19 @@ class ResponseRepository extends BaseRepository {
       reponses
     );
 
-    return this.formatResponse(questions, reponses, indicateurs);
+    // get PTA for each indicator
+    const ptaRepository = new PTARepository(this.dao);
+    var pta = [];
+    if (entity && entity.district_id)
+      pta = await ptaRepository.getPTAComplete(
+        entity.district_id,
+        entity.date.split("-")[1],
+        {
+          thematique_id: entity.thid,
+        }
+      );
+
+    return this.formatResponse(questions, reponses, indicateurs, pta);
   }
 
   /**
@@ -61,10 +74,11 @@ class ResponseRepository extends BaseRepository {
    * @param {Array} questions
    * @param {Array} reponses
    * @param {JSON} indicateurs
+   * @param {Array} pta
    *
    * @returns {JSON} Formated response
    */
-  async formatResponse(questions, reponses, indicateurs) {
+  async formatResponse(questions, reponses, indicateurs, pta) {
     // check if there is district in reponses
     if (
       !reponses ||
@@ -78,13 +92,24 @@ class ResponseRepository extends BaseRepository {
     // change district so it can be in the header of table in front
     questions[0] = { label: " District ", question: " District " };
 
+    // make PTA as object
+    let newPTA = {};
+    pta.forEach((p) => {
+      newPTA[p.indicateur.replaceAll(/[^a-zA-Z0-9]/g, "_")] = p.objectif;
+    });
+
     // format responses
     const farany = {
       // district: reponses[0]._District_,
       indicateurs: indicateurs,
       reponses: reponses,
       questions: questions,
+      pta: newPTA,
     };
+
+    log.info("Get reponse : format réponse");
+    log.info(farany);
+    log.info("------------------------------");
 
     return farany;
   }
@@ -243,7 +268,13 @@ class ResponseRepository extends BaseRepository {
               Object.entries(
                 indicateurTemporaire[ind.label.replaceAll(/[^a-zA-Z0-9]/g, "_")]
               ).map(([key, value]) => {
-                indicateur[ind.label + " ( " + key + " )"] = value["somme"];
+                if (key.toLowerCase() != "non") {
+                  let parenthese =
+                    key.toLocaleLowerCase() != "oui" ? " ( " + key + " )" : "";
+                  indicateur[ind.label + parenthese] = value["somme"];
+                } else {
+                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                }
               });
             }
           } else if (ind.count == 1) {
@@ -260,7 +291,13 @@ class ResponseRepository extends BaseRepository {
               Object.entries(
                 indicateurTemporaire[ind.label.replaceAll(/[^a-zA-Z0-9]/g, "_")]
               ).map(([key, value]) => {
-                indicateur[ind.label + " ( " + key + " )"] = value["count"];
+                if (key.toLowerCase() != "non") {
+                  let parenthese =
+                    key.toLocaleLowerCase() != "oui" ? " ( " + key + " )" : "";
+                  indicateur[ind.label + parenthese] = value["count"];
+                } else {
+                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                }
               });
             }
           } else if (ind.moy == 1) {
@@ -280,8 +317,14 @@ class ResponseRepository extends BaseRepository {
               Object.entries(
                 indicateurTemporaire[ind.label.replaceAll(/[^a-zA-Z0-9]/g, "_")]
               ).map(([key, value]) => {
-                indicateur[ind.label + " ( " + key + " )"] =
-                  value["somme"] / value["count"];
+                if (key.toLowerCase() != "non") {
+                  let parenthese =
+                    key.toLocaleLowerCase() != "oui" ? " ( " + key + " )" : "";
+                  indicateur[ind.label + parenthese] =
+                    value["somme"] / value["count"];
+                } else {
+                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                }
               });
             }
           }

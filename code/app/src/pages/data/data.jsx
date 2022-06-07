@@ -83,7 +83,7 @@ export default function Data(props) {
     ]);
   }
 
-  function makeIndicateur(indicateurs) {
+  function makeIndicateur(indicateurs, pta) {
     setIndicateurs(
       <div className="indicateurs-table">
         <table className="table">
@@ -91,6 +91,7 @@ export default function Data(props) {
             <tr>
               <th>Indicateur</th>
               <th>Valeur</th>
+              <th>Objectif annuel</th>
             </tr>
           </thead>
           <tbody>
@@ -99,6 +100,7 @@ export default function Data(props) {
                 <tr key={key + "indicateurs"}>
                   <td key={key + value}>{key}</td>
                   <td key={value + key}>{value}</td>
+                  <td key={value + key + key}>{pta[key.replaceAll(/[^a-zA-Z0-9]/g, "_")]}</td>
                 </tr>
               );
             })}
@@ -127,12 +129,36 @@ export default function Data(props) {
         console.log("getData : reponses");
         console.log(result.reponses);
         console.log("getData -------------------");
-        makeIndicateur(result.indicateurs ? result.indicateurs : []);
+        makeIndicateur(result.indicateurs ? result.indicateurs : [], result.pta ? result.pta : []);
         setResponses(result.reponses ? result.reponses : []);
         makeHeader(result.questions ? result.questions : []);
+
+        // window.api
+        //   .exporterReponse("export_reponse", "reponse", {
+        //     level: level,
+        //     date: date,
+        //     thid: thid,
+        //   })
+        //   .then((rs) => {
+        //     console.log("rs");
+        //     console.log(rs);
+        //   });
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  function exportExcel(level = niveau, date = annee, thid = th) {
+    window.api
+      .exporterReponse("export_reponse", "reponse", {
+        level: level,
+        date: date,
+        thid: thid,
+      })
+      .then((rs) => {
+        console.log("rs");
+        console.log(rs);
       });
   }
 
@@ -164,6 +190,10 @@ export default function Data(props) {
     setTabFocus(tbs);
     setTh(thid);
     getData(niveau, annee, thid);
+  };
+
+  const handleOnClickExport = (val) => {
+    exportExcel();
   };
 
   return (
@@ -234,6 +264,15 @@ export default function Data(props) {
             {indicateurs}
 
             <Table columns={column} data={responses} nowrap={true} />
+            <br />
+            <div className="bottom-btn">
+              <button
+                onClick={() => {
+                  handleOnClickExport("");
+                }}>
+                Exporter
+              </button>
+            </div>
             <br />
             <CarteM thematique={th} regionJson={window.api.getMap} />
           </div>

@@ -595,6 +595,18 @@ button.success {
   border: solid 1px #c2c2c275;
 }
 
+.pta-table {
+  width: 100%!important;
+}
+
+.st-pta-table {
+  overflow-x: unset;
+}
+
+.pta-table td, .pta-table th {
+  text-align: left!important;
+}
+
 .indicateurs-table {
   margin-bottom: 1em;
   margin-top: 1em;
@@ -604,3 +616,4 @@ button.success {
   background-color: #008a94cc!important;
   color: white;
 }
+

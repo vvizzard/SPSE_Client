@@ -97,7 +97,7 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.once("asynchronous-reply", (_, arg) => {
           log.info("get_trans : response ");
           log.info(arg);
-          log.info("-----------------------")
+          log.info("-----------------------");
           resolve(arg);
         });
         ipcRenderer.send(channel, name, entity);
@@ -121,6 +121,30 @@ contextBridge.exposeInMainWorld("api", {
     }
   },
 
+  getPTA(channel, name, entity = []) {
+    log.info("get_sql : args");
+    log.info([channel, name, entity]);
+
+    let validChannels = [
+      "asynchronous-get-pta",
+    ];
+
+    log.info(validChannels.includes(channel));
+    log.info("-----------------------------");
+
+    if (validChannels.includes(channel)) {
+      return new Promise((resolve) => {
+        ipcRenderer.once("asynchronous-reply", (_, arg) => {
+          log.info("get_sql : response ");
+          log.info(arg);
+          log.info("-----------------------");
+          resolve(arg);
+        });
+        ipcRenderer.send(channel, name, entity);
+      });
+    }
+  },
+
   getMap(channel, name, entity = {}) {
     log.info("getMap:");
     log.info([channel, name]);
@@ -128,6 +152,16 @@ contextBridge.exposeInMainWorld("api", {
     let validChannels = ["map-get"];
     if (validChannels.includes(channel)) {
       return ipcRenderer.invoke(channel, name, entity);
+    }
+  },
+
+  getMap2(channel, name, entity = {}) {
+    log.info("getMap:");
+    log.info([channel, name]);
+
+    let validChannels = ["map-get2"];
+    if (validChannels.includes("map-get2")) {
+      return ipcRenderer.invoke("map-get2", name, entity);
     }
   },
 
@@ -150,7 +184,7 @@ contextBridge.exposeInMainWorld("api", {
 
   importer(channel, name, entity = {}) {
     log.info("import:");
-    log.info([channel, name]);
+    log.info([channel, name, entity]);
 
     let validChannels = ["import"];
     if (validChannels.includes(channel)) {
@@ -180,6 +214,22 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.send(channel, name, entity);
       });
     }
-  }
+  },
 
+  exporterReponse(channel, name, entity = {}) {
+    log.info("export_reponse:");
+    log.info([channel, name]);
+
+    let validChannels = ["export_reponse"];
+    if (validChannels.includes(channel)) {
+      return new Promise((resolve) => {
+        ipcRenderer.once("export-reply", (_, arg) => {
+          log.info("export_reponse response : ");
+          log.info(arg);
+          resolve(arg);
+        });
+        ipcRenderer.send(channel, name, entity);
+      });
+    }
+  },
 });

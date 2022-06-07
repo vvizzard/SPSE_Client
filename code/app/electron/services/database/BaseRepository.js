@@ -106,9 +106,14 @@ class BaseRepository {
     let sql = "SELECT * FROM " + this.table + " WHERE 1 = 1 ";
     let values = [];
 
+    // ary amin'ny valeur no tena tokony asiana % sao tratra tampoka
     Object.keys(entity).map((key) => {
-      sql += "AND " + key + " = ? ";
-      values.push(entity[key]);
+      if (key == "date") {
+        sql += "AND " + key + ' like "%' + entity[key] + '" ';
+      } else {
+        sql += "AND " + key + " = ? ";
+        values.push(entity[key]);
+      }
     });
 
     log.info("database:");
@@ -194,6 +199,27 @@ class BaseRepository {
     }
     database.close();
     return valiny;
+  }
+
+  deleteWhere(where = null) {
+    if (where == null) return false;
+
+    let sql = "DELETE FROM " + this.table + " WHERE 1 = 1 ";
+
+    let values = [];
+    Object.keys(where).map((key) => {
+      if (key == "date") {
+        sql += "AND " + key + ' like "%' + where[key] + '" ';
+      } else {
+        sql += "AND " + key + " = ? ";
+        values.push(where[key]);
+      }
+    });
+
+    log.info("DELETE:");
+    log.info(sql);
+    log.info(values);
+    return this.dao.run(sql, values);
   }
 
   async clean(entity) {

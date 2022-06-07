@@ -8,7 +8,7 @@ import {
   ImageOverlay,
 } from "react-leaflet";
 
-export default function CarteM(props) {
+export default function CarteMM(props) {
   const [regions, setRegions] = useState([]);
 
   const [tiles, setTiles] = useState({
@@ -82,7 +82,7 @@ export default function CarteM(props) {
 
   function getRegion() {
     props
-      .regionJson("map-get", "region", { thematique: props.thematique, year: "2022" })
+      .regionJson("map-get2", "region", { thematique: props.thematique, year: "2022" })
       .then((regions) => {
         const layers = [];
         prepareRegion(regions, layers);

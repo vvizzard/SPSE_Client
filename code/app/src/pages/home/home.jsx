@@ -113,7 +113,10 @@ export default function Home(props) {
         </div>
       );
     }
-    if (props.user && props.user.category_id == 2 || props.user && props.user.category_id == 0) {
+    if (
+      (props.user && props.user.category_id == 2) ||
+      (props.user && props.user.category_id == 0)
+    ) {
       setMaj(
         <div>
           {/* <NavLink to={ROUTES.USERS}>
@@ -122,13 +125,21 @@ export default function Home(props) {
           <NavLink to={ROUTES.UPLOADC}>
             <button className="item">Mis à jour</button>
           </NavLink>
+          <NavLink to={ROUTES.PTA}>
+            <button className="item">PTA</button>
+          </NavLink>
         </div>
       );
     } else if (props.user && props.user.category_id == 1) {
       setMaj(
-        <NavLink to={ROUTES.UPLOAD}>
-          <button className="item">Mis à jour</button>
-        </NavLink>
+        <div>
+          <NavLink to={ROUTES.UPLOAD}>
+            <button className="item">Mis à jour</button>
+          </NavLink>
+          {/* <NavLink to={ROUTES.PTA}>
+            <button className="item">PTA</button>
+          </NavLink> */}
+        </div>
       );
     }
   }, [responses.length]);

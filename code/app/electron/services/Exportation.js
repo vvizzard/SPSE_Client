@@ -335,6 +335,121 @@ class Exportation {
     }
   }
 
+  /**
+   * @name readPTA
+   * @description Read the PTA file and import to the database
+   * @param {Number} userId
+   *
+   * @returns {Boolean}
+   */
+  async readPTA(userId, districtId, repo) {
+    let valiny = false;
+    let colIndicateur = null;
+    let colValeur = null;
+    let daty = new Date();
+
+    let pta = [];
+
+    try {
+      const file = await dialog.showOpenDialog({
+        title: "Choisir le PTA à importer",
+        defaultPath: path.join(__dirname, "pta.xlsx"),
+        buttonLabel: "Importer",
+        filters: [
+          {
+            name: "Text Files",
+            extensions: ["xlsx", "csv"],
+          },
+        ],
+        properties: [],
+      });
+      if (!file.canceled) {
+        // upload the file
+        const newName = file.filePaths[0].substring(
+          file.filePaths[0].lastIndexOf("\\")+1,
+          file.filePaths[0].lastIndexOf(".")
+        )+new Date().getTime().toString()+".xlsx";
+        log.info(newName);
+        
+        const upload = await this.uploadZip(file, newName);
+
+        const rows = await readXlsxFile(fs.createReadStream(file.filePaths[0]));
+        let indicateurs = await repo.all();
+        if (rows.length > 1) {
+          // find the column of indicateur and cible annuel
+          let breakLimit = 0;
+          for (let i = 0; i < rows[0].length; i++) {
+            if (rows[0][i] == "Indicateurs") {
+              colIndicateur = i;
+              breakLimit++;
+            }
+            if (rows[0][i] == "Cible annuel") {
+              colValeur = i;
+              breakLimit++;
+            }
+            if (breakLimit == 2) {
+              break;
+            }
+          }
+          // get all value for each indicateur
+          rows.forEach((row) => {
+            // check if the indicateur in xslx is in the database
+            let temp = null;
+            if (row[colIndicateur]) temp = row[colIndicateur].split("[")[0];
+            const ind = indicateurs.find((element) => element.label == temp);
+            if (ind != undefined) {
+              //The indicateur exist
+              if (row[colValeur]) {
+                let ptaTemp = {};
+                ptaTemp.date =
+                  (daty.getDate() > 9 ? daty.getDate() : "0" + daty.getDate()) +
+                  "-" +
+                  (daty.getMonth() + 1 > 9
+                    ? daty.getMonth() + 1
+                    : "0" + (daty.getMonth() + 1)) +
+                  "-" +
+                  daty.getFullYear();
+                ptaTemp.valeur = row[colValeur];
+                ptaTemp.indicateur_id = ind.id;
+                ptaTemp.district_id = districtId;
+                ptaTemp.user_id = userId;
+                ptaTemp.file = newName;
+                pta.push(ptaTemp);
+              }
+            }
+          });
+
+          log.info("PTA : valeur");
+          log.info(colValeur);
+          log.info(pta);
+
+          repo.table = "pta";
+
+          repo.deleteWhere({
+            date: daty.getFullYear(),
+            district_id: districtId,
+          });
+
+          for (let i = 0; i < pta.length; i++) {
+            let temp = await repo.create(pta[i]);
+          }
+          valiny = true;
+        } else {
+          throw new Error("Le canevas est vide");
+        }
+      } else {
+        log.info("Import PTA canceled");
+      }
+    } catch (error) {
+      log.error(error);
+      valiny = false;
+    }
+
+    return new Promise((resolve, reject) => {
+      resolve(valiny);
+    });
+  }
+
   async read(userId, repo, responseRepository) {
     let valiny = true;
     let val = [];
@@ -373,6 +488,7 @@ class Exportation {
         if (rows.length > 1) {
           let deleted = false;
           for (let index = 0; index < rows.length; index++) {
+            let lineId = Date.now() + "" + Math.floor(Math.random() * 10);
             for (let i = 0; i < rows[index].length; i++) {
               if (index == 0) {
                 let temp = questions.find(
@@ -399,6 +515,7 @@ class Exportation {
               } else {
                 if (rows[index][i] != null) {
                   let reponse = {
+                    line_id: lineId,
                     user_id: userId,
                     date: repo.formatDate(new Date()),
                     question_id: idQuestions[i],
@@ -485,13 +602,22 @@ class Exportation {
    *
    * @return {Array} the list of geosjon as array of json
    */
-  async getMaps(thematique = 1, year = "2022", dao) {
+  async getMaps(
+    thematique = 1,
+    year = "2022",
+    dao,
+    table = "reponse_non_valide"
+  ) {
     try {
       const reponseRepository = new ReponseRepository(dao);
-      const resp = await reponseRepository.findReponsesByThematique({
-        date: year,
-        thid: thematique,
-      });
+      const resp = await reponseRepository.findReponsesByThematique(
+        {
+          date: year,
+          thid: thematique,
+        },
+        null,
+        table
+      );
 
       let geojsons = resp.filter((item) => {
         if (item.reponse) {
@@ -570,11 +696,12 @@ class Exportation {
 
   /**
    * @name uploadFile
-   * @description Upload zip file
+   * @description Upload zip file=
+   * @param {String} extension The extension of the file to upload
    *
    * @returns {Boolean} True if uploaded, false overwise
    */
-  async uploadFile() {
+  async uploadFile(extension = "zip") {
     let valiny = true;
     try {
       const file = await dialog.showOpenDialog({
@@ -584,7 +711,7 @@ class Exportation {
         filters: [
           {
             name: "Zip Files",
-            extensions: ["zip"],
+            extensions: [extension],
           },
         ],
         properties: [],
@@ -604,53 +731,68 @@ class Exportation {
     });
   }
 
-  async uploadZip(file) {
+  async uploadZip(file, name = null) {
     try {
-      // const stats = fs.statSync(file.filePaths[0]);
-      // const fileSizeInBytes = stats.size;
-
-      // const data = fs.readFileSync(file.filePaths[0]);
-
-      // log.info("path: ");
-      // log.info(
-      //   file.filePaths[0].substring(file.filePaths[0].lastIndexOf("\\")+1)
-      // );
-
-      // const formData = new FormData();
-      // formData.append("Content-Type", "application/octet-stream");
-      // formData.append("file", data);
-
-      
       const form = new FormData();
       const stats = fs.statSync(file.filePaths[0]);
       const fileSizeInBytes = stats.size;
       const fileStream = fs.createReadStream(file.filePaths[0]);
-      form.append("file", fileStream, { knownLength: fileSizeInBytes });
+      let newName = "";
 
+      var copyFileStream = fileStream;
+      if (name != null) {
+        log.info("uploadZip : name != null");
+
+        // path ofthe copied file
+        newName =
+          file.filePaths[0].substring(
+            0,
+            file.filePaths[0].lastIndexOf("\\") + 1
+          ) + name;
+        log.info("uploadZip : new name = " + newName);
+
+        // create Promise to handle asynchronously
+        var end = new Promise((resolve, reject) => {
+          // copy file with the correct name to upload
+          fileStream.pipe(
+            fs.createWriteStream(newName).on("finish", () => {
+              log.info("uploadZip : copy done");
+              resolve(true);
+            })
+          );
+        });
+
+        // get the copied file on finished
+        let temp = await end; //wait for resolve before continuing
+        copyFileStream = fs.createReadStream(newName);
+        log.info("uploadZip : copied file uploaded");
+      }
+
+      form.append("file", copyFileStream, { knownLength: fileSizeInBytes });
       const options = {
         method: "POST",
         credentials: "include",
         body: form,
       };
+      const response = await fetch("https://spse.llanddev.org/uploadFile.php", {
+        ...options,
+      });
 
-      const response = await fetch("https://spse.llanddev.org/uploadFile.php", { ...options });
-
-      // const response = await fetch("https://spse.llanddev.org/uploadFile.php", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-
-      // log.info("reponse part 1");
-      // log.info(JSON.stringify({ body }));
       log.info(response);
       log.info("reponse part 2");
       const reponse = await response.json();
 
       log.info("groupe de reponse part 1");
       log.info(response);
-      log.info(reponse);
-      // log.info(reponse.reponses.dados);
       log.info("groupe de reponse part 2");
+      log.info(reponse);
+
+      // Delete copied file
+      if (name != null) {
+        fs.unlink(newName, (err) => {
+          err ? log.info(err) : log.info(newName + "deleted");
+        });
+      }
 
       return reponse;
     } catch (err) {

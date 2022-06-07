@@ -18,5 +18,6 @@
   "INDICATEURS": "/indicateurs",
   "VALIDATION": "/validation",
   "UPLOAD": "/upload",
-  "UPLOADC": "/uploadChoice"
+  "UPLOADC": "/uploadChoice",
+  "PTA": "/pta"
 }

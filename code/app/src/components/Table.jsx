@@ -3,7 +3,7 @@ import { useAsyncDebounce, useFilters, useGlobalFilter, useSortBy, useTable } fr
 import {matchSorter} from 'match-sorter'
 import regeneratorRuntime from "regenerator-runtime"
 
-export default function Table({ columns, data, searchColumn, nowrap }) {
+export default function Table({ columns, data, searchColumn, nowrap, className="" }) {
 
     // Define a default UI for filtering
     function DefaultColumnFilter({
@@ -172,8 +172,8 @@ export default function Table({ columns, data, searchColumn, nowrap }) {
                     :''
             }
             <br />
-            <div className="scrollable-table">
-                <table className={"table " + nowrap?"no-wrap":""} {...getTableProps()}>
+            <div className={"scrollable-table st-"+className}>
+                <table className={nowrap?"no-wrap "+ className:"table " + className} {...getTableProps()}>
                     <thead>
                         {headerGroups.map(headerGroup => (
                             <tr {...headerGroup.getHeaderGroupProps()}>

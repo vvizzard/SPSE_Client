@@ -65,7 +65,7 @@ export default function Validation(props) {
     // ]);
   }
 
-  function makeIndicateur(indicateurs) {
+  function makeIndicateur(indicateurs, pta) {
     setIndicateurs(
       <div className="indicateurs-table">
         <table className="table">
@@ -73,6 +73,7 @@ export default function Validation(props) {
             <tr>
               <th>Indicateur</th>
               <th>Valeur</th>
+              <th>Objectif annuel</th>
             </tr>
           </thead>
           <tbody>
@@ -81,6 +82,7 @@ export default function Validation(props) {
                 <tr key={key + "indicateurs"}>
                   <td key={key + value}>{key}</td>
                   <td key={value + key}>{value}</td>
+                  <td key={value + key + key}>{pta[key.replaceAll(/[^a-zA-Z0-9]/g, "_")]}</td>
                 </tr>
               );
             })}
@@ -104,7 +106,7 @@ export default function Validation(props) {
         console.log(result);
         console.log("------------------------------------------");
         makeHeader(result.questions);
-        makeIndicateur(result.indicateurs);
+        makeIndicateur(result.indicateurs, result.pta);
         setResponses(result.reponses);
       });
   }

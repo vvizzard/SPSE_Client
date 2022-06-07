@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import Table from "../../components/Table";
 import CONST from "Constants/general";
 
-export default function UploadChoice(props) {
+export default function Upload(props) {
   const params = useParams();
 
   const [thematique, setThematique] = useState([]);
@@ -13,10 +13,6 @@ export default function UploadChoice(props) {
   const [responses, setResponses] = useState([]);
   const [column, setColumn] = useState([]);
 
-  const [districts, setDistricts] = useState([]);
-  const [distId, setDistId] = useState(props.user.district_id);
-  const [userId, setUserId] = useState(props.user.id);
-
   const [annee, setAnnee] = useState(
     new Date().getMonth() + 1 + "-" + new Date().getFullYear()
   );
@@ -24,23 +20,6 @@ export default function UploadChoice(props) {
   const [th, setTh] = useState(1);
 
   const [indicateurs, setIndicateurs] = useState("");
-
-  function loadDistrict() {
-    window.api
-      .getTrans2(
-        "asynchronous-get-district-validation",
-        "district",
-        props.user.district_id
-      )
-      .then((result) => {
-        console.log("uploadChoice : get district");
-        console.log(result);
-        console.log("---------------------------");
-        setDistricts(result);
-        setUserId(props.user.id);
-        setDistId(props.user.district_id);
-      });
-  }
 
   function makeHeader(questions) {
     let cl = [];
@@ -59,7 +38,7 @@ export default function UploadChoice(props) {
     ]);
   }
 
-  function makeIndicateur(indicateurs, pta) {
+  function makeIndicateur(indicateurs) {
     setIndicateurs(
       <div className="indicateurs-table">
         <table className="table">
@@ -67,16 +46,14 @@ export default function UploadChoice(props) {
             <tr>
               <th>Indicateur</th>
               <th>Valeur</th>
-              <th>Objectif annuel</th>
             </tr>
           </thead>
           <tbody>
             {Object.entries(indicateurs).map(([key, value]) => {
               return (
-                <tr key={key + "indicateurs"}>
+                <tr>
                   <td key={key + value}>{key}</td>
                   <td key={value + key}>{value}</td>
-                  <td key={value + key + key}>{pta[key.replaceAll(/[^a-zA-Z0-9]/g, "_")]}</td>
                 </tr>
               );
             })}
@@ -86,34 +63,50 @@ export default function UploadChoice(props) {
     );
   }
 
-  function getData(idTh = th, dist = distId) {
+  function getData(idTh = th) {
     window.api
       .getTrans("asynchronous-get-trans", "reponse_non_valide", {
-        district_id: dist,
-        // level: "district",
+        id: props.user.district_id,
+        level: "district",
         date: annee,
         thid: idTh,
-        comment: 0,
+        comment: 0
       })
-      .then((rss) => {
-        console.log("uploadChoice : get reponse_non_valide");
-        console.log(rss);
-        console.log("---------------------------------");
-        makeHeader(rss.questions);
-        makeIndicateur(rss.indicateurs, rss.pta);
-        setResponses(rss.reponses);
+      .then((result) => {
+        console.log("upload data : ");
+        console.log(result);
+        makeHeader(result.questions);
+        makeIndicateur(result.indicateurs);
+        setResponses(result.reponses);
       });
   }
 
+  // function updateData(idTh) {
+  //   window.api
+  //     .getTrans("asynchronous-get-trans", "reponse_non_valide", {
+  //       id: props.user.district_id,
+  //       level: "district",
+  //       date: annee,
+  //       thid: idTh,
+  //       comment: 0
+  //     })
+  //     .then((result) => {
+  //       console.log("upload update data : ___________");
+  //       console.log(result);
+  //       setResponses(result[0].reponses);
+  //       makeIndicateur(result[0].indicateurs);
+  //     });
+  // }
+
   function validate() {
     window.api
-      .getTrans("valider-terminer", "reponse", distId)
+      .getTrans("valider-terminer", "reponse", props.user.district_id)
       .then((result) => {
-        if (result) {
-          alert("L'opération a été un succès");
-          setResponses([]);
-          // getData()
-        } else alert("Une erreur est survenu lors de l'opération");
+        if(result) {
+            alert("L'opération a été un succès")
+            setResponses([])
+            // getData()
+        } else alert("Une erreur est survenu lors de l'opération")
         console.log("data response : ___________");
         console.log(result);
       });
@@ -134,10 +127,8 @@ export default function UploadChoice(props) {
   }
 
   useEffect(() => {
-    loadDistrict();
     getThematique();
     getData();
-    // handleOnClickTab(0, 1);
   }, []);
 
   function send(thematiqueId) {
@@ -150,7 +141,7 @@ export default function UploadChoice(props) {
   }
 
   function read() {
-    window.api.importer("import", "thematique", userId).then((result) => {
+    window.api.importer("import", "thematique", props.user.id).then((result) => {
       if (!result) {
         alert(
           "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
@@ -163,8 +154,20 @@ export default function UploadChoice(props) {
     });
   }
 
+  // function read() {
+  //   window.api
+  //     .importer("import", "thematique", props.user.id)
+  //     .then((result) => {
+  //       if (!result)
+  //         alert(
+  //           "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
+  //         );
+  //       else alert("L'opération a été terminé avec succes");
+  //     });
+  // }
+
   function importGeoJson() {
-    window.api.upload("import-geojson", "geojson", userId).then((result) => {
+    window.api.upload("import-geojson", "geojson", props.user.id).then((result) => {
       if (!result)
         alert(
           "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
@@ -174,7 +177,7 @@ export default function UploadChoice(props) {
   }
 
   function importDoc() {
-    window.api.upload("import-geojson", "zip", userId).then((result) => {
+    window.api.upload("import-geojson", "zip", props.user.id).then((result) => {
       if (!result)
         alert(
           "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
@@ -211,18 +214,6 @@ export default function UploadChoice(props) {
     importDoc();
   }
 
-  const handleOnChangeDist = (val) => {
-    setDistId(val);
-    getData(th, val);
-    // console.log("boooooooooooooooooooooo");
-    // console.log("district id ");
-    // console.log(val);
-    // console.log(districts);
-    const indicateurEnCours = districts.find((element) => element.id == val);
-    // console.log(indicateurEnCours);
-    setUserId(indicateurEnCours.user_id);
-  };
-
   return (
     <div className="Users Upload">
       <div className="container">
@@ -243,15 +234,14 @@ export default function UploadChoice(props) {
             <h2>Canevas</h2>
             <div className="canevas-btn">
               {thematique &&
-                thematique.map((thematiqueId, idx) => {
+                thematique.map((user, idx) => {
                   return (
                     <button
-                      key={"thq"+thematiqueId.id}
                       className="item "
                       onClick={() => {
-                        handleOnClickCanevas(thematiqueId.id);
+                        handleOnClickCanevas(user.id);
                       }}>
-                      {thematiqueId.label}
+                      {user.label}
                     </button>
                   );
                 })}
@@ -260,38 +250,20 @@ export default function UploadChoice(props) {
           <hr />
           <div className="awaiting">
             <h2>Base de données en cours</h2>
-            <div className="form-group">
-              <label htmlFor="">District : </label>
-              <select
-                name=""
-                id=""
-                value={distId}
-                onChange={(event) => handleOnChangeDist(event.target.value)}>
-                {districts &&
-                  districts.map((e) => {
-                    return (
-                      <option key={e.id + "_" + e.label} value={e.id}>
-                        {e.label}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
             <div className="tab">
               {thematique &&
-                thematique.map((thematiqueId, idx) => {
+                thematique.map((user, idx) => {
                   return (
                     <a
-                      key={"thq-a-"+thematiqueId.id+idx}
                       className={
                         tabFocus && tabFocus[idx]
                           ? "item " + tabFocus[idx]
                           : "item"
                       }
                       onClick={() => {
-                        handleOnClickTab(idx, thematiqueId.id);
+                        handleOnClickTab(idx, user.id);
                       }}>
-                      {thematiqueId.label}
+                      {user.label}
                     </a>
                   );
                 })}

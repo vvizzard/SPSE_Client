@@ -6,12 +6,13 @@ const regions = require("../layer/regions.json");
 const BaseDao = require("./database/BaseDao");
 const BaseRepository = require("./database/BaseRepository");
 const QuestionRepository = require("./database/QuestionRepository");
+const PTARepository = require("./database/PTARepository");
 const ResponseRepository = require("./database/ReponseRepository");
 const UserRepository = require("./database/UserRepository");
 // const Exportation = require('./database/Exportation');
 const Exportation = require("./Exportation");
 
-const dao = new BaseDao("spse_db6122.sqlite3");
+const dao = new BaseDao("spse_db_7_bis.sqlite3");
 
 // Validate a user
 ipcMain.on("asynchronous-validate", (event, name, entity, val) => {
@@ -148,6 +149,28 @@ ipcMain.on("asynchronous-get-trans", (event, name, entity) => {
   }
 });
 
+ipcMain.on("asynchronous-get-pta", (event, name, entity) => {
+  // verbose
+  log.info("asynchronous-sql : args");
+  log.info("event :" + event);
+  log.info("name :" + name);
+  log.info("entity :" + JSON.stringify(entity));
+  log.info("-----------------------------");
+
+  // if need, specifie the repository
+  let repository = new PTARepository(dao);
+  // Run the query
+  repository
+    .getPTA(entity.district_id, entity.date)
+    .then((rows) => {
+      event.reply("asynchronous-reply", rows);
+    })
+    .catch((error) => {
+      log.error(error);
+      event.reply("asynchronous-reply", []);
+    });
+});
+
 // ipcMain.on("asynchronous-get-district-user", (event, name, entity) => {
 //   // verbose
 //   log.info("asynchronous-get-district-user arg :");
@@ -237,8 +260,24 @@ ipcMain.handle("map-get", (event, name, entity) => {
 
   return temp;
 
-  if (name == "region") return regions;
-  if (name == "reponse") return regions;
+  // if (name == "region") return regions;
+  // if (name == "reponse") return regions;
+});
+
+ipcMain.handle("map-get2", (event, name, entity) => {
+  // verbose
+  log.info("map-get arg :");
+  log.info("name :" + name);
+  log.info("entity :" + JSON.stringify(entity));
+  log.info("------");
+
+  const exp = new Exportation();
+  const temp = exp.getMaps(entity.thematique, entity.year, dao, "reponse");
+
+  return temp;
+
+  // if (name == "region") return regions;
+  // if (name == "reponse") return regions;
 });
 
 // ipcMain.handle('export', (event, name, entity) => {
@@ -363,22 +402,36 @@ ipcMain.on("import", (event, name, entity) => {
 
   const exp = new Exportation();
 
-  const resp = exp
-    .read(
-      entity,
-      new BaseRepository(dao, "question"),
-      new ResponseRepository(dao)
-    )
-    .then((result) => {
-      event.reply("import-reply", result);
-    })
-    .catch((error) => {
-      log.error(error);
-      event.reply("import-reply", false);
-    });
-  // .catch((err) => {
-  //   event.reply("import-reply", false);
-  // });
+  if (name == "pta") {
+    log.info("*********PTA*********");
+    const resp = exp
+      .readPTA(
+        entity.user_id,
+        entity.district_id,
+        new BaseRepository(dao, "indicateur")
+      )
+      .then((result) => {
+        event.reply("import-reply", result);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("import-reply", false);
+      });
+  } else {
+    const resp = exp
+      .read(
+        entity,
+        new BaseRepository(dao, "question"),
+        new ResponseRepository(dao)
+      )
+      .then((result) => {
+        event.reply("import-reply", result);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("import-reply", false);
+      });
+  }
 });
 
 // Upload
@@ -391,6 +444,8 @@ ipcMain.on("import-geojson", (event, name, entity) => {
 
   const exp = new Exportation();
 
+  const acceptableExtensions = ["zip", "xlsx"];
+
   if (name == "geojson") {
     const resp = exp
       .upload()
@@ -401,9 +456,9 @@ ipcMain.on("import-geojson", (event, name, entity) => {
         log.error(error);
         event.reply("reply", false);
       });
-  } else if (name == "zip") {
+  } else if (acceptableExtensions.includes(name)) {
     const resp = exp
-      .uploadFile()
+      .uploadFile(name)
       .then((result) => {
         event.reply("reply", result);
       })
@@ -545,4 +600,64 @@ ipcMain.on("synchroniser", (event, name, entity) => {
   exp.synchroniser(new BaseRepository(dao, "user")).then((res) => {
     event.reply("asynchronous-reply", []);
   });
+});
+
+// Export reponse
+ipcMain.on("export_reponse", (event, name, entity) => {
+  // verbose
+  log.info("asynchronous-get-trans : args");
+  log.info("event :" + event);
+  log.info("name :" + name);
+  log.info("entity :" + JSON.stringify(entity));
+  log.info("-----------------------------");
+
+  repository = new ResponseRepository(dao);
+
+  repository
+    .getReponses(entity, "reponse")
+    .then((rows) => {
+      log.info("export_reponse : response");
+      log.info(rows);
+      log.info("--------------------------");
+
+      let bdd = {};
+      bdd.sheet = "Base de données";
+      bdd.columns = [];
+
+      let content = [];
+      let num = 0;
+
+      rows.reponses.forEach((row) => {
+        if (bdd.columns.length == 0) {
+          rows.questions.forEach((element) => {
+            bdd.columns.push({
+              label: element.question,
+              value: element.question.replaceAll(/[^a-zA-Z0-9]/g, "_"),
+            });
+          });
+        }
+
+        num = 0;
+        let cont = {};
+        Object.keys(row).map((key) => {
+          cont[key] = row[key];
+        });
+        content.push(cont);
+      });
+
+      bdd.content = content;
+
+      const exp = new Exportation();
+      log.info("export_reponse : exportation");
+      log.info(bdd);
+      const data = [bdd];
+      log.info(data);
+      exp.save(data).then((res) => {
+        event.reply("export-reply", res);
+      });
+    })
+    .catch((error) => {
+      log.error(error);
+      event.reply("export-reply", false);
+    });
 });
