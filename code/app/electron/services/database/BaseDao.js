@@ -608,6 +608,7 @@ class BaseDao {
         (15,"Exportateur agréé (oui/non)",0,1,3,0,NULL,1,NULL,"Exportateur agréé (oui/non)",""),
         (16,"Valeur des produits à l'exportation (Ariary)",0,1,3,0,NULL,1,NULL,"Valeur des produits à l'exportation (Ariary)",""),
         (17,"Observations actes administratifs exploitation",0,1,3,0,NULL,1,NULL,"Observations actes administratifs exploitation",""),
+        (800,"Fichiers (exploitation) (.zip à importer)",0,1,3,0,NULL,1,NULL,"Fichiers (exploitation) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -619,6 +620,7 @@ class BaseDao {
         (23,"Espèces mises en jeu",0,1,3,0,NULL,19,NULL,"Espèces mises en jeu",""),
         (24,"Quotas de prélèvement",0,1,3,0,NULL,19,NULL,"Quotas de prélèvement",""),
         (25,"Observations actes administratifs recherche",0,1,3,0,NULL,19,NULL,"Observations actes administratifs recherche",""),
+        (801,"Fichiers (recherche) (.zip à importer)",0,1,3,0,NULL,19,NULL,"Fichiers (recherche) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -667,6 +669,7 @@ class BaseDao {
         (68,"Taux de déforestation annuelle (%)",0,1,3,0,NULL,26,NULL,"Taux de déforestation annuelle (%)",""),
         (69,"Nom de sites hors AP disposant de plan d'aménagement et de gestion écotouristique opérationnel (liste)",0,1,3,0,NULL,26,NULL,"Nom de sites hors AP disposant de plan d'aménagement et de gestion écotouristique opérationnel (liste)",""),
         (70,"Observations AP",0,1,3,0,NULL,26,NULL,"Observations AP",""),
+        (802,"Fichiers (ap) (.zip à importer)",0,1,3,0,NULL,26,NULL,"Fichiers (ap) (.zip à importer)",""),
                                                               
                                                               
         (71,"Source de données biodiversité",1,1,3,1,NULL,NULL,NULL,"Source de données biodiversité",""),
@@ -700,6 +703,7 @@ class BaseDao {
         (99,"Référence du dossier",0,1,3,0,NULL,71,NULL,"Référence du dossier",""),
         (100,"Images de la biodiversité",0,1,3,0,NULL,71,NULL,"Images de la biodiversité",""),
         (101,"Observations biodiversité",0,1,3,0,NULL,71,NULL,"Observations biodiversité",""),
+        (803,"Fichiers (biodiversité) (.zip à importer)",0,1,3,0,NULL,71,NULL,"Fichiers (biodiversité) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -733,6 +737,7 @@ class BaseDao {
         (126,"Ampleur des dommages matériels dus aux catastrophes naturelles (faible, moyen, fort)",0,1,3,0,NULL,120,NULL,"Ampleur des dommages matériels dus aux catastrophes naturelles (faible, moyen, fort)",""),
         (127,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+",0,1,3,0,NULL,120,NULL,"Identifiant du projet d'appui pour la lutte contre le CC et REDD+",""),
         (128,"Observations CC et REDD+",0,1,3,0,NULL,120,NULL,"Observations CC et REDD+",""),
+        (805,"Fichiers (CC et REDD+) (.zip à importer)",0,1,3,0,NULL,121,NULL,"Fichiers (CC et REDD+) (.zip à importer)",""),
                                                               
                                                               
         (129,"Source de données CC et REDD+ (centrale)",1,1,3,1,NULL,NULL,NULL,"Source de données CC et REDD+ (centrale)",""),
@@ -754,6 +759,7 @@ class BaseDao {
         (145,"Geojson correspondant CC et REDD+",0,1,3,0,NULL,129,NULL,"Geojson correspondant CC et REDD+",""),
         (146,"Taux d'emission de CO2 (%)",0,1,3,0,NULL,129,NULL,"Taux d'emission de CO2 (%)",""),
         (147,"Observations CC et REDD+ (centrale)",0,1,3,0,NULL,129,NULL,"Observations CC et REDD+ (centrale)",""),
+        (806,"Fichiers (CC, REDD+) (.zip à importer)",0,1,3,0,NULL,129,NULL,"Fichiers (CC, REDD+) (.zip à importer)",""),
                                                               
                                                               
         (148,"Source de données contrôles environnementaux",1,1,3,1,NULL,NULL,NULL,"Source de données contrôles environnementaux",""),
@@ -779,6 +785,7 @@ class BaseDao {
         (168,"Mesures correctives et recommandations",0,1,3,0,NULL,148,NULL,"Mesures correctives et recommandations",""),
         (169,"Identifiant du projet d'appui pour les contrôles environnementaux",0,1,3,0,NULL,148,NULL,"Identifiant du projet d'appui pour les contrôles environnementaux",""),
         (170,"Observations contrôles environnementaux",0,1,3,0,NULL,148,NULL,"Observations contrôles environnementaux",""),
+        (807,"Fichiers (contrôle environnementaux) (.zip à importer)",0,1,3,0,NULL,148,NULL,"Fichiers (contrôle environnementaux) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -811,6 +818,7 @@ class BaseDao {
         (197,"Dispositifs de contrôle redynamisés (oui/non)",0,1,3,0,NULL,171,NULL,"Dispositifs de contrôle redynamisés (oui/non)",""),
         (198,"Identifiant du projet d'appui pour les contrôles forestiers",0,1,3,0,NULL,171,NULL,"Identifiant du projet d'appui pour les contrôles forestiers",""),
         (199,"Observations contrôles forestiers",0,1,3,0,NULL,171,NULL,"Observations contrôles forestiers",""),
+        (808,"Fichiers (contrôle forestier) (.zip à importer)",0,1,3,0,NULL,171,NULL,"Fichiers (contrôle forestier) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -868,6 +876,7 @@ class BaseDao {
         (248,"Nombre total de ménage adoptant les alternatives",0,1,3,0,NULL,216,NULL,"Nombre total de ménage adoptant les alternatives",""),
         (249,"Prix unitaire des alternatives (Ariary)",0,1,3,0,NULL,216,NULL,"Prix unitaire des alternatives (Ariary)",""),
         (250,"Observations économie verte",0,1,3,0,NULL,216,NULL,"Observations économie verte",""),
+        (810,"Fichiers (économie verte) (.zip à importer)",0,1,3,0,NULL,216,NULL,"Fichiers (économie verte) (.zip à importer)",""),
                                                               
                                                               
         (251,"Source de données environnement",1,1,3,1,NULL,NULL,NULL,"Source de données environnement",""),
@@ -897,6 +906,7 @@ class BaseDao {
         (275,"Nombre des agents assermentés en tant qu'OPJ pour les contrôles et inspections environnementales",0,1,3,0,NULL,251,NULL,"Nombre des agents assermentés en tant qu'OPJ pour les contrôles et inspections environnementales",""),
         (276,"Identifiant du projet d'appui pour l'environnement",0,1,3,0,NULL,251,NULL,"Identifiant du projet d'appui pour l'environnement",""),
         (277,"Observations environnement",0,1,3,0,NULL,251,NULL,"Observations environnement",""),
+        (811,"Fichiers (environnement) (.zip à importer)",0,1,3,0,NULL,251,NULL,"Fichiers (environnement) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -928,6 +938,7 @@ class BaseDao {
         (303,"Référence PV d'infraction (constatation de feux)",0,1,3,1,NULL,278,NULL,"Référence PV d'infraction (constatation de feux)",""),
         (304,"Identifiant du projet d'appui de lutte contre les feux",0,1,3,0,NULL,278,NULL,"Identifiant du projet d'appui de lutte contre les feux",""),
         (305,"Observations feux",0,1,3,0,NULL,278,NULL,"Observations feux",""),
+        (812,"Fichiers (feux) (.zip à importer)",0,1,3,0,NULL,278,NULL,"Fichiers (feux) (.zip à importer)",""),
                                                               
         (306,"Source de données recette",1,1,3,1,46,NULL,NULL,"Source de données recette",""),
         (307,"Origine de recette (Nature de cession/Autorisation de chasse/Caution carnet (facture)/Article et produits en bois, résine de pin, produits artisanaux/Raphia nature brut/Autorisation collecte/Détention animaux/Export collecte CITES/Export collecte non CITES/Export huile essentielle, produit en plante aromatique/Collecte peaux crocodiles/Mobilier divers en bois/Transaction avant jugement/Location gérance)",0,1,3,1,NULL,306,NULL,"Origine de recette (Nature de cession/Autorisation de chasse/Caution carnet (facture)/Article et produits en bois, résine de pin, produits artisanaux/Raphia nature brut/Autorisation collecte/Détention animaux/Export collecte CITES/Export collecte non CITES/Export huile essentielle, produit en plante aromatique/Collecte peaux crocodiles/Mobilier divers en bois/Transaction avant jugement/Location gérance)",""),
@@ -936,6 +947,7 @@ class BaseDao {
         (310,"Recette perçue (Ariary)",0,1,3,1,NULL,306,NULL,"Recette perçue (Ariary)",""),
         (311,"Fichiers correspondant aux recettes (.zip à importer)",0,1,3,0,NULL,306,NULL,"Fichiers correspondant aux recettes (.zip à importer)",""),
         (312,"Observations recette",0,1,3,0,NULL,306,NULL,"Observations recette",""),
+        
                                                               
                                                               
                                                               
@@ -962,6 +974,7 @@ class BaseDao {
         (330,"Montant des dons (Ariary)",0,1,3,1,NULL,313,NULL,"Montant des dons (Ariary)",""),
         (331,"Montant de prêts (Ariary)",0,1,3,1,NULL,313,NULL,"Montant de prêts (Ariary)",""),
         (332,"Observations mobilisation de fonds",0,1,3,0,NULL,313,NULL,"Observations mobilisation de fonds",""),
+        (813,"Fichiers (mobilisation de fond) (.zip à importer)",0,1,3,0,NULL,313,NULL,"Fichiers (mobilisation de fond) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1053,6 +1066,7 @@ class BaseDao {
         (411,"Identifiant du projet d'appui pour le matériel informatique",0,1,3,0,NULL,397,NULL,"Identifiant du projet d'appui pour le matériel informatique",""),
         (412,"Images matériel informatique",0,1,3,0,NULL,397,NULL,"Images matériel informatique",""),
         (413,"Observations matériel informatique",0,1,3,0,NULL,397,NULL,"Observations matériel informatique",""),
+        (814,"Fichiers (matériel informatique) (.zip à importer)",0,1,3,0,NULL,397,NULL,"Fichiers (matériel informatique) (.zip à importer)",""),
                                                               
         (414,"Source de données matériel technique",1,1,3,1,NULL,NULL,NULL,"Source de données matériel technique",""),
         (415,"Désignation du matériel technique",0,1,3,1,NULL,414,NULL,"Désignation du matériel technique",""),
@@ -1071,6 +1085,7 @@ class BaseDao {
         (428,"Identifiant du projet d'appui pour le matériel technique",0,1,3,0,NULL,414,NULL,"Identifiant du projet d'appui pour le matériel technique",""),
         (429,"Images matériel technique",0,1,3,0,NULL,414,NULL,"Images matériel technique",""),
         (430,"Observations matériel technique",0,1,3,0,NULL,414,NULL,"Observations matériel technique",""),
+        (815,"Fichiers (matériel technique) (.zip à importer)",0,1,3,0,NULL,414,NULL,"Fichiers (matériel technique) (.zip à importer)",""),
                                                               
                                                               
         (431,"Source de données matériel mobilier",1,1,3,1,NULL,NULL,NULL,"Source de données matériel mobilier",""),
@@ -1089,6 +1104,7 @@ class BaseDao {
         (444,"Identifiant du projet d'appui pour le matériel mobilier",0,1,3,0,NULL,431,NULL,"Identifiant du projet d'appui pour le matériel mobilier",""),
         (445,"Images matériel mobilier",0,1,3,0,NULL,431,NULL,"Images matériel mobilier",""),
         (446,"Observations matériel mobilier",0,1,3,0,NULL,431,NULL,"Observations matériel mobilier",""),
+        (816,"Fichiers (matériel mobilier) (.zip à importer)",0,1,3,0,NULL,431,NULL,"Fichiers (matériel mobilier) (.zip à importer)",""),
                                                               
                                                               
         (447,"Source de données outils",1,1,3,1,57,NULL,NULL,"Source de données outils",""),
@@ -1128,6 +1144,7 @@ class BaseDao {
         (478,"Existence de système d'information opérationnel (oui/non)",0,1,3,1,68,462,NULL,"Existence de système d'information opérationnel (oui/non)",""),
         (479,"Thématique du SI",0,1,3,0,NULL,462,NULL,"Thématique du SI",""),
         (480,"Observations PPSE",0,1,3,0,NULL,462,NULL,"Observations PPSE",""),
+        (817,"Fichiers (PPSE) (.zip à importer)",0,1,3,0,NULL,462,NULL,"Fichiers (PPSE) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1193,6 +1210,7 @@ class BaseDao {
         (540,"Coupe rase (oui/non)",0,1,3,0,NULL,481,NULL,"Coupe rase (oui/non)",""),
         (541,"Date coupe rase",0,1,3,0,NULL,481,NULL,"Date coupe rase",""),
         (542,"Observations reboisement et gestion des terres",0,1,3,0,NULL,481,NULL,"Observations reboisement et gestion des terres",""),
+        (818,"Fichiers (reboisement) (.zip à importer)",0,1,3,0,NULL,481,NULL,"Fichiers (reboisement) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1214,6 +1232,7 @@ class BaseDao {
         (558,"Identifiant du projet d'appui pour la recherche",0,1,3,0,NULL,543,NULL,"Identifiant du projet d'appui pour la recherche",""),
         (559,"Coûts des activités de recherche (Ariary)",0,1,3,0,NULL,543,NULL,"Coûts des activités de recherche (Ariary)",""),
         (560,"Observations recherche",0,1,3,0,NULL,543,NULL,"Observations recherche",""),
+        (819,"Fichiers (recherches) (.zip à importer)",0,1,3,0,NULL,543,NULL,"Fichiers (recherches) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1233,6 +1252,7 @@ class BaseDao {
         (574,"Identifiant du projet d'appui pour la RSE",0,1,3,0,NULL,561,NULL,"Identifiant du projet d'appui pour la RSE",""),
         (575,"Coût de réalisation de la RSE (Arirary)",0,1,3,0,NULL,561,NULL,"Coût de réalisation de la RSE (Arirary)",""),
         (576,"Observations RSE",0,1,3,0,NULL,561,NULL,"Observations RSE",""),
+        (820,"Fichiers (RSE) (.zip à importer)",0,1,3,0,NULL,561,NULL,"Fichiers (RSE) (.zip à importer)",""),
                                                               
         (577,"Source de données ressources humaines",1,1,3,1,NULL,NULL,NULL,"Source de données ressources humaines",""),
         (578,"Intitulé du poste",0,1,3,1,NULL,577,NULL,"Intitulé du poste",""),
@@ -1249,6 +1269,7 @@ class BaseDao {
         (589,"Formation appliquée/utilisée (oui/non)",0,1,3,0,NULL,577,NULL,"Formation appliquée/utilisée (oui/non)",""),
         (590,"Besoins en formation pour le poste ",0,1,3,0,NULL,577,NULL,"Besoins en formation pour le poste ",""),
         (591,"Observations ressources humaines",0,1,3,0,NULL,577,NULL,"Observations ressources humaines",""),
+        (821,"Fichiers (RH) (.zip à importer)",0,1,3,0,NULL,577,NULL,"Fichiers (RH) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1289,6 +1310,7 @@ class BaseDao {
         (626,"Date d'édition rapport évaluation TG",0,1,3,0,NULL,592,NULL,"Date d'édition rapport évaluation TG",""),
         (627,"Geojson TG",0,1,3,0,NULL,592,NULL,"Geojson TG",""),
         (628,"Observations TG",0,1,3,0,NULL,592,NULL,"Observations TG",""),
+        (822,"Fichiers (TG) (.zip à importer)",0,1,3,0,NULL,592,NULL,"Fichiers (TG) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1312,6 +1334,7 @@ class BaseDao {
         (646,"Capacite maximale de production (nombre)",0,1,3,0,NULL,629,NULL,"Capacite maximale de production (nombre)",""),
         (647,"Nombre de plants prêts à être mis en terre produits",0,1,3,1,NULL,629,NULL,"Nombre de plants prêts à être mis en terre produits",""),
         (648,"Observations pépinière",0,1,3,0,NULL,629,NULL,"Observations pépinière",""),
+        (823,"Fichiers (pépinière) (.zip à importer)",0,1,3,0,NULL,629,NULL,"Fichiers (pépinière) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1342,6 +1365,7 @@ class BaseDao {
         (673,"Montant du financement (Ariary)",0,1,3,0,NULL,649,NULL,"Montant du financement (Ariary)",""),
         (674,"Identifiant du projet d'appui pour le DD",0,1,3,0,NULL,649,NULL,"Identifiant du projet d'appui pour le DD",""),
         (675,"Observations DD",0,1,3,0,NULL,649,NULL,"Observations DD",""),
+        (824,"Fichiers (DD) (.zip à importer)",0,1,3,0,NULL,649,NULL,"Fichiers (DD) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1366,6 +1390,7 @@ class BaseDao {
         (694,"Etudes de filières en relation avec les PSE réalisées (liste)",0,1,3,0,NULL,676,NULL,"Etudes de filières en relation avec les PSE réalisées (liste)",""),
         (695,"Valeur des services ecosystémiques fournis (culturelle, éconimique, …)",0,1,3,0,NULL,676,NULL,"Valeur des services ecosystémiques fournis (culturelle, éconimique, …)",""),
         (696,"Observations PSE",0,1,3,0,NULL,676,NULL,"Observations PSE",""),
+        (825,"Fichiers (PSE) (.zip à importer)",0,1,3,0,NULL,676,NULL,"Fichiers (PSE) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1384,6 +1409,7 @@ class BaseDao {
         (709,"Nombre d'intervention du BIANCO ",0,1,3,0,NULL,697,NULL,"Nombre d'intervention du BIANCO ",""),
         (710,"Identifiant du projet d'appui pour la lutte contre la corruption",0,1,3,0,NULL,697,NULL,"Identifiant du projet d'appui pour la lutte contre la corruption",""),
         (711,"Observations corruption",0,1,3,0,NULL,697,NULL,"Observations corruption",""),
+        (826,"Fichiers (corruption) (.zip à importer)",0,1,3,0,NULL,697,NULL,"Fichiers (corruption) (.zip à importer)",""),
                                                               
                                                               
                                                               
@@ -1400,7 +1426,8 @@ class BaseDao {
         (722,"Activités principales",0,1,3,1,NULL,712,NULL,"Activités principales",""),
         (723,"Financement (Subvention, co-financement, Ressource Propre Interne, don, emprunt, …)",0,1,3,1,NULL,712,NULL,"Financement (Subvention, co-financement, Ressource Propre Interne, don, emprunt, …)",""),
         (724,"Code/Identifiant du projet",0,1,3,1,NULL,712,NULL,"Code/Identifiant du projet",""),
-        (725,"Observations info projets",0,1,3,0,NULL,712,NULL,"Observations info projets","")`
+        (725,"Observations info projets",0,1,3,0,NULL,712,NULL,"Observations info projets",""),
+        (827,"Fichiers (info projets) (.zip à importer)",0,1,3,0,NULL,712,NULL,"Fichiers (info projets) (.zip à importer)","")`
     );
 
     // Update values of indicateur to link with questions
