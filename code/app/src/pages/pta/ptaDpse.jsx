@@ -2,55 +2,42 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Table from "../../components/Table";
 
-export default function Pta(props) {
-  const [excel, setExcel] = useState("");
-
+export default function PtaDpse(props) {
   const [responses, setResponses] = useState([
     { indicateur: "test", thematique: "acte", objectif: null },
     { thematique: "acte", indicateur: "test", objectif: 4 },
   ]);
-
   const [column, setColumn] = useState([]);
-
   const [districts, setDistricts] = useState([]);
   const [distId, setDistId] = useState(props.user.district_id);
-  const [userId, setUserId] = useState(props.user.id);
-
   const [annee, setAnnee] = useState(new Date().getFullYear());
-  const [th, setTh] = useState(1);
-
-  const [indicateurs, setIndicateurs] = useState("");
 
   function loadDistrict() {
     window.api
-      .getTrans2(
-        "asynchronous-get-district-validation",
-        "district",
-        props.user.district_id
-      )
+      .getTrans("asynchronous-get-trans", "district", {})
       .then((result) => {
-        console.log("uploadChoice : get district");
+        console.log("ptaDpse : get district");
         console.log(result);
         console.log("---------------------------");
         setDistricts(result);
-        setUserId(props.user.id);
         setDistId(props.user.district_id);
+        getData();
       });
   }
 
   function makeHeader() {
     let cl = [
       {
-        Header: "Thématique",
-        accessor: "thematique",
+        Header: "Date",
+        accessor: "date",
       },
       {
-        Header: "Indicateur",
-        accessor: "indicateur",
+        Header: "District",
+        accessor: "district",
       },
       {
-        Header: "Objectif",
-        accessor: "objectif",
+        Header: "Fichier",
+        accessor: "file",
       },
     ];
 
@@ -62,15 +49,18 @@ export default function Pta(props) {
     ]);
   }
 
-  function getData(idTh = th, dist = distId) {
+  function getData(dist = distId) {
     window.api
-      .getPTA("asynchronous-get-pta", "pta", {
+      .getPTA("asynchronous-get-pta", "pta_file", {
         district_id: dist,
         date: annee,
       })
       .then((rss) => {
         console.log("PTA : get pta");
         console.log(rss);
+        rss.forEach((element) => {
+          element.file = "https://spse.llanddev.org/upload/" + element.file;
+        });
         console.log("---------------------------------");
         makeHeader();
         setResponses(rss);
@@ -79,28 +69,7 @@ export default function Pta(props) {
 
   useEffect(() => {
     loadDistrict();
-    getData();
   }, []);
-
-  function read() {
-    window.api
-      .importer("import", "pta", { user_id: userId, district_id: distId })
-      .then((result) => {
-        if (!result) {
-          alert(
-            "Une erreur s'est produite, Veuillez réessayer ultérieurement. Si le problème persiste, veuillez faire par au responsable technique "
-          );
-        } else if (result == true) {
-          alert("L'opération a été terminé avec succes");
-        } else alert(result);
-
-        getData();
-      });
-  }
-
-  function handleOnClickImport() {
-    read();
-  }
 
   const handleOnChangeDist = (val) => {
     setDistId(val);
@@ -145,25 +114,12 @@ export default function Pta(props) {
               </select>
             </div>
 
-            {indicateurs}
-
             <Table
               className="pta-table"
               columns={column}
               data={responses}
               nowrap={true}
             />
-          </div>
-
-          {excel}
-
-          <div className="bottom-btn">
-            <button
-              onClick={() => {
-                handleOnClickImport();
-              }}>
-              Importer le PTA
-            </button>
           </div>
         </div>
       </div>

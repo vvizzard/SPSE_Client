@@ -56,7 +56,7 @@ class ResponseRepository extends BaseRepository {
     // get PTA for each indicator
     const ptaRepository = new PTARepository(this.dao);
     var pta = [];
-    if (entity && entity.district_id)
+    if (entity && entity.district_id) {
       pta = await ptaRepository.getPTAComplete(
         entity.district_id,
         entity.date.split("-")[1],
@@ -64,6 +64,11 @@ class ResponseRepository extends BaseRepository {
           thematique_id: entity.thid,
         }
       );
+    } else {
+      pta = await ptaRepository.getPTAComplete(null, entity.date, {
+        thematique_id: entity.thid,
+      });
+    }
 
     return this.formatResponse(questions, reponses, indicateurs, pta);
   }
@@ -273,7 +278,7 @@ class ResponseRepository extends BaseRepository {
                     key.toLocaleLowerCase() != "oui" ? " ( " + key + " )" : "";
                   indicateur[ind.label + parenthese] = value["somme"];
                 } else {
-                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                  if (!indicateur[ind.label]) indicateur[ind.label] = 0;
                 }
               });
             }
@@ -296,7 +301,7 @@ class ResponseRepository extends BaseRepository {
                     key.toLocaleLowerCase() != "oui" ? " ( " + key + " )" : "";
                   indicateur[ind.label + parenthese] = value["count"];
                 } else {
-                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                  if (!indicateur[ind.label]) indicateur[ind.label] = 0;
                 }
               });
             }
@@ -323,7 +328,7 @@ class ResponseRepository extends BaseRepository {
                   indicateur[ind.label + parenthese] =
                     value["somme"] / value["count"];
                 } else {
-                  if(!indicateur[ind.label]) indicateur[ind.label] = 0;
+                  if (!indicateur[ind.label]) indicateur[ind.label] = 0;
                 }
               });
             }

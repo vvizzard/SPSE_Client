@@ -98,6 +98,9 @@ export default function Home(props) {
           <NavLink to={ROUTES.QUESTIONS}>
             <button className="item">Liste des Questions</button>
           </NavLink>
+          <NavLink to={ROUTES.PTAFILE}>
+            <button className="item">PTA</button>
+          </NavLink>
         </div>
       );
     }

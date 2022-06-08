@@ -40,6 +40,26 @@ class PTARepository extends BaseRepository {
   }
 
   /**
+   * @name getPTAFile
+   * @description get all ptas file
+   * @param {int} districtId
+   * @param {string} date
+   *
+   * @returns {Array}
+   */
+  getPTAFile(districtId, date) {
+    let sql =
+      `SELECT DISTINCT p.date, d.label as district, p.file FROM pta p LEFT JOIN district d ON d.id = p.district_id WHERE p.district_id = ? AND p.date like "%` +
+      date + `"`;
+    let values = [districtId];
+    log.info("database: getPTAFile");
+    log.info(sql);
+    log.info(values);
+
+    return this.dao.all(sql, values);
+  }
+
+  /**
    * @name getPTAComplete
    * @description get all ptas by the given thematique, there is no link with indicateur
    * @param {int} districtId

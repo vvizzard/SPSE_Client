@@ -19,5 +19,6 @@
   "VALIDATION": "/validation",
   "UPLOAD": "/upload",
   "UPLOADC": "/uploadChoice",
-  "PTA": "/pta"
+  "PTA": "/pta",
+  "PTAFILE": "/pta_file"
 }

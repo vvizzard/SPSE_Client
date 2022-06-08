@@ -119,6 +119,16 @@ class Exportation {
           log.info("--------------------------");
         }
       }
+      if (data.pta) {
+        repository.table = "pta";
+        try {
+          const temp = await repository.cleanAll(data.pta);
+        } catch (error) {
+          log.info("cleanAll reponse : ");
+          log.info(error);
+          log.info("--------------------------");
+        }
+      }
       return true;
     } catch (err) {
       log.info(err);
@@ -179,6 +189,39 @@ class Exportation {
       return reponse;
     } catch (err) {
       log.info(err);
+      return false;
+    }
+  }
+
+  async ptaSynch(districtId, date, repository) {
+    try {
+      const data = await repository.all({
+        district_id: districtId,
+        date: date,
+      });
+
+      const body = { data };
+
+      const response = await fetch("https://spse.llanddev.org/getPTA.php", {
+        method: "POST",
+        body: JSON.stringify({ body }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      log.info("reponse part 1");
+      log.info(JSON.stringify({ body }));
+      log.info(response);
+      log.info("reponse part 2");
+      const reponse = await response.json();
+
+      log.info("groupe de reponse part 1");
+      log.info(response);
+      log.info(reponse);
+      log.info("groupe de reponse part 2");
+
+      return reponse;
+    } catch (err) {
+      log.error(err);
       return false;
     }
   }
@@ -365,15 +408,19 @@ class Exportation {
       });
       if (!file.canceled) {
         // upload the file
-        const newName = file.filePaths[0].substring(
-          file.filePaths[0].lastIndexOf("\\")+1,
-          file.filePaths[0].lastIndexOf(".")
-        )+new Date().getTime().toString()+".xlsx";
+        const newName =
+          file.filePaths[0].substring(
+            file.filePaths[0].lastIndexOf("\\") + 1,
+            file.filePaths[0].lastIndexOf(".")
+          ) +
+          new Date().getTime().toString() +
+          ".xlsx";
         log.info(newName);
-        
+
         const upload = await this.uploadZip(file, newName);
 
         const rows = await readXlsxFile(fs.createReadStream(file.filePaths[0]));
+        repo.table = "indicateur";
         let indicateurs = await repo.all();
         if (rows.length > 1) {
           // find the column of indicateur and cible annuel
@@ -397,6 +444,10 @@ class Exportation {
             let temp = null;
             if (row[colIndicateur]) temp = row[colIndicateur].split("[")[0];
             const ind = indicateurs.find((element) => element.label == temp);
+            // if (temp.includes("autorisation")) {
+            //   log.warn(temp);
+            //   log.warn(indicateurs.find((element) => element.id == 2));
+            // }
             if (ind != undefined) {
               //The indicateur exist
               if (row[colValeur]) {
@@ -425,14 +476,20 @@ class Exportation {
 
           repo.table = "pta";
 
+          // clean the table for update
           repo.deleteWhere({
             date: daty.getFullYear(),
             district_id: districtId,
           });
 
+          // persist new data
           for (let i = 0; i < pta.length; i++) {
             let temp = await repo.create(pta[i]);
           }
+
+          // synch with online
+          let synch = await this.ptaSynch(districtId, daty.getFullYear(), repo);
+
           valiny = true;
         } else {
           throw new Error("Le canevas est vide");

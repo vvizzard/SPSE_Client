@@ -160,15 +160,27 @@ ipcMain.on("asynchronous-get-pta", (event, name, entity) => {
   // if need, specifie the repository
   let repository = new PTARepository(dao);
   // Run the query
-  repository
-    .getPTA(entity.district_id, entity.date)
-    .then((rows) => {
-      event.reply("asynchronous-reply", rows);
-    })
-    .catch((error) => {
-      log.error(error);
-      event.reply("asynchronous-reply", []);
-    });
+  if (name == "pta_file") {
+    repository
+      .getPTAFile(entity.district_id, entity.date)
+      .then((rows) => {
+        event.reply("asynchronous-reply", rows);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("asynchronous-reply", []);
+      });
+  } else {
+    repository
+      .getPTA(entity.district_id, entity.date)
+      .then((rows) => {
+        event.reply("asynchronous-reply", rows);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("asynchronous-reply", []);
+      });
+  }
 });
 
 // ipcMain.on("asynchronous-get-district-user", (event, name, entity) => {
