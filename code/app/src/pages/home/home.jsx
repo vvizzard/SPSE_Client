@@ -70,7 +70,9 @@ export default function Home(props) {
   }
 
   function synchro() {
-    window.api.getTrans("synchroniser", "category").then((res) => {
+    let userId = (props.user && props.user.id) ? props.user.id : null;
+
+    window.api.getTrans("synchroniser", userId).then((res) => {
       res
         ? alert("Synchronisation terminé")
         : alert("Erreur de synchronisation");

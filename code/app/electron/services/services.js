@@ -609,7 +609,7 @@ ipcMain.on("asynchronous-get-district-validation", (event, name, entity) => {
 
 ipcMain.on("synchroniser", (event, name, entity) => {
   const exp = new Exportation();
-  exp.synchroniser(new BaseRepository(dao, "user")).then((res) => {
+  exp.synchroniser(new BaseRepository(dao, "user"), name).then((res) => {
     event.reply("asynchronous-reply", []);
   });
 });

@@ -12,13 +12,16 @@ export default function Login(props) {
   const [redirect, setRedirect] = useState("");
 
   function send() {
-    window.api.getTrans("synchroniser", "").then((res) => {
+    window.api.getTrans("synchroniser", null).then((res) => {
       window.api
         .get("asynchronous-get", "user", { email: id, pw: pw })
         .then((result) => {
           if (result && result[0].validate == 1) {
-            setRedirect(<Redirect to={ROUTES.HOME} />);
-            props.usr(result[0]);
+            window.api.getTrans("synchroniser", result[0].id).then((resu) => {
+              if (!resu) alert("Erreur de synchronisation");
+              setRedirect(<Redirect to={ROUTES.HOME} />);
+              props.usr(result[0]);
+            });
           } else
             setError(
               "Une erreure s'est produite, veuillez vérifier votre e-mail et mot de passe"
