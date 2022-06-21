@@ -260,74 +260,21 @@ ipcMain.on("asynchronous-deletes", (event, name, entity) => {
     });
 });
 
-ipcMain.handle("map-get", (event, name, entity) => {
+ipcMain.handle("map-get", (event, table, entity) => {
   // verbose
   log.info("map-get arg :");
-  log.info("name :" + name);
+  log.info("table :" + table);
   log.info("entity :" + JSON.stringify(entity));
   log.info("------");
 
   const exp = new Exportation();
-  const temp = exp.getMaps(entity.thematique, entity.year, dao);
+  const temp =
+    table == "validation"
+      ? exp.getMaps(entity.thematique, entity.year, dao)
+      : exp.getMaps(entity.thematique, entity.year, dao, "reponse");
 
   return temp;
-
-  // if (name == "region") return regions;
-  // if (name == "reponse") return regions;
 });
-
-ipcMain.handle("map-get2", (event, name, entity) => {
-  // verbose
-  log.info("map-get arg :");
-  log.info("name :" + name);
-  log.info("entity :" + JSON.stringify(entity));
-  log.info("------");
-
-  const exp = new Exportation();
-  const temp = exp.getMaps(entity.thematique, entity.year, dao, "reponse");
-
-  return temp;
-
-  // if (name == "region") return regions;
-  // if (name == "reponse") return regions;
-});
-
-// ipcMain.handle('export', (event, name, entity) => {
-//     // verbose
-//     log.info('export :');
-//     log.info('name :'+name);
-//     log.info('entity :'+JSON.stringify(entity));
-//     log.info('------');
-
-//     repository = new BaseRepository(dao, 'indicateur');
-//     const sheet = {}
-
-//     if(name == "thematique") {
-//         sheet.sheet = 'Canevas'
-//         sheet.columns = []
-//         repository.all(entity).then(row=>{
-//             repository.table = 'question'
-//             row.forEach(rr => {
-//                 repository.all({indicateur_id: rr.id}).then(val=>{
-//                     val.forEach(vv => {
-//                         sheet.columns.push({
-//                             label : vv.question,
-//                             value: vv.label
-//                         })
-//                     });
-//                 }).finally(data=>{
-//                     sheet.content = []
-//                     const exp = new Exportation()
-//                     log.info('eto oooooo :');
-//                     log.info(sheet)
-//                     return exp.save([sheet])
-//                 })
-//             });
-//         })
-
-//     }
-
-// });
 
 // Export
 ipcMain.on("export", (event, name, entity) => {

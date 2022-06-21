@@ -166,7 +166,8 @@ class Exportation {
       if (userId != null) {
         repository.table = "reponse_non_valide";
         response = await fetch(
-          "https://spse.llanddev.org/synch.php?table=reponse_non_valide&user_id=" + userId,
+          "https://spse.llanddev.org/synch.php?table=reponse_non_valide&user_id=" +
+            userId,
           {
             method: "get",
             headers: { "Content-Type": "application/json" },

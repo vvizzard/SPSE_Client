@@ -7,19 +7,16 @@ import Table from "../../components/Table";
 import CarteM from "../../components/CarteM";
 
 export default function Data(props) {
-  // const animatedComponents = makeAnimated();
-
   const [thematique, setThematique] = useState([]);
   const [tabFocus, setTabFocus] = useState(["actif"]);
   const [th, setTh] = useState(1);
-
-  // const [questions, setQuestions] = useState([]);
-  // const [headerTotal, setHeaderTotal] = useState([]);
-  const [header, setHeader] = useState([]);
+  // const [header, setHeader] = useState([]);
   const [responses, setResponses] = useState([]);
-
   const [annees, setAnnees] = useState([]);
-
+  // const [data, setData] = useState([{ id: 1 }]);
+  const [annee, setAnnee] = useState(parseInt(new Date().getFullYear()));
+  const [niveau, setNiveau] = useState(CONST.LEVEL_DISTRICT);
+  const [indicateurs, setIndicateurs] = useState("");
   const [column, setColumn] = useState([
     {
       Header: " ",
@@ -39,12 +36,6 @@ export default function Data(props) {
       ],
     },
   ]);
-  const [data, setData] = useState([{ id: 1 }]);
-
-  const [annee, setAnnee] = useState(parseInt(new Date().getFullYear()));
-  const [niveau, setNiveau] = useState(CONST.LEVEL_DISTRICT);
-
-  const [indicateurs, setIndicateurs] = useState("");
 
   function loadDate() {
     let years = [];
@@ -100,7 +91,9 @@ export default function Data(props) {
                 <tr key={key + "indicateurs"}>
                   <td key={key + value}>{key}</td>
                   <td key={value + key}>{value}</td>
-                  <td key={value + key + key}>{pta[key.replaceAll(/[^a-zA-Z0-9]/g, "_")]}</td>
+                  <td key={value + key + key}>
+                    {pta[key.replaceAll(/[^a-zA-Z0-9]/g, "_")]}
+                  </td>
                 </tr>
               );
             })}
@@ -121,28 +114,15 @@ export default function Data(props) {
         console.log("getData : result");
         console.log(result);
         console.log("getData fin -----------------------------");
-        // let resTemp = [];
-        // result.forEach((element) => {
-        //   resTemp = resTemp.concat(element.reponses);
-        // });
-        // setResponses(resTemp);
         console.log("getData : reponses");
         console.log(result.reponses);
         console.log("getData -------------------");
-        makeIndicateur(result.indicateurs ? result.indicateurs : [], result.pta ? result.pta : []);
+        makeIndicateur(
+          result.indicateurs ? result.indicateurs : [],
+          result.pta ? result.pta : []
+        );
         setResponses(result.reponses ? result.reponses : []);
         makeHeader(result.questions ? result.questions : []);
-
-        // window.api
-        //   .exporterReponse("export_reponse", "reponse", {
-        //     level: level,
-        //     date: date,
-        //     thid: thid,
-        //   })
-        //   .then((rs) => {
-        //     console.log("rs");
-        //     console.log(rs);
-        //   });
       })
       .catch((error) => {
         console.log(error);
@@ -274,7 +254,12 @@ export default function Data(props) {
               </button>
             </div>
             <br />
-            <CarteM thematique={th} regionJson={window.api.getMap} />
+            <CarteM
+              year={annee}
+              table="data"
+              thematique={th}
+              regionJson={window.api.getMap}
+            />
           </div>
         </div>
       </div>

@@ -81,8 +81,12 @@ export default function CarteM(props) {
   }
 
   function getRegion() {
+    console.log("getRegion from Map launched");
     props
-      .regionJson("map-get", "region", { thematique: props.thematique, year: "2022" })
+      .regionJson("map-get", props.table, {
+        thematique: props.thematique,
+        year: props.year ? props.year : "2022",
+      })
       .then((regions) => {
         const layers = [];
         prepareRegion(regions, layers);

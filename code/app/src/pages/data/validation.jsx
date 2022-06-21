@@ -235,7 +235,7 @@ export default function Validation(props) {
             <Table columns={column} data={responses} nowrap={true} />
             <br />
             <br />
-            <CarteM thematique={th} regionJson={window.api.getMap} />
+            <CarteM table="validation" thematique={th} regionJson={window.api.getMap} />
           </div>
           <div className="bottom-btn">
             <button
