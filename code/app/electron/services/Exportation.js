@@ -269,6 +269,27 @@ class Exportation {
     }
   }
 
+  async dernierValidation(districtId, thId) {
+    try {
+      const response = await fetch(
+        "https://spse.llanddev.org/terminer.php",
+        {
+          method: "post",
+          body: JSON.stringify({ district_id: districtId, th_id: thId }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      log.info("validation service stringify district_id");
+      log.info(JSON.stringify({ district_id: districtId, th_id: thId }));
+      const data = await response.json();
+      log.warn(data);
+      return data;
+    } catch (err) {
+      log.info(err);
+      return false;
+    }
+  }
+
   async validationSynch(districtId, repository) {
     try {
       const data = await repository.dao.all(

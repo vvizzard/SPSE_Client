@@ -109,7 +109,7 @@ export default function CarteM(props) {
 
   useEffect(() => {
     getRegion();
-  }, [props.thematique]);
+  }, [props.thematique, props.year]);
 
   return (
     <div className="content titled-content map">

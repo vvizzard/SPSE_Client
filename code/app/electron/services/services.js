@@ -493,11 +493,12 @@ ipcMain.on("terminer", (event, name, entity) => {
 
   const exp = new Exportation();
   exp
-    .validation("terminer", entity.district_id)
+    .dernierValidation(entity.district_id, entity.th_id)
     .then((val) => {
       if (val) {
-        let tp = temp.terminer(entity);
-        event.reply("asynchronous-reply", tp != false);
+        exp.synchroniser(new BaseRepository(dao, "user"), entity.user_id).then((res) => {
+          event.reply("asynchronous-reply", res);
+        });
       }
     })
     .catch((error) => {
