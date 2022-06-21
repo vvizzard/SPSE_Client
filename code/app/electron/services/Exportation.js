@@ -140,18 +140,18 @@ class Exportation {
     try {
       // Synch reponse first
       repository.table = "reponse";
-      const reponse = await repository.dao.all("select * from reponse");
-      const lastDate =
+      let reponse = await repository.dao.all("select * from reponse");
+      let lastDate =
         reponse.length > 0 ? reponse[reponse.length - 1].date : "01-01-2021";
 
-      const response = await fetch(
+      let response = await fetch(
         "https://spse.llanddev.org/synch.php?table=reponse&date=" + lastDate,
         {
           method: "get",
           headers: { "Content-Type": "application/json" },
         }
       );
-      const dataReponse = await response.json();
+      let dataReponse = await response.json();
       log.info("Synch reponse:");
       log.info(reponse);
       log.info(
@@ -160,19 +160,19 @@ class Exportation {
           lastDate
       );
       log.info(dataReponse);
-      const tempResp = await repository.dao.execute(dataReponse.reponse);
+      let tempResp = await repository.dao.execute(dataReponse.reponse);
 
       // Synch reponse non valide
       if (userId != null) {
         repository.table = "reponse_non_valide";
-        const response = await fetch(
+        response = await fetch(
           "https://spse.llanddev.org/synch.php?table=reponse_non_valide&user_id=" + userId,
           {
             method: "get",
             headers: { "Content-Type": "application/json" },
           }
         );
-        const dataReponse = await response.json();
+        dataReponse = await response.json();
         log.info("Synch reponse_non_valide:");
         log.info(
           "url:" +
@@ -180,13 +180,37 @@ class Exportation {
             userId
         );
         log.info(dataReponse);
-        const tempResp = await repository.cleanAll(dataReponse.reponse);
+        tempResp = await repository.cleanAll(dataReponse.reponse);
       }
 
-      // if (data.user) {
-      //   repository.table = "user";
-      //   const temp = await repository.cleanAll(data.user);
-      // }
+      // Synch user
+      // repository.table = "user";
+      // reponse = await repository.dao.all("select * from user");
+      // lastDate =
+      //   reponse.length > 0 ? reponse[reponse.length - 1].date : "01-01-2021";
+
+      // response = await fetch(
+      //   "https://spse.llanddev.org/synch.php?table=user&date=" + lastDate,
+      //   {
+      //     method: "get",
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
+      // dataReponse = await response.json();
+      // log.info("Synch reponse:");
+      // log.info(reponse);
+      // log.info(
+      //   "url:" +
+      //     "https://spse.llanddev.org/synch.php?table=user&date=" +
+      //     lastDate
+      // );
+      // log.info(dataReponse);
+      // tempResp = await repository.dao.execute(dataReponse.reponse);
+
+      if (data.user) {
+        repository.table = "user";
+        const temp = await repository.cleanAll(data.user);
+      }
       // if (data.reponse) {
       //   repository.table = "reponse";
       //   try {
@@ -207,16 +231,16 @@ class Exportation {
       //     log.info("--------------------------");
       //   }
       // }
-      // if (data.pta) {
-      //   repository.table = "pta";
-      //   try {
-      //     const temp = await repository.cleanAll(data.pta);
-      //   } catch (error) {
-      //     log.info("cleanAll reponse : ");
-      //     log.info(error);
-      //     log.info("--------------------------");
-      //   }
-      // }
+      if (data.pta) {
+        repository.table = "pta";
+        try {
+          const temp = await repository.cleanAll(data.pta);
+        } catch (error) {
+          log.info("cleanAll reponse : ");
+          log.info(error);
+          log.info("--------------------------");
+        }
+      }
       return true;
     } catch (err) {
       log.info(err);
