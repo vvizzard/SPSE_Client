@@ -141,11 +141,11 @@ class Exportation {
       // Synch reponse first
       repository.table = "reponse";
       let reponse = await repository.dao.all("select * from reponse");
-      let lastDate =
-        reponse.length > 0 ? reponse[reponse.length - 1].date : "01-01-2021";
+      let lastId =
+        reponse.length > 0 ? reponse[reponse.length - 1].id : "01-01-2021";
 
       let response = await fetch(
-        "https://spse.llanddev.org/synch.php?table=reponse&date=" + lastDate,
+        "https://spse.llanddev.org/synch.php?table=reponse&date=" + lastId,
         {
           method: "get",
           headers: { "Content-Type": "application/json" },
@@ -156,8 +156,8 @@ class Exportation {
       log.info(reponse);
       log.info(
         "url:" +
-          "https://spse.llanddev.org/synch.php?table=reponse&date=" +
-          lastDate
+          "https://spse.llanddev.org/synch.php?table=reponse&id=" +
+          lastId
       );
       log.info(dataReponse);
       let tempResp = await repository.dao.execute(dataReponse.reponse);
@@ -185,6 +185,43 @@ class Exportation {
       }
 
       // Synch user
+      repository.table = "user";
+      response = await fetch(
+        "https://spse.llanddev.org/synch.php?table=user",
+        {
+          method: "get",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dataReponse = await response.json();
+      log.info("Synch user:");
+      log.info(
+        "url:" +
+          "https://spse.llanddev.org/synch.php?table=user"
+      );
+      log.info(dataReponse);
+      tempResp = await repository.cleanAll(dataReponse.reponse);
+
+      // Synch pta
+      repository.table = "pta";
+      response = await fetch(
+        "https://spse.llanddev.org/synch.php?table=pta",
+        {
+          method: "get",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      dataReponse = await response.json();
+      log.info("Synch pta:");
+      log.info(
+        "url:" +
+          "https://spse.llanddev.org/synch.php?table=pta"
+      );
+      log.info(dataReponse);
+      tempResp = await repository.cleanAll(dataReponse.reponse);
+
+
+      // Synch user
       // repository.table = "user";
       // reponse = await repository.dao.all("select * from user");
       // lastDate =
@@ -208,10 +245,10 @@ class Exportation {
       // log.info(dataReponse);
       // tempResp = await repository.dao.execute(dataReponse.reponse);
 
-      if (data.user) {
-        repository.table = "user";
-        const temp = await repository.cleanAll(data.user);
-      }
+      // if (data.user) {
+      //   repository.table = "user";
+      //   const temp = await repository.cleanAll(data.user);
+      // }
       // if (data.reponse) {
       //   repository.table = "reponse";
       //   try {
@@ -232,16 +269,16 @@ class Exportation {
       //     log.info("--------------------------");
       //   }
       // }
-      if (data.pta) {
-        repository.table = "pta";
-        try {
-          const temp = await repository.cleanAll(data.pta);
-        } catch (error) {
-          log.info("cleanAll reponse : ");
-          log.info(error);
-          log.info("--------------------------");
-        }
-      }
+      // if (data.pta) {
+      //   repository.table = "pta";
+      //   try {
+      //     const temp = await repository.cleanAll(data.pta);
+      //   } catch (error) {
+      //     log.info("cleanAll reponse : ");
+      //     log.info(error);
+      //     log.info("--------------------------");
+      //   }
+      // }
       return true;
     } catch (err) {
       log.info(err);
@@ -271,14 +308,11 @@ class Exportation {
 
   async dernierValidation(districtId, thId) {
     try {
-      const response = await fetch(
-        "https://spse.llanddev.org/terminer.php",
-        {
-          method: "post",
-          body: JSON.stringify({ district_id: districtId, th_id: thId }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("https://spse.llanddev.org/terminer.php", {
+        method: "post",
+        body: JSON.stringify({ district_id: districtId, th_id: thId }),
+        headers: { "Content-Type": "application/json" },
+      });
       log.info("validation service stringify district_id");
       log.info(JSON.stringify({ district_id: districtId, th_id: thId }));
       const data = await response.json();
