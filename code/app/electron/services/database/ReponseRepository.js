@@ -381,42 +381,58 @@ class ResponseRepository extends BaseRepository {
    */
   populateReponse(reponseTemplate, data) {
     try {
-      let reponse = reponseTemplate;
-
-      data.forEach((element) => {
-        if (reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] == null) {
-          reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] = [];
-        }
-        reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")].push(
-          element.label.includes("Fichiers") || element.label.includes("Image")
-            ? "https://spse.llanddev.org/upload/" + element.reponse
-            : element.reponse
-        );
+      // let reponse = reponseTemplate;
+      let reponseRehetra = [];
+      let reponse = {};
+      let lines = [...new Set(data.map((item) => item.line_id))];
+      lines.forEach((line) => {
+        const dataFiltered = data.filter((e) => e.line_id === line);
+        dataFiltered.forEach((element) => {
+          // if (reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] == null) {
+          //   reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] = [];
+          // }
+          reponse[element.label.replaceAll(/[^a-zA-Z0-9]/g, "_")] =
+            // element.reponse
+            element.label.includes("Fichiers") ||
+            element.label.includes("Image")
+              ? "https://spse.llanddev.org/upload/" + element.reponse
+              : element.reponse;
+          // : "";
+        });
+        reponseRehetra.push(reponse);
+        reponse = {};
       });
 
       log.info("populateReponse : first step : first group");
-      log.info(reponse);
+      // log.info(reponse);
+      log.info(reponseRehetra);
       log.info("----------------------------------");
 
       let farany = [];
-      var secondKey = Object.keys(reponse)[1]; //fetched the key at second index
-      const nbrResp = reponse[secondKey].length;
 
-      for (let i = 0; i < nbrResp; i++) {
-        let temp = {};
-        temp["_District_"] = data[0].district;
-        farany.push(temp);
-      }
+      reponseRehetra.forEach((elt) => {
+        elt["_District_"] = data[0].district;
+        farany.push(elt);
+      });
 
-      for (const [key, value] of Object.entries(reponse)) {
-        if (value)
-          value.forEach((element, idx) => {
-            if (!farany[idx]) {
-              farany[idx] = {};
-            }
-            farany[idx][key] = element;
-          });
-      }
+      // var secondKey = Object.keys(reponse)[1]; //fetched the key at second index
+      // const nbrResp = reponse[secondKey].length;
+
+      // for (let i = 0; i < nbrResp; i++) {
+      //   let temp = {};
+      //   temp["_District_"] = data[0].district;
+      //   farany.push(temp);
+      // }
+
+      // for (const [key, value] of Object.entries(reponse)) {
+      //   if (value)
+      //     value.forEach((element, idx) => {
+      //       if (!farany[idx]) {
+      //         farany[idx] = {};
+      //       }
+      //       farany[idx][key] = element;
+      //     });
+      // }
 
       log.info("populateReponse : last step : after regrouping");
       log.info(farany);
@@ -895,6 +911,76 @@ class ResponseRepository extends BaseRepository {
       oneQuestionId,
       oneQuestionId,
       oneQuestionId,
+    ]);
+  }
+
+  /**
+   * @name deleteAllNonValideByThematique
+   * @description Delete non valide reponse by userId and questionId
+   * @param {int} userId Id of user who inserted the reponse
+   * @param {*} oneQuestionId Id of one question to
+   * get all related question
+   *
+   * @returns
+   */
+  deleteAllNonValideByThematique(userId, thematiqueId, date = null) {
+    if (date === null) return false;
+    let sql =
+      `DELETE FROM reponse_non_valide 
+    WHERE user_id = ? ` +
+      (date ? `AND date ilike "%` + date + `"` : ``) +
+      `
+    AND question_id in (SELECT distinct q.id
+      FROM question q 
+        LEFT JOIN  indicateur i ON i.id_question=q.id
+      WHERE q.question_mere_id in (
+          SELECT q.id FROM question q
+          WHERE q.id in (
+            SELECT q.question_mere_id
+            FROM thematique t
+              LEFT JOIN indicateur i ON t.id = i.thematique_id
+              LEFT JOIN question q ON i.id_question=q.id
+            WHERE t.id = ?
+          ) OR q.id in (
+            SELECT q.id
+            FROM thematique t
+              LEFT JOIN indicateur i ON t.id = i.thematique_id
+              LEFT JOIN question q ON i.id_question=q.id
+            WHERE t.id = ? AND q.is_principale = 1
+          )
+      ) UNION SELECT distinct q.*
+          FROM question q 
+            LEFT JOIN  indicateur i ON i.id_question=q.id
+          WHERE ( 
+            q.id in (
+              SELECT q.id FROM question q
+              WHERE q.id in (
+                SELECT q.question_mere_id
+                FROM thematique t
+                    LEFT JOIN indicateur i ON t.id = i.thematique_id
+                    LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ?
+              ) OR q.id in (
+                SELECT q.id
+                FROM thematique t
+                  LEFT JOIN indicateur i ON t.id = i.thematique_id
+                  LEFT JOIN question q ON i.id_question=q.id
+                WHERE t.id = ? AND q.is_principale = 1
+              ) 
+            )
+      ) ORDER BY q.id ASC)
+    )`;
+
+    log.info("DeleteAllNonValideBythematique:");
+    log.info(sql);
+    log.info(userId);
+
+    return this.dao.run(sql, [
+      userId,
+      thematiqueId,
+      thematiqueId,
+      thematiqueId,
+      thematiqueId,
     ]);
   }
 

@@ -100,7 +100,7 @@ export default function Home(props) {
           <NavLink to={ROUTES.QUESTIONS}>
             <button className="item">Liste des Questions</button>
           </NavLink>
-          <NavLink to={ROUTES.PTAFILE}>
+          <NavLink to={ROUTES.PTA}>
             <button className="item">PTA</button>
           </NavLink>
         </div>
@@ -133,6 +133,9 @@ export default function Home(props) {
           <NavLink to={ROUTES.PTA}>
             <button className="item">PTA</button>
           </NavLink>
+          {/* <NavLink to={ROUTES.PTADATA}>
+            <button className="item">Liste PTA</button>
+          </NavLink> */}
         </div>
       );
     } else if (props.user && props.user.category_id == 1) {
@@ -141,9 +144,12 @@ export default function Home(props) {
           <NavLink to={ROUTES.UPLOAD}>
             <button className="item">Mis à jour</button>
           </NavLink>
-          {/* <NavLink to={ROUTES.PTA}>
-            <button className="item">PTA</button>
+          {/* <NavLink to={ROUTES.PTADATA}>
+            <button className="item">Liste PTA</button>
           </NavLink> */}
+          <NavLink to={ROUTES.PTA}>
+            <button className="item">PTA</button>
+          </NavLink>
         </div>
       );
     }

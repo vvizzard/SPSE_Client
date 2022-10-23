@@ -12,7 +12,7 @@ const UserRepository = require("./database/UserRepository");
 // const Exportation = require('./database/Exportation');
 const Exportation = require("./Exportation");
 
-const dao = new BaseDao("spse_db_8_alpha.sqlite3");
+const dao = new BaseDao("spse_db_8_actmodif.sqlite3");
 
 // Validate a user
 ipcMain.on("asynchronous-validate", (event, name, entity, val) => {
@@ -129,6 +129,26 @@ ipcMain.on("asynchronous-get-trans", (event, name, entity) => {
         log.info("asynchronous-get-trans : response");
         log.info(rows);
         log.info("--------------------------");
+        event.reply("asynchronous-reply", rows);
+      })
+      .catch((error) => {
+        log.error(error);
+        event.reply("asynchronous-reply", []);
+      });
+  } else if (name == "pta") {
+    let database = dao.getDatabase();
+    repository = new PTARepository(dao);
+    repository
+      .getPTAByThematique(
+        database,
+        entity.thematiqueId,
+        entity.date,
+        entity.districtId ? entity.districtId : null
+      )
+      .then((rows) => {
+        log.info("asynchronous-get-trans : PTA");
+        log.info(rows);
+        log.info("----------------------------");
         event.reply("asynchronous-reply", rows);
       })
       .catch((error) => {
@@ -367,6 +387,7 @@ ipcMain.on("import", (event, name, entity) => {
       .readPTA(
         entity.user_id,
         entity.district_id,
+        entity.annee,
         new BaseRepository(dao, "indicateur")
       )
       .then((result) => {
@@ -496,9 +517,11 @@ ipcMain.on("terminer", (event, name, entity) => {
     .dernierValidation(entity.district_id, entity.th_id)
     .then((val) => {
       if (val) {
-        exp.synchroniser(new BaseRepository(dao, "user"), entity.user_id).then((res) => {
-          event.reply("asynchronous-reply", res);
-        });
+        exp
+          .synchroniser(new BaseRepository(dao, "user"), entity.user_id)
+          .then((res) => {
+            event.reply("asynchronous-reply", res);
+          });
       }
     })
     .catch((error) => {

@@ -501,6 +501,8 @@ class BaseDao {
     sql.push(
       `INSERT INTO "indicateur" ("id","label","comment","thematique_id", "sum", "moy", "count") VALUES 
       (1,"Quantité de produit déclaré","",1,1,0,0),
+      (1000,"Quantité de produit disposant d'autorisation de transport","",1,1,0,0),
+      (1001,"Quantité de produit disposant de laissez-passer","",1,1,0,0),
       (2,"Nombre d'autorisation de recherche délivrée","",2,0,0,1),
       (3,"Superficie des Aires protégées","",3,1,0,0),
       (4,"Nombre AP ayant un gestionnaire","",3,0,0,1),
@@ -547,11 +549,11 @@ class BaseDao {
       (45,"Nombre d'agents de l'administration formés","",15,1,0,0),
       (46,"Nombre de séance de formation","",15,1,0,0),
       (47,"Nombre d'infrastructures","",16,0,0,1),
-      (48,"Nombre d'infrastructures","",16,0,0,1),
+      
       (49,"Nombre de matériel de transport","",17,0,0,1),
-      (50,"Nombre de matériel informatique","",18,1,0,0),
-      (51,"Nombre de matériel technique","",20,1,0,0),
-      (52,"Nombre de matériel mobilier","",19,1,0,0),
+      (50,"Nombre de matériel informatique","",18,0,0,1),
+      (51,"Nombre de matériel technique","",20,0,0,1),
+      (52,"Nombre de matériel mobilier","",19,0,0,1),
       (53,"Montant du fond public mobilisé","",21,1,0,0),
       (54,"Montant du financement extérieur ou privé mobilisé","",21,1,0,0),
       (55,"Montant des dons mobilisés","",21,1,0,0),
@@ -601,14 +603,18 @@ class BaseDao {
         (8,"Quantité des produits exportés inscrits dans l'acte administratif",0,1,3,1,NULL,1,NULL,"Quantité des produits exportés inscrits dans l'acte administratif",""),
         (9,"Destination des produits inscrits dans l'acte administratif (autoconsommation/marché local/marché national/exportation)",0,1,3,1,NULL,1,NULL,"Destination des produits inscrits dans l'acte administratif (autoconsommation/marché local/marché national/exportation)",""),
         (10,"Existence d'autorisation de transport octroyée (oui/non)",0,1,3,1,NULL,1,NULL,"Existence d'autorisation de transport octroyée (oui/non)",""),
-        (11,"Référence d'autorisation de transport",0,1,3,0,NULL,1,NULL,"Référence d'autorisation de transport",""),
-        (12,"Existence de laissez-passer délivré (oui/non)",0,1,3,1,NULL,1,NULL,"Existence de laissez-passer délivré (oui/non)",""),
-        (13,"Référence de laissez-passer",0,1,3,0,NULL,1,NULL,"Référence de laissez-passer",""),
-        (14,"Nom de l'opérateur",0,1,3,0,NULL,1,NULL,"Nom de l'opérateur",""),
-        (15,"Exportateur agréé (oui/non)",0,1,3,0,NULL,1,NULL,"Exportateur agréé (oui/non)",""),
-        (16,"Valeur des produits à l'exportation (Ariary)",0,1,3,0,NULL,1,NULL,"Valeur des produits à l'exportation (Ariary)",""),
-        (17,"Observations actes administratifs exploitation",0,1,3,0,NULL,1,NULL,"Observations actes administratifs exploitation",""),
-        (800,"Fichiers (exploitation) (.zip à importer)",0,1,3,0,NULL,1,NULL,"Fichiers (exploitation) (.zip à importer)",""),
+        (11,"Quantité des produits disposant d'autorisation de transport",0,1,3,1,NULL,1,NULL,"Quantité des produits disposant d'autorisation de transport",""),
+        (12,"Référence d'autorisation de transport",0,1,3,0,NULL,1,NULL,"Référence d'autorisation de transport",""),
+        (13,"Existence de laissez-passer délivré (oui/non)",0,1,3,1,NULL,1,NULL,"Existence de laissez-passer délivré (oui/non)",""),
+        (14,"Quantité de produits disposant de laissez-passer",0,1,3,1,NULL,1,NULL,"Quantité de produits disposant de laissez-passer",""),
+        (15,"Référence de laissez-passer",0,1,3,0,NULL,1,NULL,"Référence de laissez-passer",""),
+        (16,"Nom de l'opérateur",0,1,3,0,NULL,1,NULL,"Nom de l'opérateur",""),
+        (17,"Exportateur agréé (oui/non)",0,1,3,0,NULL,1,NULL,"Exportateur agréé (oui/non)",""),
+        (800,"Valeur des produits à l'exportation (Ariary)",0,1,3,0,NULL,1,NULL,"Valeur des produits à l'exportation (Ariary)",""),
+        (1000,"Observations actes administratifs exploitation",0,1,3,0,NULL,1,NULL,"Observations actes administratifs exploitation",""),
+        (1001,"Fichiers (exploitation) (.zip à importer)",0,1,3,0,NULL,1,NULL,"Fichiers (exploitation) (.zip à importer)",""),
+        
+        
                                                               
                                                               
                                                               
@@ -800,8 +806,8 @@ class BaseDao {
         (179,"Type de produit saisi (PFL, PFNL)",0,1,3,0,NULL,171,NULL,"Type de produit saisi (PFL, PFNL)",""),
         (180,"Nature du produit saisi (brut, fini)",0,1,3,0,NULL,171,NULL,"Nature du produit saisi (brut, fini)",""),
         (181,"Espèce du produit saisi",0,1,3,0,NULL,171,NULL,"Espèce du produit saisi",""),
-        (182,"Date de saisi du produit",0,1,3,0,27,171,NULL,"Date de saisi du produit",""),
-        (183,"Designation du produit saisi (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",0,1,3,1,NULL,171,NULL,"Designation du produit saisi (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",""),
+        (182,"Date de saisi du produit",0,1,3,0,NULL,171,NULL,"Date de saisi du produit",""),
+        (183,"Designation du produit saisi (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",0,1,3,1,28,171,NULL,"Designation du produit saisi (Anacarde (kg), Baie rose (kg), Bois COS (m³), Bois de chauffe (stère), Charbon de bois (kg), Huile essentielle (litre), Miel (litre), Moringa (kg), Raphia (kg), Autre (kg))",""),
         (184,"Quantité de produit saisi",0,1,3,1,NULL,171,NULL,"Quantité de produit saisi",""),
         (185,"Date de sequestre",0,1,3,0,NULL,171,NULL,"Date de sequestre",""),
         (186,"Localisation des produits sequestrés (localité)",0,1,3,0,NULL,171,NULL,"Localisation des produits sequestrés (localité)",""),
@@ -980,7 +986,7 @@ class BaseDao {
                                                               
                                                               
                                                               
-        (333,"Source de données IEC",1,1,3,1,48,NULL,NULL,"Source de données IEC",""),
+        (333,"Source de données IEC",1,1,3,1,43,NULL,NULL,"Source de données IEC",""),
         (334,"Thématique de l'IEC",0,1,3,1,NULL,333,NULL,"Thématique de l'IEC",""),
         (335,"Intitulé de l'IEC",0,1,3,1,NULL,333,NULL,"Intitulé de l'IEC",""),
         (336,"Nature de l'IEC (formation professionnelle, formation académique, sensibilisation)",0,1,3,1,NULL,333,NULL,"Nature de l'IEC (formation professionnelle, formation académique, sensibilisation)",""),
@@ -1013,7 +1019,7 @@ class BaseDao {
         (362,"Commune d'implantation de l'infrastructure",0,1,3,1,NULL,359,NULL,"Commune d'implantation de l'infrastructure",""),
         (363,"Emplacement de l'infrastructure (localité)",0,1,3,0,NULL,359,NULL,"Emplacement de l'infrastructure (localité)",""),
         (364,"Secteur impliqué (éducation, santé, travaux publics, ...)",0,1,3,1,NULL,359,NULL,"Secteur impliqué (éducation, santé, travaux publics, ...)",""),
-        (365,"Nouvellement construite ou réhabilitée ou existante",0,1,3,1,48,359,NULL,"Nouvellement construite ou réhabilitée ou existante",""),
+        (365,"Nouvellement construite ou réhabilitée ou existante",0,1,3,1,47,359,NULL,"Nouvellement construite ou réhabilitée ou existante",""),
         (366,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",0,1,3,1,NULL,359,NULL,"Date d'opérationnalisation/utilisation/réhabilitation de l'infrastructure",""),
         (367,"Infrastructure actuellement opérationnelle (oui/non)",0,1,3,1,NULL,359,NULL,"Infrastructure actuellement opérationnelle (oui/non)",""),
         (368,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",0,1,3,1,NULL,359,NULL,"Etat actuel de l'infrastructure (mauvais, moyen, bon)",""),
@@ -1432,6 +1438,8 @@ class BaseDao {
 
     // Update values of indicateur to link with questions
     sql.push(`UPDATE indicateur set id_question = 7 WHERE id = 1`);
+    sql.push(`UPDATE indicateur set id_question = 11 WHERE id = 11`);
+    sql.push(`UPDATE indicateur set id_question = 14 WHERE id = 14`);
     sql.push(`UPDATE indicateur set id_question = 20 WHERE id = 2`);
     sql.push(`UPDATE indicateur set id_question = 45 WHERE id = 3`);
     sql.push(`UPDATE indicateur set id_question = 26 WHERE id = 4`);

@@ -14,7 +14,7 @@ export default function Upload(props) {
   const [column, setColumn] = useState([]);
 
   const [annee, setAnnee] = useState(
-    new Date().getMonth() + 1 + "-" + new Date().getFullYear()
+    new Date().getMonth() + "-" + new Date().getFullYear()
   );
   // const [annee, setAnnee] = useState('2019')
   const [th, setTh] = useState(1);

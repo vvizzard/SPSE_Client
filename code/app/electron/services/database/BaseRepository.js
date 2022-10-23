@@ -271,6 +271,7 @@ class BaseRepository {
     log.info("database:");
     log.info(sql);
     log.info([idDistrict]);
+    log.warn("first");
 
     try {
       let valiny = [];
@@ -279,12 +280,18 @@ class BaseRepository {
       const temp = await this.dao.all(sql, [idDistrict]);
       log.info("tokony azo ary ilay 48");
       log.info(temp);
+      log.warn('second');
       sql = `SELECT id FROM user WHERE district_id = ? AND validate = -1`;
+      log.warn(temp);
       for (let index = 0; index < temp.length; index++) {
+        log.error(temp[index]);
+        log.error(index);
         const t = await this.dao.all(sql, [temp[index].id]);
+        log.warn(t);
         log.info("ao anaty boucle");
         log.info(t);
         temp[index]["user_id"] = t[0].id;
+        log.warn("third");
         // log.info("tralalalal lliliiili lallala")
         // log.info(t)
         // log.info(temp[index])

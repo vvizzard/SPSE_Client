@@ -18,7 +18,7 @@ export default function UploadChoice(props) {
   const [userId, setUserId] = useState(props.user.id);
 
   const [annee, setAnnee] = useState(
-    new Date().getMonth() + 1 + "-" + new Date().getFullYear()
+    new Date().getMonth() + "-" + new Date().getFullYear()
   );
   // const [annee, setAnnee] = useState('2019')
   const [th, setTh] = useState(1);

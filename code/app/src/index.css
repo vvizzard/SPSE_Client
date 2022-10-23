@@ -617,3 +617,12 @@ button.success {
   color: white;
 }
 
+.mizara2 {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.mizara3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}

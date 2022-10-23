@@ -17,7 +17,7 @@ export default function Validation(props) {
   const [indicateurs, setIndicateurs] = useState("");
 
   const [annee, setAnnee] = useState(
-    new Date().getMonth() + 1 + "-" + new Date().getFullYear()
+    new Date().getMonth() + "-" + new Date().getFullYear()
   );
 
   function loadDistrict() {

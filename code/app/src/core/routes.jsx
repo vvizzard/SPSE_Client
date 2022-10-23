@@ -9,6 +9,7 @@ import Validation from "../pages/data/validation";
 import UploadChoice from "../pages/upload/uploadChoice";
 import Pta from "../pages/pta/pta";
 import PtaDpse from "../pages/pta/ptaDpse";
+import PtaData from "../pages/pta/ptaData";
 
 // const [user, setUser] = useState(0)
 
@@ -126,6 +127,8 @@ class Routes extends React.Component {
           component={()=><Pta user={this.state.user} />}></Route>
         <Route path={ROUTES.PTAFILE} 
           component={()=><PtaDpse user={this.state.user} />}></Route>
+        <Route path={ROUTES.PTADATA} 
+          component={()=><PtaData user={this.state.user} />}></Route>
       </Switch>
     );
   }

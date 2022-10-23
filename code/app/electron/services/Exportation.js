@@ -186,40 +186,27 @@ class Exportation {
 
       // Synch user
       repository.table = "user";
-      response = await fetch(
-        "https://spse.llanddev.org/synch.php?table=user",
-        {
-          method: "get",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      response = await fetch("https://spse.llanddev.org/synch.php?table=user", {
+        method: "get",
+        headers: { "Content-Type": "application/json" },
+      });
       dataReponse = await response.json();
       log.info("Synch user:");
-      log.info(
-        "url:" +
-          "https://spse.llanddev.org/synch.php?table=user"
-      );
+      log.info("url:" + "https://spse.llanddev.org/synch.php?table=user");
       log.info(dataReponse);
       tempResp = await repository.cleanAll(dataReponse.reponse);
 
       // Synch pta
       repository.table = "pta";
-      response = await fetch(
-        "https://spse.llanddev.org/synch.php?table=pta",
-        {
-          method: "get",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      response = await fetch("https://spse.llanddev.org/synch.php?table=pta", {
+        method: "get",
+        headers: { "Content-Type": "application/json" },
+      });
       dataReponse = await response.json();
       log.info("Synch pta:");
-      log.info(
-        "url:" +
-          "https://spse.llanddev.org/synch.php?table=pta"
-      );
+      log.info("url:" + "https://spse.llanddev.org/synch.php?table=pta");
       log.info(dataReponse);
       tempResp = await repository.cleanAll(dataReponse.reponse);
-
 
       // Synch user
       // repository.table = "user";
@@ -383,8 +370,8 @@ class Exportation {
       const reponse = await response.json();
 
       log.info("groupe de reponse part 1");
-      log.info(response);
-      log.info(reponse);
+      log.warn(response);
+      log.warn(reponse);
       log.info("groupe de reponse part 2");
 
       return reponse;
@@ -553,11 +540,12 @@ class Exportation {
    *
    * @returns {Boolean}
    */
-  async readPTA(userId, districtId, repo) {
+  async readPTA(userId, districtId, annee, repo) {
     let valiny = false;
     let colIndicateur = null;
     let colValeur = null;
     let daty = new Date();
+    daty.setFullYear(annee);
 
     let pta = [];
 
@@ -590,15 +578,15 @@ class Exportation {
         const rows = await readXlsxFile(fs.createReadStream(file.filePaths[0]));
         repo.table = "indicateur";
         let indicateurs = await repo.all();
-        if (rows.length > 1) {
+        if (rows.length > 3) {
           // find the column of indicateur and cible annuel
           let breakLimit = 0;
           for (let i = 0; i < rows[0].length; i++) {
-            if (rows[0][i] == "Indicateurs") {
+            if (rows[2][i] == "Indicateur") {
               colIndicateur = i;
               breakLimit++;
             }
-            if (rows[0][i] == "Cible annuel") {
+            if (rows[2][i] == "Cible annuel") {
               colValeur = i;
               breakLimit++;
             }
@@ -606,6 +594,10 @@ class Exportation {
               break;
             }
           }
+          log.warn("check if colonne identified");
+          log.warn(colIndicateur);
+          log.warn(colValeur);
+          rows.splice(0, 3);
           // get all value for each indicateur
           rows.forEach((row) => {
             // check if the indicateur in xslx is in the database
@@ -739,10 +731,12 @@ class Exportation {
                 }
               } else {
                 if (rows[index][i] != null) {
+                  let inscDate = new Date();
+                  inscDate.setMonth(inscDate.getMonth() - 1);
                   let reponse = {
                     line_id: lineId,
                     user_id: userId,
-                    date: repo.formatDate(new Date()),
+                    date: repo.formatDate(inscDate),
                     question_id: idQuestions[i],
                     reponse: this.isIsoDate(rows[index][i])
                       ? new Date(rows[index][i]).toLocaleDateString("fr-FR")
@@ -864,7 +858,7 @@ class Exportation {
         try {
           const response = await fetch(
             "https://spse.llanddev.org/layer/" +
-              geojsons[i].reponse.replace(".geojson", ".json"),
+              geojsons[i].reponse.replace(".geojson", ".geojson"),
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
