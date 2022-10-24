@@ -626,3 +626,7 @@ button.success {
   display: grid;
   grid-template-columns: auto auto auto;
 }
+
+.st-pta-table {
+  overflow-x: scroll;
+}
