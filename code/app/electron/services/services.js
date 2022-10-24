@@ -306,6 +306,7 @@ ipcMain.on("export", (event, name, entity) => {
 
   repository = new QuestionRepository(dao);
   let sheet = {};
+  let produit = {};
   let indicateur = {};
   let gloss = {};
 
@@ -315,6 +316,42 @@ ipcMain.on("export", (event, name, entity) => {
 
     indicateur.sheet = "Indicateur";
     indicateur.columns = [];
+
+    produit.sheet = "Types de produits";
+    produit.columns = [
+      {
+        label: "Types de produits",
+        value: "typesdeproduits",
+      },
+      {
+        label: "Observations",
+        value: "observations",
+      }
+    ];
+    produit.content = [
+      { typesdeproduits: "Anacarde (kg)", observations: "" },
+      { typesdeproduits: "Baie rose (kg)", observations: "" },
+      { typesdeproduits: "Bambou (pièce)", observations: "" },
+      { typesdeproduits: "Bois COS (m³)", observations: "" },
+      { typesdeproduits: "Bois de chauffage (stère)", observations: "" },
+      { typesdeproduits: "Bulbe Aponogeton (pièce)", observations: "" },
+      { typesdeproduits: "Champignon manioc (kg)", observations: "" },
+      { typesdeproduits: "Charbon de bois (m³)", observations: "5 sacs de 50kg = 1m³" },
+      { typesdeproduits: "Ecorce d’acacia dealbata (kg)", observations: "" },
+      { typesdeproduits: "Ecorce de cannelle (kg)", observations: "" },
+      { typesdeproduits: "Meuble (pièce)", observations: "" },
+      { typesdeproduits: "Graine de Lafaza (kg)", observations: "" },
+      { typesdeproduits: "Graine de Ravinala (kg)", observations: "" },
+      { typesdeproduits: "Huile essentielle (kg)", observations: "" },
+      { typesdeproduits: "Masse verte Huile essentielle (kg)", observations: "" },
+      { typesdeproduits: "Miel (litre)", observations: "" },
+      { typesdeproduits: "Moringa (kg)", observations: "" },
+      { typesdeproduits: "Penjy (paquet)", observations: "" },
+      { typesdeproduits: "Plante médicinale (g)", observations: "" },
+      { typesdeproduits: "Raphia (kg)", observations: "" },
+      { typesdeproduits: "Resine de pin (kg)", observations: "" },
+      { typesdeproduits: "Autre (kg)", observations: "" }
+    ];
 
     gloss.sheet = "Glossaire";
     gloss.columns = [];
@@ -357,7 +394,7 @@ ipcMain.on("export", (event, name, entity) => {
         log.info("eto oooooo dataaaaaa:");
         log.info(sheet);
         log.info(indicateur);
-        const data = [sheet, indicateur];
+        const data = [sheet, indicateur, produit];
         // log.info(sheet)
         log.info(data);
         exp.save(data).then((res) => {
