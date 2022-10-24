@@ -750,10 +750,10 @@ class Exportation {
                   );
                   if (temp && temp.obligatoire == 1) {
                     log.info(
-                      "La colonne : " + temp.question + " est obligatoire"
+                      "La colonne : " + temp.question + " est obligatoire pour toutes les lignes, veuillez vérifier cette colonne pour chaque ligne remplie."
                     );
                     valiny =
-                      "La colonne : " + temp.question + " est obligatoire.";
+                      "La colonne : " + temp.question + " est obligatoire pour toutes les lignes, veuillez vérifier cette colonne pour chaque ligne remplie";
                   }
                 }
               }
