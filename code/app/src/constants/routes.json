@@ -21,5 +21,6 @@
   "UPLOADC": "/uploadChoice",
   "PTA": "/pta",
   "PTAFILE": "/pta_file",
-  "PTADATA": "/pta_data"
+  "PTADATA": "/pta_data",
+  "PTADREDD": "/pta_dredd"
 }

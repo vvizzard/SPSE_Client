@@ -21,7 +21,8 @@ class PTARepository extends BaseRepository {
       `SELECT 
       t.label as thematique, 
       i.label as indicateur, 
-      SUM (p.valeur) as objectif 
+      SUM (p.valeur) as objectif,
+      p.validated 
     FROM indicateur i 
     LEFT JOIN ( 
       SELECT * FROM pta p 
@@ -34,7 +35,7 @@ class PTARepository extends BaseRepository {
       ON p.indicateur_id = i.id 
     LEFT JOIN thematique t 
       ON t.id = i.thematique_id
-    GROUP BY t.label, i.label`;
+    GROUP BY t.label, i.label, p.validated`;
     let values = [];
     log.info("database: getPTA");
     log.info(sql);

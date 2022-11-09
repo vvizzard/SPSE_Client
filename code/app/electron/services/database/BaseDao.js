@@ -149,6 +149,7 @@ class BaseDao {
           "valeur" REAL,
           "date" TEXT,
           "file" TEXT,
+          "validated" INTEGER DEFAULT 0,
           FOREIGN KEY("indicateur_id") REFERENCES "indicateur"("id"),
           FOREIGN KEY("district_id") REFERENCES "district"("id"),
           FOREIGN KEY("user_id") REFERENCES "user"("id"),

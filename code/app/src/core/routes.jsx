@@ -8,6 +8,7 @@ import Home from "../pages/home/home";
 import Validation from "../pages/data/validation";
 import UploadChoice from "../pages/upload/uploadChoice";
 import Pta from "../pages/pta/pta";
+import PtaDredd from "../pages/pta/ptaDredd";
 import PtaDpse from "../pages/pta/ptaDpse";
 import PtaData from "../pages/pta/ptaData";
 
@@ -129,6 +130,8 @@ class Routes extends React.Component {
           component={()=><PtaDpse user={this.state.user} />}></Route>
         <Route path={ROUTES.PTADATA} 
           component={()=><PtaData user={this.state.user} />}></Route>
+        <Route path={ROUTES.PTADREDD} 
+          component={()=><PtaDredd user={this.state.user} />}></Route>
       </Switch>
     );
   }

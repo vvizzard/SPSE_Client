@@ -12,7 +12,7 @@ const UserRepository = require("./database/UserRepository");
 // const Exportation = require('./database/Exportation');
 const Exportation = require("./Exportation");
 
-const dao = new BaseDao("spse_db_8_vers12.sqlite3");
+const dao = new BaseDao("spse_db_ihosy.sqlite3");
 
 // Validate a user
 ipcMain.on("asynchronous-validate", (event, name, entity, val) => {
@@ -203,6 +203,66 @@ ipcMain.on("asynchronous-get-pta", (event, name, entity) => {
   }
 });
 
+const getTrimestre = (currentMonth) => {
+  if (currentMonth <= 3) return 3;
+  if (currentMonth <= 6) return 6;
+  if (currentMonth <= 9) return 9;
+  if (currentMonth <= 12) return 12;
+};
+
+ipcMain.on("asynchronous-get-succed", (event, name, entity) => {
+  // verbose
+  log.info("asynchronous-sql : args");
+  log.info("event :" + event);
+  log.info("name :" + name);
+  log.info("entity :" + JSON.stringify(entity));
+  log.info("-----------------------------");
+
+  // if need, specifie the repository
+  let repository = new BaseRepository(dao);
+  let valiny = {};
+  repository
+    .get(
+      `select distinct u.district_id, d.region_id from reponse_non_valide r left join user u ON r.user_id = u.id join district d on d.id = u.district_id WHERE r.comment = 1 AND r.date like "%` +
+        entity.date +
+        `"`,
+      []
+    )
+    .then((rows) => {
+      valiny.month = [];
+      if (Array.isArray(rows)) valiny.month = rows;
+      else valiny.month.push(rows);
+      // valiny.month = Array.isArray(rows) ? rows : [rows];
+      repository
+        .get(
+          `select distinct u.district_id, d.region_id from reponse_non_valide r left join user u ON r.user_id = u.id join district d on d.id = u.district_id WHERE r.comment = 1 AND r.date like "%` +
+            getTrimestre(entity.date.split("-")[0]) +
+            "-" +
+            entity.date.split("-")[1] +
+            `"`,
+          []
+        )
+        .then((r1) => {
+          valiny.trimestre = Array.isArray(r1) ? r1 : [r1];
+          repository
+            .get(
+              `select distinct u.district_id, d.region_id from reponse_non_valide r left join user u ON r.user_id = u.id join district d on d.id = u.district_id WHERE r.comment = 1 AND r.date like "%12-` +
+                entity.date.split("-")[1] +
+                `"`,
+              []
+            )
+            .then((r2) => {
+              valiny.annuel = Array.isArray(r2) ? r2 : [r2];
+              event.reply("asynchronous-reply", valiny);
+            });
+        });
+    })
+    .catch((error) => {
+      log.error(error);
+      event.reply("asynchronous-reply", []);
+    });
+});
+
 // ipcMain.on("asynchronous-get-district-user", (event, name, entity) => {
 //   // verbose
 //   log.info("asynchronous-get-district-user arg :");
@@ -326,7 +386,7 @@ ipcMain.on("export", (event, name, entity) => {
       {
         label: "Observations",
         value: "observations",
-      }
+      },
     ];
     produit.content = [
       { typesdeproduits: "Anacarde (kg)", observations: "" },
@@ -336,21 +396,27 @@ ipcMain.on("export", (event, name, entity) => {
       { typesdeproduits: "Bois de chauffage (stère)", observations: "" },
       { typesdeproduits: "Bulbe Aponogeton (pièce)", observations: "" },
       { typesdeproduits: "Champignon manioc (kg)", observations: "" },
-      { typesdeproduits: "Charbon de bois (m³)", observations: "5 sacs de 50kg = 1m³" },
+      {
+        typesdeproduits: "Charbon de bois (m³)",
+        observations: "5 sacs de 50kg = 1m³",
+      },
       { typesdeproduits: "Ecorce d’acacia dealbata (kg)", observations: "" },
       { typesdeproduits: "Ecorce de cannelle (kg)", observations: "" },
       { typesdeproduits: "Meuble (pièce)", observations: "" },
       { typesdeproduits: "Graine de Lafaza (kg)", observations: "" },
       { typesdeproduits: "Graine de Ravinala (kg)", observations: "" },
       { typesdeproduits: "Huile essentielle (kg)", observations: "" },
-      { typesdeproduits: "Masse verte Huile essentielle (kg)", observations: "" },
+      {
+        typesdeproduits: "Masse verte Huile essentielle (kg)",
+        observations: "",
+      },
       { typesdeproduits: "Miel (litre)", observations: "" },
       { typesdeproduits: "Moringa (kg)", observations: "" },
       { typesdeproduits: "Penjy (paquet)", observations: "" },
       { typesdeproduits: "Plante médicinale (g)", observations: "" },
       { typesdeproduits: "Raphia (kg)", observations: "" },
       { typesdeproduits: "Resine de pin (kg)", observations: "" },
-      { typesdeproduits: "Autre (kg)", observations: "" }
+      { typesdeproduits: "Autre (kg)", observations: "" },
     ];
 
     gloss.sheet = "Glossaire";
@@ -508,6 +574,22 @@ ipcMain.on("valider-terminer", (event, name, entity) => {
       log.error(error);
       event.reply("asynchronous-reply", false);
     });
+});
+
+// validation
+ipcMain.on("valider-pta", (event, name, entity) => {
+  // verbose
+  log.info("valider-pta :");
+  log.info("name :" + name);
+  log.info("entity :" + JSON.stringify(entity));
+  log.info("------");
+
+  // let temp = new ResponseRepository(dao);
+
+  const exp = new Exportation();
+  exp.validation('validatePTA', entity.district_id).then((rs) => {
+    event.reply("asynchronous-reply", rs);
+  });
 });
 
 ipcMain.on("rejeter", (event, name, entity) => {

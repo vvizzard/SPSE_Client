@@ -11,6 +11,12 @@ export default function Home(props) {
   const [headerTotal, setHeaderTotal] = useState([]);
   const [header, setHeader] = useState([]);
   const [responses, setResponses] = useState([]);
+  const [distOkMonth, setDistOkMonth] = useState([0]);
+  const [distOkTrim, setDistOkTrim] = useState([0]);
+  const [distOkYear, setDistOkYear] = useState([0]);
+  const [regOkMonth, setRegOkMonth] = useState([0]);
+  const [regOkTrim, setRegOkTrim] = useState([0]);
+  const [regOkYear, setRegOkYear] = useState([0]);
 
   const [annees, setAnnees] = useState([]);
 
@@ -43,16 +49,44 @@ export default function Home(props) {
     });
   }
 
+  function filterOK(datas) {
+    const uniqueIds = [];
+    const unique = datas.filter((elt) => {
+      const isDuplicate = uniqueIds.includes(elt.region_id);
+      if (!isDuplicate) {
+        uniqueIds.push(elt.region_id);
+        return true;
+      }
+      return false;
+    });
+    return unique;
+  }
+
   function getData() {
+    // window.api
+    //   .getTrans("asynchronous-get-trans", "reponse", {
+    //     level: niveau,
+    //     date: annee,
+    //   })
+    //   .then((result) => {
+    //     console.log("data response : ___________");
+    //     console.log(result);
+    //     setResponses(result);
+    //   });
+
     window.api
-      .getTrans("asynchronous-get-trans", "reponse", {
-        level: niveau,
-        date: annee,
+      .getTrans("asynchronous-get-succed", "month", {
+        date: new Date().getMonth() + 1 + "-" + new Date().getFullYear(),
       })
       .then((result) => {
-        console.log("data response : ___________");
+        console.log("data succed response : ___________");
         console.log(result);
-        setResponses(result);
+        setDistOkMonth(result.month.length);
+        setDistOkTrim(result.trimestre.length);
+        setDistOkYear(result.annuel.length);
+        setRegOkMonth(filterOK(result.month).length);
+        setRegOkTrim(filterOK(result.trimestre).length);
+        setRegOkYear(filterOK(result.annuel).length);
       });
   }
 
@@ -70,7 +104,7 @@ export default function Home(props) {
   }
 
   function synchro() {
-    let userId = (props.user && props.user.id) ? props.user.id : null;
+    let userId = props.user && props.user.id ? props.user.id : null;
 
     window.api.getTrans("synchroniser", userId).then((res) => {
       res
@@ -82,7 +116,7 @@ export default function Home(props) {
   useEffect(() => {
     // loadDate()
     // getHeader()
-    // getData()
+    getData();
     // loadRegion()
     console.log(props.user);
     if (props.user && props.user.category_id == 4) {
@@ -113,7 +147,10 @@ export default function Home(props) {
             <button className="item">Liste des Utilisateurs</button>
           </NavLink>
           <NavLink to={ROUTES.VALIDATION}>
-            <button className="item">Validation</button>
+            <button className="item">Validation Réalisation</button>
+          </NavLink>
+          <NavLink to={ROUTES.PTADREDD}>
+            <button className="item">Validation PTA</button>
           </NavLink>
         </div>
       );
@@ -191,8 +228,8 @@ export default function Home(props) {
                 <h3>Rapport mensuel</h3>
               </div>
               <div className="card-body">
-                <span>16/22 Régions</span>
-                <p>120/144 Disctricts</p>
+                <span>{regOkMonth + `/22 Régions`}</span>
+                <p>{distOkMonth + `/144 Disctricts`}</p>
               </div>
             </div>
             <div className="card-button">
@@ -200,8 +237,8 @@ export default function Home(props) {
                 <h3>Rapport trimestriel</h3>
               </div>
               <div className="card-body">
-                <span>16/22 Régions</span>
-                <p>120/144 Disctricts</p>
+                <span>{regOkTrim + `/22 Régions`}</span>
+                <p>{distOkTrim + `/144 Disctricts`}</p>
               </div>
             </div>
             <div className="card-button">
@@ -209,8 +246,8 @@ export default function Home(props) {
                 <h3>Rapport annuel</h3>
               </div>
               <div className="card-body">
-                <span>16/22 Régions</span>
-                <p>120/144 Disctricts</p>
+                <span>{regOkYear + `/22 Régions`}</span>
+                <p>{distOkYear + `/144 Disctricts`}</p>
               </div>
             </div>
           </div>

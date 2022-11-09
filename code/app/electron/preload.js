@@ -80,6 +80,7 @@ contextBridge.exposeInMainWorld("api", {
 
     let validChannels = [
       "asynchronous-get-trans",
+      "asynchronous-get-succed",
       "asynchronous-get-district-validation",
       "valider-terminer",
       "rejeter",
@@ -87,6 +88,7 @@ contextBridge.exposeInMainWorld("api", {
       "asynchronous-delete",
       "asynchronous-deletes",
       "synchroniser",
+      "valider-pta"
     ];
 
     log.info(validChannels.includes(channel));

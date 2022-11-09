@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Table from "../../components/Table";
 
-export default function Pta(props) {
+export default function PtaDredd(props) {
   const [excel, setExcel] = useState("");
 
   const [responses, setResponses] = useState([
@@ -64,10 +64,6 @@ export default function Pta(props) {
         Header: "Objectif",
         accessor: "objectif",
       },
-      {
-        Header: "Validé",
-        accessor: "validated"
-      }
     ];
 
     setColumn([
@@ -97,7 +93,7 @@ export default function Pta(props) {
   // );
 
   function getData(dist = distId, an = annee) {
-    if(level == 2) dist = null;
+    if (level == 2) dist = null;
     window.api
       .getPTA("asynchronous-get-pta", "pta", {
         district_id: dist,
@@ -108,7 +104,12 @@ export default function Pta(props) {
         console.log(rss);
         console.log("---------------------------------");
         makeHeader();
-        setResponses(rss);
+        console.log(rss);
+        const rssTemp = rss.filter((elt) => {
+          return elt.validated === 0 || elt.validated === null;
+        });
+        console.log(rssTemp);
+        setResponses(rssTemp);
       });
   }
 
@@ -118,9 +119,9 @@ export default function Pta(props) {
     getData();
   }, []);
 
-  function read() {
+  function validate() {
     window.api
-      .importer("import", "pta", {
+      .getTrans("valider-pta", "pta", {
         user_id: userId,
         district_id: distId,
         annee: annee,
@@ -138,8 +139,8 @@ export default function Pta(props) {
       });
   }
 
-  function handleOnClickImport() {
-    read();
+  function handleOnClickValidate() {
+    validate();
   }
 
   const handleOnChangeDist = (val) => {
@@ -248,9 +249,9 @@ export default function Pta(props) {
           <div className="bottom-btn">
             <button
               onClick={() => {
-                handleOnClickImport();
+                handleOnClickValidate();
               }}>
-              Importer le PTA
+              Valider
             </button>
           </div>
         </div>
